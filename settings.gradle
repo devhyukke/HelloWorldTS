@@ -1,4 +1,4 @@
 rootProject.name = 'HelloWorldTS'
 
-include 'hello-wts-web', 'hello-wts-batch'
+include 'hello-wts-web', 'hello-wts-batch', 'hello-wts-work'
 
