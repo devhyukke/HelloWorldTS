@@ -5,6 +5,6 @@ package jp.ne.yukke.wts.hello.work;
  *
  * @author y_hiraune
  */
-public class MainTests {
+public class JavaTimeWorkerTests {
 
 }
