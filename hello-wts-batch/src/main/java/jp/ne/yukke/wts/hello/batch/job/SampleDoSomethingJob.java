@@ -12,35 +12,38 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * SampleJob.
+ * SampleDoSomethingJob.
  *
  * @author y_hiraune
  */
 @Configuration
 @EnableBatchProcessing
-public class SampleJob {
+public class SampleDoSomethingJob {
 
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 
+	// Bean と同一の名称で引数を指定すると、FW によって渡される
 	@Bean
-	public Job sample(Step doSomething) throws Exception {
-		return this.jobBuilderFactory.get("sample")
-				.start(doSomething)
+	public Job sampleDoSomething(Step sampleDoSomethingTask) throws Exception {
+
+		return this.jobBuilderFactory.get("sampleDoSomething")
+				.start(sampleDoSomethingTask)
 				.build();
 	}
 
 	@Bean
-	public Step doSomething(Tasklet printSomething) throws Exception {
-		return this.stepBuilderFactory.get("doSomething")
-				.tasklet(printSomething)
+	public Step sampleDoSomethingTask(Tasklet sampleDoSomething) throws Exception {
+
+		return this.stepBuilderFactory.get("sampleDoSomethingByTasklet")
+				.tasklet(sampleDoSomething)
 				.build();
 	}
 
 	@Bean
-	public Tasklet printSomething() {
+	public Tasklet sampleDoSomething() {
 
 		return (contribution, context) -> {
 			System.out.println("Do something!!!");

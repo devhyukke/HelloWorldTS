@@ -5,7 +5,9 @@ import jp.ne.yukke.wts.hello.batch.HelloWorldTsBatchApplication;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.SpringApplication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.OutputCapture;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,20 +20,22 @@ import static org.hamcrest.CoreMatchers.*;
  *
  * @author y_hiraune
  */
+@IntegrationTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = HelloWorldTsBatchApplication.class)
-public class SampleJobTest {
+public class SampleDoSomethingJobTest {
 
+	@Autowired
+	private JobLauncherCommandLineRunner runner;
 	@Rule
 	public OutputCapture capture = new OutputCapture();
 
+	// XXX http://stackoverflow.com/questions/31943442/launch-spring-batch-job-problems-in-spring-boot-applications
 	@Test
-	public void testSample() throws Exception {
+	public void testSampleDoSomethingJob() throws Exception {
 
-		int exitCode = SpringApplication.exit(SpringApplication.run(HelloWorldTsBatchApplication.class,
-				"spring.batch.job.names=sample"));
+		this.runner.run(new String[] { "spring.batch.job.names=sampleDoSomething" });
 
-		assertThat(Integer.valueOf(exitCode), equalTo(Integer.valueOf(0)));
 		String output = this.capture.toString();
 		assertThat(output, containsString("Do something!!!"));
 	}
