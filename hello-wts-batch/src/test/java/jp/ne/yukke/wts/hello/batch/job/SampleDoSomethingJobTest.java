@@ -5,8 +5,11 @@ import jp.ne.yukke.wts.hello.batch.HelloWorldTsBatchApplication;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.batch.core.configuration.JobRegistry;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.JobOperator;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.OutputCapture;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -23,10 +26,20 @@ import static org.hamcrest.CoreMatchers.*;
 @IntegrationTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = HelloWorldTsBatchApplication.class)
+// @SpringApplicationConfiguration(classes = TestConfiguration.class)
 public class SampleDoSomethingJobTest {
 
+	// TODO now working...
 	@Autowired
-	private JobLauncherCommandLineRunner runner;
+	private JobLauncher jobLauncher;
+	@Autowired
+	private JobRepository jobRepository;
+	@Autowired
+	private JobRegistry jobRegistry;
+	@Autowired
+	private JobOperator jobOperator;
+	// @Autowired
+	// private JobLauncherCommandLineRunner runner;
 	@Rule
 	public OutputCapture capture = new OutputCapture();
 
@@ -34,8 +47,12 @@ public class SampleDoSomethingJobTest {
 	@Test
 	public void testSampleDoSomethingJob() throws Exception {
 
-		this.runner.run(new String[] { "spring.batch.job.names=sampleDoSomething" });
-
+		jobOperator.start("sampleDoSomething", "");
+		// this.runner.run(new String[] { "-job=sampleDoSomething" });
+		// int exitCode = SpringApplication.exit(SpringApplication.run(HelloWorldTsBatchApplication.class,
+		// "spring.batch.job.names=sampleDoSomething"));
+		//
+		// assertThat(Integer.valueOf(exitCode), equalTo(Integer.valueOf(0)));
 		String output = this.capture.toString();
 		assertThat(output, containsString("Do something!!!"));
 	}
