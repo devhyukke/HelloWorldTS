@@ -1,4 +1,4 @@
-package jp.ne.hyukke.wts.hello.batch.domain.entity;
+package jp.ne.hyukke.wts.hello.domain.entity;
 
 import java.io.Serializable;
 
@@ -9,7 +9,6 @@ import lombok.Data;
  * 
  * @author hyukke
  */
-// TODO ドメイン層に移動
 @Data
 public class Sample implements Serializable {
 
