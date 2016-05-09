@@ -11,8 +11,9 @@ buildscript {
     }
 }
 
-// �S�v���W�F�N�g���ʐݒ�
+// 全プロジェクト共通設定
 subprojects {
+
     apply plugin: 'java'
 
     version = '0.0.1'
@@ -32,14 +33,15 @@ subprojects {
     }
 }
 
+// Web 層
 project(':hello-wts-web') {
+
     apply plugin: 'spring-boot' 
 
     dependencies {
+        compile project(':hello-wts-domain')
         compile('org.springframework.boot:spring-boot-starter-thymeleaf')
         compile('org.springframework.boot:spring-boot-starter-web')
-        compile('org.springframework.boot:spring-boot-starter-data-jpa')
-        runtime('com.h2database:h2')
         testCompile('org.springframework.boot:spring-boot-starter-test') 
     }
 
@@ -49,15 +51,41 @@ project(':hello-wts-web') {
     }
 }
 
+// バッチ層
 project(':hello-wts-batch') {
+
     apply plugin: 'spring-boot' 
 
     dependencies {
+        compile project(':hello-wts-domain')
         compile('org.springframework.boot:spring-boot-starter-batch')
         testCompile('org.springframework.boot:spring-boot-starter-test') 
     }
 }
 
+// ドメイン層
+project(':hello-wts-domain') {
+
+    apply plugin: 'spring-boot' 
+
+    dependencies {
+        compile project(':hello-wts-persistence')
+        compile('org.springframework.boot:spring-boot-starter-aop')
+    }
+}
+
+// 永続層
+project(':hello-wts-persistence') {
+
+    apply plugin: 'spring-boot' 
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        runtime('com.h2database:h2')
+    }
+}
+
+// ワーク
 project(':hello-wts-work') {
 
 }
