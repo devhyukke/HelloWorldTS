@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-// 全プロジェクト共通設定
+// Common Setting of All Projects
 subprojects {
 
     apply plugin: 'java'
@@ -33,7 +33,7 @@ subprojects {
     }
 }
 
-// Web 層
+// Web Layer
 project(':hello-wts-web') {
 
     apply plugin: 'spring-boot' 
@@ -51,7 +51,7 @@ project(':hello-wts-web') {
     }
 }
 
-// バッチ層
+// Batch Layer
 project(':hello-wts-batch') {
 
     apply plugin: 'spring-boot' 
@@ -63,7 +63,7 @@ project(':hello-wts-batch') {
     }
 }
 
-// ドメイン層
+// Domain Layer
 project(':hello-wts-domain') {
 
     apply plugin: 'spring-boot' 
@@ -74,7 +74,7 @@ project(':hello-wts-domain') {
     }
 }
 
-// 永続層
+// Persistence Layer
 project(':hello-wts-persistence') {
 
     apply plugin: 'spring-boot' 
@@ -85,7 +85,7 @@ project(':hello-wts-persistence') {
     }
 }
 
-// ワーク
+// Work Project
 project(':hello-wts-work') {
 
 }
