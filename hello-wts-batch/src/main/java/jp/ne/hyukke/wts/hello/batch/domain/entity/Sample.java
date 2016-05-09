@@ -1,4 +1,4 @@
-package jp.ne.yukke.wts.hello.batch.domain.entity;
+package jp.ne.hyukke.wts.hello.batch.domain.entity;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * Sample Entity.
  * 
- * @author h.yu-suke
+ * @author hyukke
  */
 // TODO ドメイン層に移動
 @Data

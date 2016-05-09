@@ -1,4 +1,4 @@
-package jp.ne.yukke.wts.hello.batch;
+package jp.ne.hyukke.wts.hello.batch;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * バッチアプリケーションを起動するクラス.
  * 
- * @author h.yu-suke
+ * @author hyukke
  */
 @SpringBootApplication
 public class HelloWorldTsBatchApplication {

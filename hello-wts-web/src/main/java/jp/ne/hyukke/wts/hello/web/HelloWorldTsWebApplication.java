@@ -1,4 +1,4 @@
-package jp.ne.yukke.wts.hello.web;
+package jp.ne.hyukke.wts.hello.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

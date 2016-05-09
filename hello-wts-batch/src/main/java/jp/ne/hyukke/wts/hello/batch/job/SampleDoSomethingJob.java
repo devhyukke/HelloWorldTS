@@ -1,4 +1,4 @@
-package jp.ne.yukke.wts.hello.batch.job;
+package jp.ne.hyukke.wts.hello.batch.job;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -18,13 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import jp.ne.yukke.wts.hello.batch.common.LogJobExecutionListener;
-import jp.ne.yukke.wts.hello.batch.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.batch.common.LogJobExecutionListener;
+import jp.ne.hyukke.wts.hello.batch.domain.entity.Sample;
 
 /**
  * SampleDoSomethingJob.
  *
- * @author y_hiraune
+ * @author hyukke
  */
 @Configuration
 @EnableBatchProcessing

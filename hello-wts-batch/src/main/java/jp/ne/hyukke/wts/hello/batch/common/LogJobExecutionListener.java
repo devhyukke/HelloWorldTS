@@ -1,4 +1,4 @@
-package jp.ne.yukke.wts.hello.batch.common;
+package jp.ne.hyukke.wts.hello.batch.common;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * ログ出力するジョブ実行リスナークラス.
  *
- * @author h.yu-suke
+ * @author hyukke
  */
 @Component
 public class LogJobExecutionListener extends JobExecutionListenerSupport {
