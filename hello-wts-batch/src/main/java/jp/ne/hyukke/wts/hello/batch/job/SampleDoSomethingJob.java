@@ -91,15 +91,15 @@ public class SampleDoSomethingJob {
         Deque<Sample> deque = new ArrayDeque<>();
 
         Sample item1 = new Sample();
-        item1.setId("1");
+        item1.setId(Integer.valueOf(1));
         item1.setName("SampleItem1");
         deque.push(item1);
         Sample item2 = new Sample();
-        item2.setId("2");
+        item2.setId(Integer.valueOf(2));
         item2.setName("SampleItem2");
         deque.push(item2);
         Sample item3 = new Sample();
-        item3.setId("3");
+        item3.setId(Integer.valueOf(3));
         item3.setName("SampleItem3");
         deque.push(item3);
 

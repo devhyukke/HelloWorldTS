@@ -40,6 +40,7 @@ project(':hello-wts-web') {
 
     dependencies {
         compile project(':hello-wts-domain')
+        compile project(':hello-wts-persistence')
         compile('org.springframework.boot:spring-boot-starter-thymeleaf')
         compile('org.springframework.boot:spring-boot-starter-web')
         testCompile('org.springframework.boot:spring-boot-starter-test') 
@@ -58,6 +59,7 @@ project(':hello-wts-batch') {
 
     dependencies {
         compile project(':hello-wts-domain')
+        compile project(':hello-wts-persistence')
         compile('org.springframework.boot:spring-boot-starter-batch')
         testCompile('org.springframework.boot:spring-boot-starter-test') 
     }
@@ -69,8 +71,8 @@ project(':hello-wts-domain') {
     apply plugin: 'spring-boot' 
 
     dependencies {
-        compile project(':hello-wts-persistence')
         compile('org.springframework.boot:spring-boot-starter-aop')
+        compile('org.springframework:spring-tx')
     }
 }
 
@@ -80,6 +82,7 @@ project(':hello-wts-persistence') {
     apply plugin: 'spring-boot' 
 
     dependencies {
+        compile project(':hello-wts-domain')
         compile('org.springframework.boot:spring-boot-starter-data-jpa')
         runtime('com.h2database:h2')
     }

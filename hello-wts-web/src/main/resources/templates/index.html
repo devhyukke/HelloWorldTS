@@ -1,13 +1,22 @@
-<html lang="ja">
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Index</title>
 </head>
 <body>
-  <main>
+  <div class="main">
     <section>
       <h1>Index</h1>
       <p>This is index page.</p>
+      <section>
+        <h2>Sample Data</h2>
+        <div>
+          <div th:text="|ID: ${sample.id}|"></div>
+          <div th:text="|NAME: ${sample.name}|"></div>
+          <div th:text="|TYPE: ${sample.type.name()}|"></div>
+        </div>
+      </section>
     </section>
-  </main>
+  </div>
 </body>
 </html>
