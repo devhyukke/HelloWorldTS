@@ -1,10 +1,13 @@
 package jp.ne.hyukke.wts.hello.domain;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Domain layer's configuration.
+ *
+ * @author h.yu-suke
+ */
 @Configuration
-@EnableAutoConfiguration
 public class DomainConfig {
 
 }

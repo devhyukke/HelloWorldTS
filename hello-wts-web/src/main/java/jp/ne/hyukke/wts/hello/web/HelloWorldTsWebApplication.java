@@ -8,9 +8,16 @@ import org.springframework.context.annotation.ComponentScan;
 import jp.ne.hyukke.wts.hello.domain.DomainConfig;
 import jp.ne.hyukke.wts.hello.persistence.PersistenceConfig;
 
+/**
+ * Hello WorldTS!! application.
+ *
+ * @author h.yu-suke
+ */
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = { HelloWorldTsWebApplication.class, DomainConfig.class,
+@ComponentScan(basePackageClasses = {
+        HelloWorldTsWebApplication.class,
+        DomainConfig.class,
         PersistenceConfig.class })
 public class HelloWorldTsWebApplication {
 
