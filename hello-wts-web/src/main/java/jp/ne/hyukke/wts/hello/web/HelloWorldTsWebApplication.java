@@ -9,7 +9,7 @@ import jp.ne.hyukke.wts.hello.domain.DomainConfig;
 import jp.ne.hyukke.wts.hello.persistence.PersistenceConfig;
 
 /**
- * Hello WorldTS!! application.
+ * Hello WorldTS!! web application.
  *
  * @author hyukke
  */

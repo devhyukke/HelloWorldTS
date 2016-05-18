@@ -22,7 +22,7 @@ import jp.ne.hyukke.wts.hello.batch.common.LogJobExecutionListener;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 
 /**
- * SampleDoSomethingJob.
+ * Job that do something.
  *
  * @author hyukke
  */

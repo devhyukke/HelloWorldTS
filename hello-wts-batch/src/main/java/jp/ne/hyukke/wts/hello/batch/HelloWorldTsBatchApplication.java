@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * バッチアプリケーションを起動するクラス.
- * 
+ * Hello WorldTS!! batch application.
+ *
  * @author hyukke
  */
 @SpringBootApplication
@@ -15,7 +15,7 @@ public class HelloWorldTsBatchApplication {
 
     /**
      * バッチアプリケーションを起動する.
-     * 
+     *
      * @param args 引数
      */
     public static void main(String[] args) {
