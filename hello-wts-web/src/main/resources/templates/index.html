@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Index</title>
+</head>
+<body>
+  <div class="main">
+    <section>
+      <h1>Index</h1>
+      <p>This is index page.</p>
+      <p id="date">Date</p>
+      <section>
+        <h2>Sample Data</h2>
+        <div>
+          <div th:text="|ID: ${sample.id}|"></div>
+          <div th:text="|NAME: ${sample.name}|"></div>
+          <div th:text="|TYPE: ${sample.type.name()}|"></div>
+        </div>
+      </section>
+    </section>
+  </div>
+</body>
+<script type="text/javascript">
+var today = new Date();
+var date = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate() + " " 
+        + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+document.getElementById("date").textContent = date;
+</script>
+</html>
