@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * Persistence layer's configuration.
  *
- * @author h.yu-suke
+ * @author hyukke
  */
 @Configuration
 @EntityScan(basePackages = "jp.ne.hyukke.wts.hello.persistence.entity")

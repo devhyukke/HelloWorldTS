@@ -11,7 +11,7 @@ import jp.ne.hyukke.wts.hello.persistence.PersistenceConfig;
 /**
  * Hello WorldTS!! application.
  *
- * @author h.yu-suke
+ * @author hyukke
  */
 @SpringBootApplication
 @EnableAutoConfiguration

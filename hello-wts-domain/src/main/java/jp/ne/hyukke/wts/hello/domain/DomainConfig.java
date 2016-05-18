@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Domain layer's configuration.
  *
- * @author h.yu-suke
+ * @author hyukke
  */
 @Configuration
 public class DomainConfig {
