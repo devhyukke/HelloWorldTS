@@ -28,8 +28,7 @@ public class SampleRepositoryImpl implements SampleRepository {
             return null;
         }
 
-        Sample sample = new Sample();
-        sample.setId(entity.getId());
+        Sample sample = Sample.valueOf(entity.getId());
         sample.setName(entity.getName());
         sample.setType(entity.getType());
         return sample;

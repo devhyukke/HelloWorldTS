@@ -14,6 +14,7 @@ import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "T_SAMPLE")
 @Data
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 public class TSample implements Serializable {

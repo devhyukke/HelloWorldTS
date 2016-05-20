@@ -90,16 +90,13 @@ public class SampleDoSomethingJob {
         // データベースを使わない一時的なデータを生成
         Deque<Sample> deque = new ArrayDeque<>();
 
-        Sample item1 = new Sample();
-        item1.setId(Integer.valueOf(1));
+        Sample item1 = Sample.valueOf(Integer.valueOf(1));
         item1.setName("SampleItem1");
         deque.push(item1);
-        Sample item2 = new Sample();
-        item2.setId(Integer.valueOf(2));
+        Sample item2 = Sample.valueOf(Integer.valueOf(2));
         item2.setName("SampleItem2");
         deque.push(item2);
-        Sample item3 = new Sample();
-        item3.setId(Integer.valueOf(3));
+        Sample item3 = Sample.valueOf(Integer.valueOf(3));
         item3.setName("SampleItem3");
         deque.push(item3);
 
@@ -117,8 +114,7 @@ public class SampleDoSomethingJob {
     @Bean
     public ItemProcessor<Sample, Sample> doSomethingProcessor() {
         ItemProcessor<Sample, Sample> processor = (item) -> {
-            Sample processedItem = new Sample();
-            processedItem.setId(item.getId());
+            Sample processedItem = Sample.valueOf(item.getId());
             processedItem.setName(item.getName());
             System.out.println(String.format("Item processor processes %s.", item.getName()));
             return processedItem;
