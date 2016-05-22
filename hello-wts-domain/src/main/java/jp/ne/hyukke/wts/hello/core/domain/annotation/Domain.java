@@ -1,4 +1,4 @@
-package jp.ne.hyukke.wts.hello.core.annotation;
+package jp.ne.hyukke.wts.hello.core.domain.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
