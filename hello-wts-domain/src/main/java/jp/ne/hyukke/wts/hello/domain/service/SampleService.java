@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.repository.SampleDomain;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleRepository;
 
 /**
@@ -28,6 +29,11 @@ public class SampleService {
     @Transactional(readOnly = true)
     public Sample findById(Integer id) {
         Assert.notNull(id);
-        return this.repository.findById(id);
+
+        SampleDomain sample = this.repository.findById(id);
+        if (sample == null) {
+            return null;
+        }
+        return sample.getEntity();
     }
 }
