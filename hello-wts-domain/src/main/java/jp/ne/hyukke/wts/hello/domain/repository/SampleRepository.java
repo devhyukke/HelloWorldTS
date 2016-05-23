@@ -9,7 +9,7 @@ import jp.ne.hyukke.wts.hello.domain.dao.SampleDao;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 
 /**
- * Repository of Sample.
+ * サンプルを扱うリポジトリクラス.
  *
  * @author hyukke
  */
@@ -19,6 +19,12 @@ public class SampleRepository extends AbstractRepository {
     @Autowired
     private SampleDao sampleDao;
 
+    /**
+     * 指定された{@code ID}でドメインを検索する.
+     *
+     * @param id {@code ID}
+     * @return ドメイン
+     */
     public SampleDomain findById(Integer id) {
         Assert.notNull(id);
 

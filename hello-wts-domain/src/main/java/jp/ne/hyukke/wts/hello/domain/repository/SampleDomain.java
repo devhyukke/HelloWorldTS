@@ -5,7 +5,7 @@ import jp.ne.hyukke.wts.hello.core.domain.model.AbstractDomain;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 
 /**
- * Domain of Sample.
+ * サンプルを扱うドメインクラス.
  *
  * @author hyukke
  */

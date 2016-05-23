@@ -10,7 +10,7 @@ import jp.ne.hyukke.wts.hello.domain.repository.SampleDomain;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleRepository;
 
 /**
- * Service of Sample.
+ * サンプルを扱うサービスクラス.
  *
  * @author hyukke
  */
@@ -21,19 +21,19 @@ public class SampleService {
     private SampleRepository repository;
 
     /**
-     * This find sample data by id.
+     * 指定された{@code ID}でエンティティを検索する.
      *
-     * @param id ID
-     * @return Sample data
+     * @param id {@code ID}
+     * @return エンティティ
      */
     @Transactional(readOnly = true)
     public Sample findById(Integer id) {
         Assert.notNull(id);
 
-        SampleDomain sample = this.repository.findById(id);
-        if (sample == null) {
+        SampleDomain domain = this.repository.findById(id);
+        if (domain == null) {
             return null;
         }
-        return sample.getEntity();
+        return domain.getEntity();
     }
 }

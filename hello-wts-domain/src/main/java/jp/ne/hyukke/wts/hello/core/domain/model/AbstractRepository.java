@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 /**
- * Abstract class of repository.
+ * リポジトリの抽象クラス.
  *
  * @author hyukke
  */
@@ -14,11 +14,11 @@ public abstract class AbstractRepository {
     private ApplicationContext context;
 
     /**
-     * This creates domain object by entity.
+     * 指定されたエンティティで、ドメインを生成する.
      *
-     * @param entity Entity
-     * @param clazz Domain Class
-     * @return Domain object
+     * @param entity エンティティ
+     * @param clazz ドメインクラス
+     * @return ドメイン
      */
     protected <E, D extends AbstractDomain<E>> D createDomain(E entity, Class<D> clazz) {
         D domain = this.context.getBean(clazz);

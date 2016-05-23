@@ -9,7 +9,7 @@ import jp.ne.hyukke.wts.hello.domain.DomainConfig;
 import jp.ne.hyukke.wts.hello.persistence.PersistenceConfig;
 
 /**
- * Hello WorldTS!! web application.
+ * Hello WorldTS!! Web アプリケーションを起動するクラス.
  *
  * @author hyukke
  */
@@ -21,6 +21,11 @@ import jp.ne.hyukke.wts.hello.persistence.PersistenceConfig;
         PersistenceConfig.class })
 public class HelloWorldTsWebApplication {
 
+    /**
+     * アプリケーションを起動する.
+     *
+     * @param args パラメータ
+     */
 	public static void main(String[] args) {
 		SpringApplication.run(HelloWorldTsWebApplication.class, args);
 	}

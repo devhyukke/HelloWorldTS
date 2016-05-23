@@ -1,9 +1,9 @@
 package jp.ne.hyukke.wts.hello.domain.constants;
 
 /**
- * Sample Type Enum.
+ * サンプル種別を表す列挙.
  *
- * @author h.yu-suke
+ * @author hyukke
  */
 public enum SampleType {
 

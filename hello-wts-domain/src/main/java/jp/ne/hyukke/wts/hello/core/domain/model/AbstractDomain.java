@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Abstract class of domain.
+ * ドメインの抽象クラス.
  *
- * @param <E> Entity class
+ * @param <E> エンティティクラス
  * @author hyukke
  */
 public abstract class AbstractDomain<E> {

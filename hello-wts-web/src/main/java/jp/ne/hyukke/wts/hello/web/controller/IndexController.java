@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.ne.hyukke.wts.hello.domain.service.SampleService;
 
 /**
- * Index Controller.
+ * 見出しを表示するコントローラクラス.
  *
  * @author hyukke
  */
@@ -20,8 +20,14 @@ public class IndexController {
     @Autowired
     private SampleService sampleService;
 
+    /**
+     * ビューを表示する.
+     *
+     * @param model モデル
+     * @return ビュー
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String index(Model model) {
+    public String show(Model model) {
         model.addAttribute(this.sampleService.findById(Integer.valueOf(1)));
         return "index";
     }

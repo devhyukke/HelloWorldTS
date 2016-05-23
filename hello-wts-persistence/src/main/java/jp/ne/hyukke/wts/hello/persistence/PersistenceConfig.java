@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * Persistence layer's configuration.
+ * 永続層における設定クラス.
  *
  * @author hyukke
  */
