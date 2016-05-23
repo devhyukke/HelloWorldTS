@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Entity Class of T_SAMPLE.
+ * {@code T_SAMPLE}のエンティティクラス.
  *
  * @author hyukke
  */
@@ -32,14 +32,17 @@ public class TSample implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /** {@code ID} */
     @Id
     @GeneratedValue
     @Column(name = "SAMPLE_ID")
     private Integer id;
 
+    /** 名称 */
     @Column(name = "SAMPLE_NAME")
     private String name;
 
+    /** 種別 */
     @Enumerated(EnumType.STRING)
     @Column(name = "SAMPLE_TYPE")
     private SampleType type;

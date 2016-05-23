@@ -6,10 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.repository.SampleDomain;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleRepository;
 
 /**
- * Service of Sample.
+ * サンプルを扱うサービスクラス.
  *
  * @author hyukke
  */
@@ -20,14 +21,19 @@ public class SampleService {
     private SampleRepository repository;
 
     /**
-     * This find sample data by id.
+     * 指定された{@code ID}でエンティティを検索する.
      *
-     * @param id ID
-     * @return Sample data
+     * @param id {@code ID}
+     * @return エンティティ
      */
     @Transactional(readOnly = true)
     public Sample findById(Integer id) {
         Assert.notNull(id);
-        return this.repository.findById(id);
+
+        SampleDomain domain = this.repository.findById(id);
+        if (domain == null) {
+            return null;
+        }
+        return domain.getEntity();
     }
 }

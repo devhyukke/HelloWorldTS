@@ -3,7 +3,7 @@ package jp.ne.hyukke.wts.hello.domain;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Domain layer's configuration.
+ * ドメイン層における設定クラス.
  *
  * @author hyukke
  */

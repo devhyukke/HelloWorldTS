@@ -1,7 +1,7 @@
-package jp.ne.hyukke.wts.hello.domain.repository;
+package jp.ne.hyukke.wts.hello.domain.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
@@ -9,12 +9,12 @@ import jp.ne.hyukke.wts.hello.persistence.entity.TSample;
 import jp.ne.hyukke.wts.hello.persistence.repository.TSampleRepository;
 
 /**
- * Implement class of {@link SampleRepository}.
+ * {@link SampleDao}の実装クラス.
  *
- * @author h.yu-suke
+ * @author hyukke
  */
-@Repository
-public class SampleRepositoryImpl implements SampleRepository {
+@Component
+public class SampleDaoImpl implements SampleDao {
 
     @Autowired
     private TSampleRepository repository;

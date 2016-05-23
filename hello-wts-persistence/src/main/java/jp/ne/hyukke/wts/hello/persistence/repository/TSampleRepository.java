@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import jp.ne.hyukke.wts.hello.persistence.entity.TSample;
 
 /**
- * Repository Class of {@link TSample}.
+ * {@link TSample}のリポジトリインタフェース.
  *
  * @author hyukke
  */
