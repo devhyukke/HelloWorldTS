@@ -1,0 +1,10 @@
+# Server setting
+# http://localhost:8080/hello-world-ts
+server:
+  contextPath: /hello-world-ts
+  port: 8080
+
+# Thymeleaf setting
+spring:
+  thymeleaf:
+    cache: false
