@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="author" content="Hyukke" />
   <title>Index</title>
+  <link rel="stylesheet" th:href="@{/css/application.css}" type="text/css" />
 </head>
 <body>
-  <div class="main">
+  <header role="banner">
+  </header>
+  <main role="main">
     <section>
       <h1>Index</h1>
       <p>This is index page.</p>
@@ -18,7 +23,14 @@
         </div>
       </section>
     </section>
-  </div>
+  </main>
+  <footer role="contentinfo">
+    <nav role="navigation">
+      <a href="#top">トップ</a>
+    </nav>
+    <p class="copyright"><small>&copy; copyright 2016 Hyukke</small></p>
+  </footer>
+  <script type="text/javascript" src="/js/application.js"></script>
 </body>
 <script type="text/javascript">
 var today = new Date();
