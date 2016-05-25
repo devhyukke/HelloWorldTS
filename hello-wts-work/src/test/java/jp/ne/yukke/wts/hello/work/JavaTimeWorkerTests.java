@@ -3,7 +3,7 @@ package jp.ne.yukke.wts.hello.work;
 /**
  * MainTests
  *
- * @author y_hiraune
+ * @author hyukke
  */
 public class JavaTimeWorkerTests {
 
