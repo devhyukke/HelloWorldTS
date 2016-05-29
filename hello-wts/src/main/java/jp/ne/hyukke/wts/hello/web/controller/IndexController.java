@@ -28,7 +28,7 @@ public class IndexController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String show(Model model) {
-        model.addAttribute(this.sampleService.findById(Integer.valueOf(1)));
+        model.addAttribute("samples", this.sampleService.findAll());
         return "index";
     }
 }

@@ -1,5 +1,8 @@
 package jp.ne.hyukke.wts.hello.domain.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +38,20 @@ public class SampleService {
             return null;
         }
         return domain.getEntity();
+    }
+
+    /**
+     * すべてのエンティティを検索する.
+     *
+     * @return エンティティ
+     */
+    @Transactional(readOnly = true)
+    public List<Sample> findAll() {
+
+        List<SampleDomain> domains = this.repository.findAll();
+
+        return domains.stream()
+                .map(SampleDomain::getEntity)
+                .collect(Collectors.toList());
     }
 }

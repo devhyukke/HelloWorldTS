@@ -1,5 +1,8 @@
 package jp.ne.hyukke.wts.hello.domain.dao.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -29,9 +32,16 @@ public class SampleDaoImpl implements SampleDao {
             return null;
         }
 
-        Sample sample = Sample.valueOf(entity.getId());
-        sample.setName(entity.getName());
-        sample.setType(entity.getType());
-        return sample;
+        return entity.toSample();
+    }
+
+    @Override
+    public List<Sample> findAll() {
+
+        List<TSample> entities = this.repository.findAll();
+
+        return entities.stream()
+                .map(TSample::toSample)
+                .collect(Collectors.toList());
     }
 }

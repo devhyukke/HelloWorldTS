@@ -1,5 +1,8 @@
 package jp.ne.hyukke.wts.hello.domain.repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -31,5 +34,19 @@ public class SampleRepository extends AbstractRepository {
         Sample entity = this.sampleDao.findById(id);
 
         return this.createDomain(entity, SampleDomain.class);
+    }
+
+    /**
+     * すべてのドメインを検索する.
+     *
+     * @return ドメイン
+     */
+    public List<SampleDomain> findAll() {
+
+        List<Sample> entities = this.sampleDao.findAll();
+
+        return entities.stream()
+                .map(entity -> this.createDomain(entity, SampleDomain.class))
+                .collect(Collectors.toList());
     }
 }
