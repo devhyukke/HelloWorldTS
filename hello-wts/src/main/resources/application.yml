@@ -1,0 +1,21 @@
+# Server setting
+server:
+  # http://localhost:9080/hello-world-ts
+  contextPath: /hello-world-ts
+  port: 9080
+
+spring:
+  # Thymeleaf setting
+  thymeleaf:
+    cache: false
+  # Database setting
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:file:./data/hellodb
+    username: sa
+    password: 
+  # JPA setting
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect

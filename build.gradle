@@ -33,58 +33,22 @@ subprojects {
     }
 }
 
-// Web Layer
-project(':hello-wts-web') {
+project(':hello-wts') {
 
     apply plugin: 'spring-boot' 
 
     dependencies {
-        compile project(':hello-wts-domain')
-        compile project(':hello-wts-persistence')
         compile('org.springframework.boot:spring-boot-starter-thymeleaf')
         compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-starter-batch')
+        compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        runtime('com.h2database:h2')
         testCompile('org.springframework.boot:spring-boot-starter-test') 
     }
 
     jar {
         baseName = 'HelloWorldTS'
         version = '0.0.1-SNAPSHOT'
-    }
-}
-
-// Batch Layer
-project(':hello-wts-batch') {
-
-    apply plugin: 'spring-boot' 
-
-    dependencies {
-        compile project(':hello-wts-domain')
-        compile project(':hello-wts-persistence')
-        compile('org.springframework.boot:spring-boot-starter-batch')
-        testCompile('org.springframework.boot:spring-boot-starter-test') 
-    }
-}
-
-// Domain Layer
-project(':hello-wts-domain') {
-
-    apply plugin: 'spring-boot' 
-
-    dependencies {
-        compile('org.springframework.boot:spring-boot-starter-aop')
-        compile('org.springframework:spring-tx')
-    }
-}
-
-// Persistence Layer
-project(':hello-wts-persistence') {
-
-    apply plugin: 'spring-boot' 
-
-    dependencies {
-        compile project(':hello-wts-domain')
-        compile('org.springframework.boot:spring-boot-starter-data-jpa')
-        runtime('com.h2database:h2')
     }
 }
 

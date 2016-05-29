@@ -1,0 +1,4 @@
+rootProject.name = 'Template'
+
+include 'template-web', 'template-batch', 'template-domain', 'template-persistence'
+
