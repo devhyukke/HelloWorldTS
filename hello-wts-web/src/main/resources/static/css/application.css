@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+
+html {
+    font-family: メイリオ;
+}
+
+body {
+    background-color: #FF0000;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+body header {
+    background-color: #FF0000;
+    color: #FFFFFF;
+}
+
+body main,
+body footer {
+    background-color: #FFFFFF;
+    margin: 5px 0 5px 5px;
+    padding: 5px 0 5px 5px;
+}
+
+.copyright {
+    text-align: center;
+}
