@@ -1,9 +1,10 @@
-package jp.ne.hyukke.wts.hello.domain.dao;
+package jp.ne.hyukke.wts.hello.domain.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import jp.ne.hyukke.wts.hello.domain.dao.SampleDao;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.persistence.entity.TSample;
 import jp.ne.hyukke.wts.hello.persistence.repository.TSampleRepository;
