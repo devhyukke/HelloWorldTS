@@ -1,0 +1,4 @@
+# Server setting
+server:
+  contextPath: /template
+  port: 8080

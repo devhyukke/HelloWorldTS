@@ -1,0 +1,89 @@
+buildscript {
+    ext {
+        springBootVersion = '1.3.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+    }
+}
+
+// Common Setting of All Projects
+subprojects {
+
+    apply plugin: 'java'
+
+    version = '0.0.1'
+
+    def defaultEncoding = "UTF-8"
+    [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile('org.projectlombok:lombok:1.16.6')
+    }
+}
+
+// Web Layer
+project(':template-web') {
+
+    apply plugin: 'spring-boot' 
+
+    dependencies {
+        compile project(':template-domain')
+        compile project(':template-persistence')
+        compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        testCompile('org.springframework.boot:spring-boot-starter-test') 
+    }
+
+    jar {
+        baseName = 'Template'
+        version = '0.0.1-SNAPSHOT'
+    }
+}
+
+// Batch Layer
+project(':template-batch') {
+
+    apply plugin: 'spring-boot' 
+
+    dependencies {
+        compile project(':template-domain')
+        compile project(':template-persistence')
+        compile('org.springframework.boot:spring-boot-starter-batch')
+        testCompile('org.springframework.boot:spring-boot-starter-test') 
+    }
+}
+
+// Domain Layer
+project(':template-domain') {
+
+    apply plugin: 'spring-boot' 
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-aop')
+        compile('org.springframework:spring-tx')
+    }
+}
+
+// Persistence Layer
+project(':template-persistence') {
+
+    apply plugin: 'spring-boot' 
+
+    dependencies {
+        compile project(':template-domain')
+        compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        runtime('com.h2database:h2')
+    }
+}
