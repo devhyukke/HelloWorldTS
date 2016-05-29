@@ -15,7 +15,7 @@ spring:
     username: sa
     password: 
   # JPA setting
-  jpa
-    hibernate
+  jpa:
+    hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect

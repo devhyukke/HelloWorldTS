@@ -1,5 +1,8 @@
 package jp.ne.hyukke.wts.hello.batch;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * Hello WorldTS!! batch application.
  *
