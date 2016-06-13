@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<head>
+  <title>Index</title>
+</head>
+<body>
+  <main role="main" layout:fragment="content">
+    <article>
+      <h1>サンプルアプリケーション</h1>
+      <section>
+        <h2>サンプルページ</h2>
+        <section>
+          <h3>サンプルデータ</h3>
+          <ol class="breadcrumb">
+            <li><a th:href="@{/samples}">検索</a></li>
+            <li class="active">詳細</li>
+          </ol>
+          <section id="detail">
+            <h4>詳細</h4>
+            <section>
+              <form class="form-horizontal" method="delete" th:action="@{/samples/__*{id}__}" th:object="${sample}">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">ID</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-static" th:text="*{id}">ID</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">名称</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-static" th:text="*{name}">名称</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">種別</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-static" th:if="*{type != null}" th:text="*{type.name()}">名称</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-12 text-right">
+                    <a class="btn btn-success" th:href="@{/samples/__*{id}__/editor}">編集</a>
+                    <button type="submit" class="btn btn-danger">削除</button>
+                  </div>
+                </div>
+              </form>
+            </section>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

@@ -1,66 +1,26 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="author" content="Hyukke" />
   <title>Index</title>
-  <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" />
-  <link rel="stylesheet" th:href="@{/css/application.css}" type="text/css" />
 </head>
-<body class="container-fluid">
-  <header role="banner">
-    <h1>Hello WorldTS!!</h1>
-  </header>
-  <main role="main">
-    <section>
-      <h1>Index</h1>
-      <p>インデックス&nbsp;<span id="date">Date</span></p>
+<body>
+  <main role="main" layout:fragment="content">
+    <article>
+      <h1>サンプルアプリケーション</h1>
       <section>
-        <h2>サンプルページ</h2>
+        <h2>インデックスページ</h2>
+        <p>インデックス&nbsp;<span id="date">Date</span></p>
         <section>
-          <h3>サンプルデータ</h3>
-          <section id="searchCondition">
-            <h4>検索条件</h4>
-            <div style="color: red;">TODO</div>
-          </section>
-          <section id="searchResult">
-            <h4>検索結果</h4>
-            <table class="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>ID</th>
-                  <th>名称</th>
-                  <th>種別</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="sample, status : ${samples}" th:object="${sample}">
-                  <td th:text="${status.count}"></td>
-                  <td th:text="*{id}"></td>
-                  <td th:text="*{name}"></td>
-                  <td th:if="*{type != null}" th:text="*{type.name()}"></td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+          <h3></h3>
+          <div><a th:href="@{/samples}">サンプルページはこちら</a></div>
         </section>
       </section>
-    </section>
+    </article>
   </main>
-  <footer role="contentinfo">
-    <nav role="navigation">
-      <a href="#top">トップ</a>
-    </nav>
-    <p class="copyright"><small>&copy; copyright 2016 Hyukke</small></p>
-  </footer>
-  <script type="text/javascript" src="/js/application.js"></script>
 </body>
-<script th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
 <script type="text/javascript">
 var today = new Date();
-var date = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate() + " " 
+var date = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate() + " "
         + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 document.getElementById("date").textContent = date;
 </script>

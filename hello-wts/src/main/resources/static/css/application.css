@@ -8,10 +8,25 @@ body {
 }
 
 body header {
+    border-top: 3px solid #FF0000;
 }
 
 body main,
 body footer {
+}
+
+.brand {
+    position: relative;
+    margin-right: 25px;
+}
+.brand:before {
+    content: 'W';
+    color: #FFFFFF;
+    background-color: #FF0000;
+    font-style: italic;
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
 
 .copyright {
