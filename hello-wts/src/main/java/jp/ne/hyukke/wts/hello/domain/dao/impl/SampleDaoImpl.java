@@ -44,4 +44,34 @@ public class SampleDaoImpl implements SampleDao {
                 .map(TSample::toSample)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void register(Sample entity) {
+        Assert.notNull(entity);
+
+        TSample e = new TSample();
+        e.setName(entity.getName());
+        e.setType(entity.getType());
+        this.repository.save(e);
+    }
+
+    @Override
+    public void update(Sample entity) {
+        Assert.notNull(entity);
+
+        // TODO 排他制御
+
+        TSample e = new TSample();
+        e.setId(entity.getId());
+        e.setName(entity.getName());
+        e.setType(entity.getType());
+        this.repository.save(e);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Assert.notNull(id);
+
+        this.repository.delete(id);
+    }
 }

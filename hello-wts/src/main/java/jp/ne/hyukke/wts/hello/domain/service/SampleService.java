@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleDomain;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleRepository;
@@ -53,5 +54,49 @@ public class SampleService {
         return domains.stream()
                 .map(SampleDomain::getEntity)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 指定された{@link SampleDto}でエンティティを登録する.
+     *
+     * @param dto {@code DTO}
+     */
+    @Transactional
+    public void register(SampleDto dto) {
+        Assert.notNull(dto);
+
+        Sample entity = new Sample();
+        entity.setName(dto.getName());
+        entity.setType(dto.getType());
+
+        this.repository.register(entity);
+    }
+
+    /**
+     * 指定された{@link SampleDto}でエンティティを更新する.
+     *
+     * @param dto {@code DTO}
+     */
+    @Transactional
+    public void update(SampleDto dto) {
+        Assert.notNull(dto);
+
+        Sample entity = Sample.valueOf(dto.getId());
+        entity.setName(dto.getName());
+        entity.setType(dto.getType());
+
+        this.repository.update(entity);
+    }
+
+    /**
+     * 指定された{@link SampleDto}でエンティティを削除する.
+     *
+     * @param dto {@code DTO}
+     */
+    @Transactional
+    public void delete(SampleDto dto) {
+        Assert.notNull(dto);
+
+        this.repository.delete(dto.getId());
     }
 }

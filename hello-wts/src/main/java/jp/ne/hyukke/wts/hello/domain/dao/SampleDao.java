@@ -25,4 +25,25 @@ public interface SampleDao {
      * @return エンティティ
      */
     List<Sample> findAll();
+
+    /**
+     * エンティティを登録する.
+     *
+     * @param entity エンティティ
+     */
+    void register(Sample entity);
+
+    /**
+     * エンティティを更新する.
+     *
+     * @param entity エンティティ
+     */
+    void update(Sample entity);
+
+    /**
+     * 指定された{@code ID}でエンティティを削除する.
+     *
+     * @param id {@code ID}
+     */
+    void delete(Integer id);
 }

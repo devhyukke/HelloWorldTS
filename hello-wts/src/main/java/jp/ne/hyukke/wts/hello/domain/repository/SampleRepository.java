@@ -49,4 +49,38 @@ public class SampleRepository extends AbstractRepository {
                 .map(entity -> this.createDomain(entity, SampleDomain.class))
                 .collect(Collectors.toList());
     }
+
+    // XXX エンティティではなくドメインモデルが正解と思われる
+    /**
+     * 指定されたエンティティを登録する.
+     *
+     * @param entity エンティティ
+     */
+    public void register(Sample entity) {
+        Assert.notNull(entity);
+
+        this.sampleDao.register(entity);
+    }
+
+    /**
+     * 指定されたエンティティを更新する.
+     *
+     * @param entity エンティティ
+     */
+    public void update(Sample entity) {
+        Assert.notNull(entity);
+
+        this.sampleDao.update(entity);
+    }
+
+    /**
+     * 指定された{@code ID}でエンティティを削除する.
+     *
+     * @param id {@code ID}
+     */
+    public void delete(Integer id) {
+        Assert.notNull(id);
+
+        this.sampleDao.delete(id);
+    }
 }

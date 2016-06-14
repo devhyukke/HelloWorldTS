@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * サンプルのエンティティクラス.
- * 
+ *
  * @author hyukke
  */
 @Data
@@ -26,4 +26,8 @@ public class Sample implements Serializable {
     private String name;
     /** 種別 */
     private SampleType type;
+
+    public Sample() {
+        this.id = Integer.valueOf(0);
+    }
 }
