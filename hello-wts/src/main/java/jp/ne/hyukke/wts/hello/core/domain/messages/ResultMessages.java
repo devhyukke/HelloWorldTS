@@ -19,11 +19,11 @@ public class ResultMessages implements Serializable, Iterable<ResultMessage> {
 
     private final ResultMessageType type;
 
-    private final List<ResultMessage> messages = new ArrayList<>();
+    private final List<ResultMessage> list = new ArrayList<>();
 
     @Override
     public Iterator<ResultMessage> iterator() {
-        return this.messages.iterator();
+        return this.list.iterator();
     }
 
     /**
@@ -54,7 +54,7 @@ public class ResultMessages implements Serializable, Iterable<ResultMessage> {
      * @return この結果メッセージ
      */
     public ResultMessages add(String code) {
-        this.messages.add(new ResultMessage(code));
+        this.list.add(new ResultMessage(code));
         return this;
     }
 
@@ -66,7 +66,7 @@ public class ResultMessages implements Serializable, Iterable<ResultMessage> {
      * @return この結果メッセージ
      */
     public ResultMessages add(String code, Object... args) {
-        this.messages.add(new ResultMessage(code, args));
+        this.list.add(new ResultMessage(code, args));
         return this;
     }
 }

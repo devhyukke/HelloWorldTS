@@ -17,6 +17,7 @@
           </ol>
           <section id="detail">
             <h4>新規作成</h4>
+            <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
             <div class="alert alert-danger" th:errors="${sampleForm.*}">Error Messages</div>
             <section>
               <form class="form-horizontal" method="post" th:action="@{/samples}" th:object="${sampleForm}">
