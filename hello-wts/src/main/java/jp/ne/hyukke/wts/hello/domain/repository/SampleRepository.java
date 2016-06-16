@@ -59,6 +59,8 @@ public class SampleRepository extends AbstractRepository {
     public void register(Sample entity) {
         Assert.notNull(entity);
 
+        // TODO ドメインレイヤにおける入力値の検証
+
         this.sampleDao.register(entity);
     }
 

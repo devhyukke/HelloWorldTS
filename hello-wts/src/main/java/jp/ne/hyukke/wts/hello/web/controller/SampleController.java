@@ -1,9 +1,12 @@
 package jp.ne.hyukke.wts.hello.web.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +62,7 @@ public class SampleController {
     @RequestMapping(value = "editor", method = RequestMethod.GET)
     public String showCreateNew(Model model) {
 
-        model.addAttribute("form", new SampleForm());
+        model.addAttribute("sampleForm", new SampleForm());
 
         return "samples/create";
     }
@@ -94,7 +97,7 @@ public class SampleController {
         BeanUtils.copyProperties(sample, form);
 
         model.addAttribute("sample", sample);
-        model.addAttribute("form", form);
+        model.addAttribute("sampleForm", form);
 
         return "samples/edit";
     }
@@ -107,10 +110,19 @@ public class SampleController {
      * @return ビュー
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String create(@ModelAttribute SampleForm form, Model model) {
+    public String create(
+            @Valid @ModelAttribute("sampleForm") SampleForm form, BindingResult bindingResult, Model model) {
 
-        // TODO now developing...
-        System.out.println("created!!");
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("sampleForm", form);
+            return "samples/create";
+        }
+
+        SampleDto dto = new SampleDto();
+        dto.setName(form.getName());
+        dto.setType(form.getType());
+        this.sampleService.register(dto);
+
         return "redirect:/samples";
     }
 
@@ -123,10 +135,22 @@ public class SampleController {
      * @return ビュー
      */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public String update(@PathVariable Integer id, @ModelAttribute SampleForm form, Model model) {
+    public String update(
+            @PathVariable Integer id,
+            @Valid @ModelAttribute("sampleForm") SampleForm form, BindingResult bindingResult, Model model) {
 
-        // TODO now developing...
-        System.out.println("updated!!");
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("sample", this.sampleService.findById(id));
+            model.addAttribute("sampleForm", form);
+            return "samples/edit";
+        }
+
+        SampleDto dto = new SampleDto();
+        dto.setId(id);
+        dto.setName(form.getName());
+        dto.setType(form.getType());
+        this.sampleService.update(dto);
+
         return "redirect:/samples/".concat(String.valueOf(id));
     }
 
