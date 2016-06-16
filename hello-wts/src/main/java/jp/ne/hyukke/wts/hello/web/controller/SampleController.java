@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
@@ -106,12 +108,15 @@ public class SampleController {
      * 作成する.
      *
      * @param form フォーム
+     * @param bindingResult バインド結果
      * @param model モデル
+     * @param attributes リダイレクト属性
      * @return ビュー
      */
     @RequestMapping(method = RequestMethod.POST)
     public String create(
-            @Valid @ModelAttribute("sampleForm") SampleForm form, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("sampleForm") SampleForm form,
+            BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("sampleForm", form);
@@ -123,6 +128,8 @@ public class SampleController {
         dto.setType(form.getType());
         this.sampleService.register(dto);
 
+        attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
+
         return "redirect:/samples";
     }
 
@@ -131,13 +138,16 @@ public class SampleController {
      *
      * @param id ID
      * @param form フォーム
+     * @param bindingResult バインド結果
      * @param model モデル
+     * @param attributes リダイレクト属性
      * @return ビュー
      */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public String update(
             @PathVariable Integer id,
-            @Valid @ModelAttribute("sampleForm") SampleForm form, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("sampleForm") SampleForm form, BindingResult bindingResult,
+            Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("sample", this.sampleService.findById(id));
@@ -151,6 +161,8 @@ public class SampleController {
         dto.setType(form.getType());
         this.sampleService.update(dto);
 
+        attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.update.success"));
+
         return "redirect:/samples/".concat(String.valueOf(id));
     }
 
@@ -159,14 +171,17 @@ public class SampleController {
      *
      * @param id ID
      * @param model モデル
+     * @param attributes リダイレクト属性
      * @return ビュー
      */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable Integer id, Model model) {
+    public String delete(@PathVariable Integer id, Model model, RedirectAttributes attributes) {
 
         SampleDto dto = new SampleDto();
         dto.setId(id);
         this.sampleService.delete(dto);
+
+        attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.delete.success"));
 
         return "redirect:/samples";
     }

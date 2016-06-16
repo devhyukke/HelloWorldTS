@@ -17,6 +17,7 @@
           </ol>
           <section id="detail">
             <h4>詳細</h4>
+            <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
             <section>
               <form class="form-horizontal" method="post" th:action="@{/samples/__*{id}__}" th:object="${sample}">
                 <input type="hidden" name="_method" value="DELETE" />

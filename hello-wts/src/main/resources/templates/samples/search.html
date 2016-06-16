@@ -17,6 +17,10 @@
           <div class="text-right">
             <a class="btn btn-success" th:href="@{/samples/editor}">新規作成</a>
           </div>
+          <section>
+            <h4></h4>
+            <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
+          </section>
           <section id="searchCondition">
             <h4>検索条件</h4>
             <div style="color: red;">TODO</div>

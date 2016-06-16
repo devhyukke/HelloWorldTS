@@ -1,0 +1,5 @@
+<div th:fragment="messages (resultMessages)" th:if="${resultMessages}" class="alert alert-success">
+  <th:block th:each="message : ${resultMessages.messages}">
+    <p th:text="${#messages.msgOrNullWithParams(message.code, message.args)}"></p>
+  </th:block>
+</div>
