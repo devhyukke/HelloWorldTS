@@ -11,7 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SampleType {
 
-    TYPE_A("種別Ａ"), TYPE_B("種別Ｂ"), TYPE_C("種別Ｃ");
+    TYPE_A("サンプル種別Ａ"), TYPE_B("サンプル種別Ｂ"), TYPE_C("サンプル種別Ｃ");
 
     @Getter
     private String label;

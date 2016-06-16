@@ -15,7 +15,7 @@
             <li class="active">検索</li>
           </ol>
           <div class="text-right">
-            <a class="btn btn-success" th:href="@{/samples/editor}">新規作成</a>
+            <a class="btn btn-success" th:href="@{/samples/editor}">新規作成する</a>
           </div>
           <section>
             <h4></h4>
@@ -41,7 +41,7 @@
                   <td class="text-right"><a class="center-block" th:href="@{/samples/__*{id}__}" th:text="${status.count}">row number</a></td>
                   <td class="text-center" th:text="*{id}"></td>
                   <td class="text-left" th:text="*{name}"></td>
-                  <td class="text-center" th:if="*{type != null}" th:text="*{type.name()}"></td>
+                  <td class="text-center" th:if="*{type != null}" th:text="*{type.label}"></td>
                 </tr>
               </tbody>
             </table>
