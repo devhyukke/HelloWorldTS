@@ -1,27 +1,26 @@
 package jp.ne.hyukke.wts.hello.web.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 見出しを表示するコントローラクラス.
+ * ログインを行うコントローラクラス.
  *
  * @author hyukke
  */
 @Controller
-@RequestMapping("/")
-public class IndexController {
+@RequestMapping("login")
+public class LoginController {
 
     /**
      * ビューを表示する.
      *
-     * @param model モデル
      * @return ビュー
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String show(Model model) {
-        return "index";
+    public String login() {
+
+        return "login";
     }
 }

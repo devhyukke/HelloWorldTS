@@ -11,18 +11,20 @@
   <header role="banner">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNavigation" aria-expanded="false">
-          <span class="sr-only">Toggle Navigation</span>
-          <span class="sr-only"></span>
-          <span class="sr-only"></span>
-          <span class="sr-only"></span>
-        </button>
-        <a class="navbar-brand" href="#" th:href="@{/}"><span class="brand"></span>Hello WorldTS!!</a>
-      </div>
-      <div class="collapse navbar-collapse" id="#topNavigation">
-        <ul class="nav navbar-nav">
-          <li></li>
-        </ul>
+        <nav class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNavigation" aria-expanded="false">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="sr-only"></span>
+            <span class="sr-only"></span>
+            <span class="sr-only"></span>
+          </button>
+          <a class="navbar-brand" href="#" th:href="@{/}"><span class="brand"></span>Hello WorldTS!!</a>
+        </nav>
+        <div class="collapse navbar-collapse" id="#topNavigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout" th:href="@{/logout}">ログアウト</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
