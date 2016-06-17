@@ -10,7 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Transient;
+
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
+import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,4 +49,17 @@ public class TSample implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "SAMPLE_TYPE")
     private SampleType type;
+
+    /**
+     * {@link Sample}に変換する.
+     *
+     * @return エンティティ
+     */
+    @Transient
+    public Sample toSample() {
+        Sample sample = Sample.valueOf(this.id);
+        sample.setName(this.name);
+        sample.setType(this.type);
+        return sample;
+    }
 }

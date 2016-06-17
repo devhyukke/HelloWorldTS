@@ -5,23 +5,28 @@ html {
 }
 
 body {
-    background-color: #FF0000;
-    margin-right: 0;
-    margin-bottom: 0;
-    padding-right: 0;
-    padding-bottom: 0;
 }
 
 body header {
-    background-color: #FF0000;
-    color: #FFFFFF;
+    border-top: 3px solid #FF0000;
 }
 
 body main,
 body footer {
-    background-color: #FFFFFF;
-    margin: 5px 0 5px 5px;
-    padding: 5px 0 5px 5px;
+}
+
+.brand {
+    position: relative;
+    margin-right: 25px;
+}
+.brand:before {
+    content: 'W';
+    color: #FFFFFF;
+    background-color: #FF0000;
+    font-style: italic;
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
 
 .copyright {

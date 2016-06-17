@@ -2,6 +2,10 @@ package jp.ne.hyukke.wts.hello.domain.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 
 import lombok.Data;
@@ -10,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * サンプルのエンティティクラス.
- * 
+ *
  * @author hyukke
  */
 @Data
@@ -23,7 +27,13 @@ public class Sample implements Serializable {
     /** {@code ID} */
     private final Integer id;
     /** 名称 */
+    @NotEmpty
     private String name;
     /** 種別 */
+    @NotNull
     private SampleType type;
+
+    public Sample() {
+        this.id = Integer.valueOf(0);
+    }
 }
