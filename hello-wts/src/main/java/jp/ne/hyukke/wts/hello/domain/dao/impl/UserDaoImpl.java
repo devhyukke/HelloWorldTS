@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.domain.dao.UserDao;
-import jp.ne.hyukke.wts.hello.domain.entity.LoginUser;
+import jp.ne.hyukke.wts.hello.domain.entity.User;
 import jp.ne.hyukke.wts.hello.persistence.entity.MUser;
 import jp.ne.hyukke.wts.hello.persistence.repository.MUserRepository;
 
@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
     private MUserRepository repository;
 
     @Override
-    public LoginUser findByUsername(String username) {
+    public User findByUsername(String username) {
         Assert.hasText(username);
 
         MUser entity = this.repository.findByUsername(username);
@@ -29,6 +29,10 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
 
-        return new LoginUser(entity.getId(), entity.getUsername(), entity.getPassword(), entity.getDisplayName());
+        User e = User.valueOf(entity.getId());
+        e.setUsername(entity.getUsername());
+        e.setPassword(entity.getPassword());
+        e.setDisplayName(entity.getDisplayName());
+        return e;
     }
 }

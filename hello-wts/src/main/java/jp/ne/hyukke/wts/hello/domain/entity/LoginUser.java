@@ -13,10 +13,7 @@ import lombok.Getter;
 public class LoginUser extends User {
 
     @Getter
-    private Integer id;
-
-    @Getter
-    private String displayName;
+    private jp.ne.hyukke.wts.hello.domain.entity.User user;
 
     /**
      * @param id ユーザー{@code ID}
@@ -24,10 +21,14 @@ public class LoginUser extends User {
      * @param password パスワード
      * @param displayName 表示名
      */
-    public LoginUser(Integer id, String username, String password, String displayName) {
+    public LoginUser(jp.ne.hyukke.wts.hello.domain.entity.User user) {
         // TODO 権限の取り扱い
-        super(username, password, AuthorityUtils.createAuthorityList("ADMIN"));
-        this.id = id;
-        this.displayName = displayName;
+        super(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList("ADMIN"));
+        this.user = user;
+    }
+
+    // FIXME 内部オブジェクトを Thymeleaf から取得できない
+    public String getDisplayName() {
+        return this.user.getDisplayName();
     }
 }

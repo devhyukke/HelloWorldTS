@@ -34,12 +34,15 @@ public class MUser implements Serializable {
     @Column(name = "USER_ID")
     private Integer id;
 
+    /** {@code Spring Security}ユーザー名 */
     @Column(name = "USERNAME")
     private String username;
 
+    /** パスワード */
     @Column(name = "PASSWORD")
     private String password;
 
+    /** 表示名 */
     @Column(name = "DISPLAY_NAME")
     private String displayName;
 }

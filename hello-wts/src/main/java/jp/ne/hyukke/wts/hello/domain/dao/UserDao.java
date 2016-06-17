@@ -1,6 +1,6 @@
 package jp.ne.hyukke.wts.hello.domain.dao;
 
-import jp.ne.hyukke.wts.hello.domain.entity.LoginUser;
+import jp.ne.hyukke.wts.hello.domain.entity.User;
 
 /**
  * ユーザーのデータにアクセスするインタフェース.
@@ -15,5 +15,5 @@ public interface UserDao {
      * @param username ユーザー名
      * @return エンティティ
      */
-    LoginUser findByUsername(String username);
+    User findByUsername(String username);
 }
