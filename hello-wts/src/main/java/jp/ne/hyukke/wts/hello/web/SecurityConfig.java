@@ -1,13 +1,16 @@
 package jp.ne.hyukke.wts.hello.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -18,6 +21,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -49,15 +55,58 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID");                                   // クッキーからの削除
     }
 
-    @Configuration
-    @Profile("local")
-    static class LocalAuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+    /**
+     * @return パスワードエンコーダー
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-        @Override
-        public void init(AuthenticationManagerBuilder auth) throws Exception {
-            // インメモリによる認証
-            auth.inMemoryAuthentication()
-                    .withUser("Username").password("Password").roles("ADMIN");
-        }
+    // XXX case 1 クラスで定義
+//    @Configuration
+//    @Profile("local")
+//    static class LocalAuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+//
+//        @Override
+//        public void init(AuthenticationManagerBuilder auth) throws Exception {
+//            // インメモリによる認証
+//            auth.inMemoryAuthentication()
+//                    .withUser("Username").password("Password").roles("ADMIN");
+//        }
+//    }
+//
+//    @Configuration
+//    @Profile("development")
+//    static class DevelopmentAuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+//
+//        @Autowired
+//        private UserDetailsServiceImpl userDetailsServiceImpl;
+//        @Autowired
+//        private PasswordEncoder passwordEncoder;
+//
+//        @Override
+//        public void init(AuthenticationManagerBuilder auth) throws Exception {
+//            auth.userDetailsService(this.userDetailsServiceImpl)
+//                    .passwordEncoder(this.passwordEncoder);
+//        }
+//    }
+
+    // XXX case 2 メソッドで定義
+    @Autowired
+    @Profile("local")
+    public void configureAuthenticationLocal(AuthenticationManagerBuilder auth) throws Exception {
+        // インメモリでの認証
+        // TODO 権限について整理
+        auth.inMemoryAuthentication()
+                .withUser("Username").password("Password").roles("ADMIN");
+    }
+
+    @Autowired
+    @Profile("development")
+    public void configureAuthenticationDevelopment(AuthenticationManagerBuilder auth) throws Exception {
+        // カスタムでの認証
+        auth.userDetailsService(this.userDetailsService)
+                .passwordEncoder(this.passwordEncoder());
     }
 }
