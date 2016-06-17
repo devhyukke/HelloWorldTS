@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import jp.ne.hyukke.wts.hello.domain.service.UserDetailsServiceImpl;
+
 /**
  * {@code Spring Security}の設定クラス.
  *

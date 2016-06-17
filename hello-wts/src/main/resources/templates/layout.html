@@ -22,6 +22,7 @@
         </nav>
         <div class="collapse navbar-collapse" id="#topNavigation">
           <ul class="nav navbar-nav navbar-right">
+            <li><p class="navbar-text">ようこそ&nbsp;<strong sec:authentication="principal.displayName">ゲスト</strong>&nbsp;さん</p></li>
             <li><a href="/logout" th:href="@{/logout}">ログアウト</a></li>
           </ul>
         </div>
