@@ -96,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // XXX case 2 メソッドで定義
     @Autowired
-    @Profile("local")
+    @Profile("mock")
     public void configureAuthenticationLocal(AuthenticationManagerBuilder auth) throws Exception {
         // インメモリでの認証
         // TODO 権限について整理
@@ -105,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    @Profile("development")
+    @Profile("local")
     public void configureAuthenticationDevelopment(AuthenticationManagerBuilder auth) throws Exception {
         // カスタムでの認証
         auth.userDetailsService(this.userDetailsService)

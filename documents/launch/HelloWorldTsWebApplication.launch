@@ -8,5 +8,5 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="jp.ne.hyukke.wts.hello.web.HelloWorldTsWebApplication"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="hello-wts"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dspring.profiles.active=development"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dspring.profiles.active=local"/>
 </launchConfiguration>
