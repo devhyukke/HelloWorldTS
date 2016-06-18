@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="author" content="Hyukke" />
+  <title>ログイン</title>
+  <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/application.css}" type="text/css" />
+</head>
+<body>
+  <header role="banner">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <nav class="navbar-header">
+          <span class="navbar-brand"><span class="brand"></span>Hello WorldTS!!</span>
+        </nav>
+        <div class="collapse navbar-collapse" id="#topNavigation">
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main role="main" class="container-fluid">
+    <article>
+      <h1></h1>
+      <div class="alert alert-danger" th:if="${param.error}" th:text="#{message.error.common.failure.login}"></div>
+      <section>
+        <h2 class="text-center">Login <small>ログイン</small></h2>
+        <form id="loginForm" class="form-horizontal" method="post" th:action="@{/authenticate}">
+          <div class="form-group">
+            <label for="username" class="col-sm-offset-2 col-sm-2 control-label">ユーザー</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" name="username" required="" autofocus="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-offset-2 col-sm-2 control-label">パスワード</label>
+            <div class="col-sm-5">
+              <input type="password" class="form-control" name="password" required="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">ログインする</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </article>
+  </main>
+  <footer role="contentinfo">
+    <div class="well">
+      <p class="copyright"><small>&copy; copyright 2016 Hyukke</small></p>
+    </div>
+  </footer>
+  <script type="text/javascript" th:src="@{/js/application.js}"></script>
+</body>
+<script th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+</html>

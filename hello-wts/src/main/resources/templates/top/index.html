@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
 <head>
-  <title>Index</title>
+  <title>Top</title>
 </head>
 <body>
   <main role="main" layout:fragment="content">
     <article>
       <h1>サンプルアプリケーション</h1>
       <section>
-        <h2>インデックスページ</h2>
-        <p>インデックス&nbsp;<span id="date">Date</span></p>
+        <h2>トップページ</h2>
+        <p>ここはトップページです。&nbsp;<span id="date">Date</span></p>
         <section>
           <h3></h3>
-          <div><a th:href="@{/samples}">サンプルページはこちら</a></div>
+          <ul>
+            <li><a th:href="@{/samples}">サンプルページはこちら</a></li>
+          </ul>
         </section>
       </section>
     </article>
