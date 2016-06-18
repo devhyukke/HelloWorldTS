@@ -32,6 +32,9 @@ public class SampleRepository extends AbstractRepository {
         Assert.notNull(id);
 
         Sample entity = this.sampleDao.findById(id);
+        if (entity == null) {
+            return null;
+        }
 
         return this.createDomain(entity, SampleDomain.class);
     }

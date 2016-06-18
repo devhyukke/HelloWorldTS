@@ -18,7 +18,7 @@ public class LoginUser extends User {
     private final jp.ne.hyukke.wts.hello.domain.entity.User user;
     // FIXME 内部オブジェクトを Thymeleaf から取得できない
     @Getter
-    private String displayName;
+    private final String displayName;
 
     /**
      * @param id ユーザー{@code ID}
