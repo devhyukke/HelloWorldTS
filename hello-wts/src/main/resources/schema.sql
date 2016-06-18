@@ -1,5 +1,5 @@
 /* Sample Data */
-drop table T_SAMPLE;
+drop table if exists T_SAMPLE;
 create table if not exists T_SAMPLE (
     SAMPLE_ID int primary key auto_increment,
     SAMPLE_NAME varchar(50),
@@ -7,7 +7,7 @@ create table if not exists T_SAMPLE (
 );
 
 /* User Master */
-drop table M_USER;
+drop table if exists M_USER;
 create table if not exists M_USER (
     USER_ID int primary key auto_increment,
     USERNAME varchar(32),
