@@ -10,41 +10,68 @@
       <section>
         <h2>Sample Page <small>サンプルページ</small></h2>
         <section>
-          <h3>Sample Data <small>サンプルデータ</small></h3>
+          <h3>Samples <small>サンプルデータ</small></h3>
           <ol class="breadcrumb">
             <li class="active">一覧</li>
           </ol>
-          <div class="text-right">
-            <a class="btn btn-success" th:href="@{/samples/editor}">新規作成する</a>
-          </div>
           <section>
-            <h4></h4>
+            <h4>一覧</h4>
             <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
-          </section>
-          <section id="searchCondition">
-            <h4>検索条件</h4>
-            <div style="color: red;">TODO</div>
-          </section>
-          <section id="searchResult">
-            <h4>検索結果</h4>
-            <table class="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th class="text-right">#</th>
-                  <th class="text-center">ID</th>
-                  <th class="text-left">名称</th>
-                  <th class="text-center">種別</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="sample, status : ${samples}" th:object="${sample}">
-                  <td class="text-right"><a class="center-block" th:href="@{/samples/__*{id}__}" th:text="${status.count}">row number</a></td>
-                  <td class="text-center" th:text="*{id}"></td>
-                  <td class="text-left" th:text="*{name}"></td>
-                  <td class="text-center" th:if="*{type != null}" th:text="*{type.label}"></td>
-                </tr>
-              </tbody>
-            </table>
+            <div>
+              <p class="text-right">
+                <a class="btn btn-success" th:href="@{/samples/editor}">新規作成する</a>
+              </p>
+            </div>
+            <div class="panel-group" id="searchContents" role="tablist" aria-multiselectable="true">
+              <!-- Search Condition -->
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="searchConditionTitle">
+                  <h5 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#searchContents" 
+                        href="#searchCondition" aria-expanded="true" aria-controls="searchCondition">検索条件</a>
+                  </h5>
+                </div>
+                <div id="searchCondition" class="panel-collapse collapse" role="tabpanel" aria-labelledby="searchConditionTitle">
+                  <div class="panel-body">
+                    <div style="color: red;">TODO</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Search Result -->
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="searchResultTitle">
+                  <h5 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#searchContents" 
+                        href="#searchResult" aria-expanded="true" aria-controls="searchResult">検索結果</a>
+                  </h5>
+                </div>
+                <div id="searchResult" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="searchResultTitle">
+                  <div class="panel-body">
+                    <div>
+                      <span>件数 <strong class="" th:text="${samples.size()}"></strong> 件</span>
+                    </div>
+                  </div>
+                  <table class="table table-striped table-hover" th:if="${not samples.isEmpty()}">
+                    <thead>
+                      <tr>
+                        <th class="text-right">#</th>
+                        <th class="text-center">ID</th>
+                        <th class="text-left">名称</th>
+                        <th class="text-center">種別</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="sample, status : ${samples}" th:object="${sample}">
+                        <td class="text-right"><a class="center-block" th:href="@{/samples/__*{id}__}" th:text="${status.count}">row number</a></td>
+                        <td class="text-center" th:text="*{id}"></td>
+                        <td class="text-left" th:text="*{name}"></td>
+                        <td class="text-center" th:if="*{type != null}" th:text="*{type.label}"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </section>
         </section>
       </section>
