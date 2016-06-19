@@ -34,8 +34,8 @@
                   <div class="col-sm-8">
                     <input type="text" class="form-control" th:field="*{name}" />
                     <th:block th:if="${#fields.hasErrors('*{name}')}">
-                      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                      <span id="inputError2Status" class="sr-only">(error)</span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
                     </th:block>
                   </div>
                 </div>
@@ -47,8 +47,8 @@
                       <option th:each="sampleType : ${sampleTypes}" th:value="${sampleType.name()}" th:text="${sampleType.label}"></option>
                     </select>
                     <th:block th:if="${#fields.hasErrors('*{type}')}">
-                      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                      <span id="inputError2Status" class="sr-only">(error)</span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
                     </th:block>
                   </div>
                 </div>
