@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{type}') ? 'has-error has-feedback' : ''}">
                   <label for="type" class="col-sm-3 control-label">種別</label>
-                  <div class="col-sm-8">
+                  <div class="col-sm-4">
                     <select class="form-control" th:field="*{type}">
                       <option value="">----</option>
                       <option th:each="sampleType : ${sampleTypes}" th:value="${sampleType.name()}" th:text="${sampleType.label}"></option>
