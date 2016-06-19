@@ -1,12 +1,11 @@
-package jp.ne.hyukke.wts.hello.domain.service;
+package jp.ne.hyukke.wts.hello.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import jp.ne.hyukke.wts.hello.domain.entity.LoginUser;
 import jp.ne.hyukke.wts.hello.domain.repository.UserDomain;
 import jp.ne.hyukke.wts.hello.domain.repository.UserRepository;
 
@@ -15,7 +14,7 @@ import jp.ne.hyukke.wts.hello.domain.repository.UserRepository;
  *
  * @author hyukke
  */
-@Service
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

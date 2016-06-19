@@ -1,4 +1,4 @@
-package jp.ne.hyukke.wts.hello.domain.entity;
+package jp.ne.hyukke.wts.hello.web.security;
 
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -16,9 +16,6 @@ public class LoginUser extends User {
 
     @Getter
     private final jp.ne.hyukke.wts.hello.domain.entity.User user;
-    // FIXME 内部オブジェクトを Thymeleaf から取得できない
-    @Getter
-    private final String displayName;
 
     /**
      * @param id ユーザー{@code ID}
@@ -30,6 +27,5 @@ public class LoginUser extends User {
         // TODO 権限の取り扱い
         super(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList("ADMIN"));
         this.user = user;
-        this.displayName = user.getDisplayName();
     }
 }
