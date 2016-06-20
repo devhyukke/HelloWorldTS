@@ -88,7 +88,7 @@ public class SampleController {
                 .filter(StringUtils::hasText)
                 .ifPresent(query -> model.addAttribute(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY, query));
 
-        return "samples/search";
+        return "samples/list";
     }
 
     /**
