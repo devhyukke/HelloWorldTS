@@ -1,16 +1,22 @@
 package jp.ne.hyukke.wts.hello.web.controller;
 
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
@@ -19,6 +25,7 @@ import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.domain.service.SampleService;
 import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
+import jp.ne.hyukke.wts.hello.web.WebMvcConfig;
 import jp.ne.hyukke.wts.hello.web.form.SampleForm;
 import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
 
@@ -29,6 +36,7 @@ import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
  */
 @Controller
 @RequestMapping("/samples")
+@SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_SESSION_KEY)
 public class SampleController {
 
     @Autowired
@@ -44,16 +52,41 @@ public class SampleController {
     }
 
     /**
+     * @param model モデル
+     * @return クエリ文字列
+     */
+    @ModelAttribute("queryString")
+    public String queryString(Model model) {
+
+        Object query = model.asMap().get(WebMvcConfig.SEARCH_CONDITION_QUERY_SESSION_KEY);
+        if (query == null) {
+            return "";
+        }
+        return "?".concat(String.class.cast(query));
+    }
+
+    /**
      * ビューを表示する.
      *
      * @param model モデル
      * @return ビュー
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String show(@ModelAttribute("sampleSearchForm") SampleSearchForm form, Model model) {
+    public String show(
+            @ModelAttribute("sampleSearchForm") SampleSearchForm form, Model model, SessionStatus status,
+            HttpServletRequest request) {
+
+        // 初期表示時の検索の場合はセッションをクリア
+        if (StringUtils.isEmpty(request.getQueryString())) {
+            status.setComplete();
+        }
 
         SampleConditionVo condition = SampleConditionVo.valueOf(form.getId(), form.getName(), form.getType());
         model.addAttribute("page", this.sampleService.findByCondition(condition));
+
+        Optional.ofNullable(request.getQueryString())
+                .filter(StringUtils::hasText)
+                .ifPresent(query -> model.addAttribute(WebMvcConfig.SEARCH_CONDITION_QUERY_SESSION_KEY, query));
 
         return "samples/search";
     }
@@ -108,7 +141,7 @@ public class SampleController {
     }
 
     /**
-     * 作成する.
+     * 新規作成する.
      *
      * @param form フォーム
      * @param bindingResult バインド結果
@@ -133,7 +166,7 @@ public class SampleController {
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
 
-        return "redirect:/samples";
+        return "redirect:/samples".concat(this.queryString(model));
     }
 
     /**
@@ -186,6 +219,6 @@ public class SampleController {
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.delete.success"));
 
-        return "redirect:/samples";
+        return "redirect:/samples".concat(this.queryString(model));
     }
 }

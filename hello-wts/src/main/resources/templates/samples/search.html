@@ -80,7 +80,7 @@
                     <ul class="list-inline">
                       <li>総件数 <strong th:text="${page.total}"></strong> 件</li>
                       <li>該当件数 <strong th:text="${page.content.size()}"></strong> 件</li>
-                      <li th:if="${not param.empty}">指定条件 <em th:text="|ID:${sampleSearchForm.id == null ? '----' : sampleSearchForm.id} 名称:${sampleSearchForm.name == '' ? '----' : sampleSearchForm.name} 種別:${sampleSearchForm.type == null ? '----' : sampleSearchForm.type.label}|"></em></li>
+                      <li th:if="${not param.empty}">条件 <em th:text="|ID:${sampleSearchForm.id == null ? '----' : sampleSearchForm.id} 名称:${sampleSearchForm.name == '' ? '----' : sampleSearchForm.name} 種別:${sampleSearchForm.type == null ? '----' : sampleSearchForm.type.label}|"></em></li>
                     </ul>
                     <div role="alert" class="text-warning" th:if="${page.content.empty}"><span th:text="#{message.warning.common.result.empty}">Data is Empty.</span></div>
                   </div>
