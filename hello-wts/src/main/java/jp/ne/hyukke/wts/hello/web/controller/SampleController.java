@@ -35,9 +35,11 @@ import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
  * @author hyukke
  */
 @Controller
-@RequestMapping("/samples")
+@RequestMapping("samples")
 @SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
 public class SampleController {
+
+    private static final String FORM_KEY = "sampleForm";
 
     @Autowired
     private SampleService sampleService;
@@ -100,7 +102,7 @@ public class SampleController {
     @RequestMapping(value = "editor", method = RequestMethod.GET)
     public String showCreateNew(Model model) {
 
-        model.addAttribute("sampleForm", new SampleForm());
+        model.addAttribute(FORM_KEY, new SampleForm());
 
         return "samples/create";
     }
@@ -135,7 +137,7 @@ public class SampleController {
         BeanUtils.copyProperties(sample, form);
 
         model.addAttribute("sample", sample);
-        model.addAttribute("sampleForm", form);
+        model.addAttribute(FORM_KEY, form);
 
         return "samples/edit";
     }
@@ -151,11 +153,11 @@ public class SampleController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String create(
-            @Valid @ModelAttribute("sampleForm") SampleForm form,
+            @Valid @ModelAttribute(FORM_KEY) SampleForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("sampleForm", form);
+            model.addAttribute(FORM_KEY, form);
             return "samples/create";
         }
 
@@ -182,12 +184,12 @@ public class SampleController {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public String update(
             @PathVariable Integer id,
-            @Valid @ModelAttribute("sampleForm") SampleForm form, BindingResult bindingResult,
+            @Valid @ModelAttribute(FORM_KEY) SampleForm form, BindingResult bindingResult,
             Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("sample", this.sampleService.findById(id));
-            model.addAttribute("sampleForm", form);
+            model.addAttribute(FORM_KEY, form);
             return "samples/edit";
         }
 
