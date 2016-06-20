@@ -36,7 +36,7 @@ import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
  */
 @Controller
 @RequestMapping("/samples")
-@SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_SESSION_KEY)
+@SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
 public class SampleController {
 
     @Autowired
@@ -58,7 +58,7 @@ public class SampleController {
     @ModelAttribute("queryString")
     public String queryString(Model model) {
 
-        Object query = model.asMap().get(WebMvcConfig.SEARCH_CONDITION_QUERY_SESSION_KEY);
+        Object query = model.asMap().get(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY);
         if (query == null) {
             return "";
         }
@@ -86,7 +86,7 @@ public class SampleController {
 
         Optional.ofNullable(request.getQueryString())
                 .filter(StringUtils::hasText)
-                .ifPresent(query -> model.addAttribute(WebMvcConfig.SEARCH_CONDITION_QUERY_SESSION_KEY, query));
+                .ifPresent(query -> model.addAttribute(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY, query));
 
         return "samples/search";
     }

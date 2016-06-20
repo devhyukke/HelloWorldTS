@@ -7,6 +7,6 @@ package jp.ne.hyukke.wts.hello.web;
  */
 public class WebMvcConfig {
 
-    /** 検索条件クエリをセッションに格納する際のキー */
-    public static final String SEARCH_CONDITION_QUERY_SESSION_KEY = "searchConditionQuery";
+    /** 検索条件クエリのキー */
+    public static final String SEARCH_CONDITION_QUERY_KEY = "searchConditionQuery";
 }
