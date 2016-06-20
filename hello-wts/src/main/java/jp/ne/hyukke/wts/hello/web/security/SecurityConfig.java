@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -64,49 +65,48 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // XXX case 1 クラスで定義
-//    @Configuration
-//    @Profile("local")
-//    static class LocalAuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-//
-//        @Override
-//        public void init(AuthenticationManagerBuilder auth) throws Exception {
-//            // インメモリによる認証
-//            auth.inMemoryAuthentication()
-//                    .withUser("Username").password("Password").roles("ADMIN");
-//        }
-//    }
-//
-//    @Configuration
-//    @Profile("development")
-//    static class DevelopmentAuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-//
-//        @Autowired
-//        private UserDetailsServiceImpl userDetailsServiceImpl;
-//        @Autowired
-//        private PasswordEncoder passwordEncoder;
-//
-//        @Override
-//        public void init(AuthenticationManagerBuilder auth) throws Exception {
-//            auth.userDetailsService(this.userDetailsServiceImpl)
-//                    .passwordEncoder(this.passwordEncoder);
-//        }
-//    }
-
-    // XXX case 2 メソッドで定義
-    @Autowired
+    // インメモリでの認証
+    @Configuration
     @Profile("mock")
-    public void configureAuthenticationLocal(AuthenticationManagerBuilder auth) throws Exception {
-        // インメモリでの認証
-        // TODO 権限について整理
-        auth.inMemoryAuthentication()
-                .withUser("Username").password("Password").roles("ADMIN");
+    static class LocalAuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+
+        @Override
+        public void init(AuthenticationManagerBuilder auth) throws Exception {
+            // インメモリによる認証
+            auth.inMemoryAuthentication()
+                    .withUser("Username").password("Password").roles("ADMIN");
+        }
     }
 
-    @Autowired
+    // カスタムでの認証
+    @Configuration
     @Profile("local")
-    public void configureAuthenticationDevelopment(AuthenticationManagerBuilder auth) throws Exception {
-        // カスタムでの認証
-        auth.userDetailsService(this.userDetailsService)
-                .passwordEncoder(this.passwordEncoder());
+    static class DevelopmentAuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+
+        @Autowired
+        private UserDetailsServiceImpl userDetailsServiceImpl;
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+
+        @Override
+        public void init(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(this.userDetailsServiceImpl)
+                    .passwordEncoder(this.passwordEncoder);
+        }
     }
+
+    // XXX case 2 メソッドで定義 @Profileによる識別はできない
+//    @Autowired
+//    public void configureAuthenticationLocal(AuthenticationManagerBuilder auth) throws Exception {
+//        // インメモリでの認証
+//        auth.inMemoryAuthentication()
+//                .withUser("Username").password("Password").roles("ADMIN");
+//    }
+//
+//    @Autowired
+//    public void configureAuthenticationDevelopment(AuthenticationManagerBuilder auth) throws Exception {
+//        // カスタムでの認証
+//        auth.userDetailsService(this.userDetailsService)
+//                .passwordEncoder(this.passwordEncoder());
+//    }
 }
