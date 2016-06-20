@@ -59,18 +59,6 @@ public class SampleController {
     }
 
     /**
-     * クリアする.
-     *
-     * @param model モデル
-     * @return ビュー
-     */
-    @RequestMapping(method = RequestMethod.GET, params = "clear")
-    public String clear(Model model) {
-
-        return "redirect:/samples";
-    }
-
-    /**
      * 新規作成のビューを表示する.
      *
      * @param model モデル
