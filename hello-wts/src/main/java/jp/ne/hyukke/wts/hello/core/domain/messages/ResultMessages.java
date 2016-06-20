@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ResultMessages implements Serializable, Iterable<ResultMessage> {
 
+    private static final long serialVersionUID = -2734694231168426029L;
+
     private final ResultMessageType type;
 
     private final List<ResultMessage> list = new ArrayList<>();
