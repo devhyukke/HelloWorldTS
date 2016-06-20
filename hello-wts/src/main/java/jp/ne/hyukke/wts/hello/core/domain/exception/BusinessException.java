@@ -2,8 +2,6 @@ package jp.ne.hyukke.wts.hello.core.domain.exception;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
 
-import lombok.Getter;
-
 /**
  * 業務エラーが発生した際に投げられる例外クラス.
  *
@@ -13,7 +11,6 @@ public class BusinessException extends Exception {
 
     private static final long serialVersionUID = 8872864080368180445L;
 
-    @Getter
     private ResultMessages messages;
 
     /**
@@ -30,5 +27,12 @@ public class BusinessException extends Exception {
      */
     public BusinessException(ResultMessages messages) {
         this.messages = messages;
+    }
+
+    /**
+     * @return 結果メッセージ
+     */
+    public ResultMessages getMessages() {
+        return this.messages;
     }
 }

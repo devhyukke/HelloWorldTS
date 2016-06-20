@@ -2,19 +2,15 @@ package jp.ne.hyukke.wts.hello.core.domain.messages;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 複数の結果メッセージを保持するクラス.
  *
  * @author hyukke
  */
-@Getter
-@RequiredArgsConstructor
 public class ResultMessages implements Serializable, Iterable<ResultMessage> {
 
     private static final long serialVersionUID = -2734694231168426029L;
@@ -22,6 +18,13 @@ public class ResultMessages implements Serializable, Iterable<ResultMessage> {
     private final ResultMessageType type;
 
     private final List<ResultMessage> list = new ArrayList<>();
+
+    /**
+     * @param type 結果メッセージの種別
+     */
+    public ResultMessages(ResultMessageType type) {
+        this.type = type;
+    }
 
     @Override
     public Iterator<ResultMessage> iterator() {
@@ -70,5 +73,19 @@ public class ResultMessages implements Serializable, Iterable<ResultMessage> {
     public ResultMessages add(String code, Object... args) {
         this.list.add(new ResultMessage(code, args));
         return this;
+    }
+
+    /**
+     * @return 結果メッセージの種別
+     */
+    public ResultMessageType getType() {
+        return this.type;
+    }
+
+    /**
+     * @return メッセージ
+     */
+    public List<ResultMessage> getList() {
+        return Collections.unmodifiableList(this.list);
     }
 }

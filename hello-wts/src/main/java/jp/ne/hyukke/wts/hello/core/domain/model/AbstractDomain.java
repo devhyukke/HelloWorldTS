@@ -1,8 +1,5 @@
 package jp.ne.hyukke.wts.hello.core.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * ドメインの抽象クラス.
  *
@@ -11,7 +8,19 @@ import lombok.Setter;
  */
 public abstract class AbstractDomain<E> {
 
-    @Getter
-    @Setter(lombok.AccessLevel.PACKAGE)
     private E entity;
+
+    /**
+     * @return エンティティ
+     */
+    public E getEntity() {
+        return this.entity;
+    }
+
+    /**
+     * @param entity エンティティ
+     */
+    void setEntity(E entity) {
+        this.entity = entity;
+    }
 }
