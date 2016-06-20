@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleDomain;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleRepository;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 
 /**
  * サンプルを扱うサービスクラス.
@@ -54,6 +56,18 @@ public class SampleService {
         return domains.stream()
                 .map(SampleDomain::getEntity)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 指定された条件に合致するエンティティを検索する.
+     *
+     * @param condition 条件
+     * @return 結果ページ
+     */
+    public ResultPage<Sample> findByCondition(SampleConditionVo condition) {
+        Assert.notNull(condition);
+
+        return this.repository.findByCondition(condition);
     }
 
     /**

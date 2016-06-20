@@ -18,6 +18,7 @@ import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.domain.service.SampleService;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 import jp.ne.hyukke.wts.hello.web.form.SampleForm;
 import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
 
@@ -51,10 +52,22 @@ public class SampleController {
     @RequestMapping(method = RequestMethod.GET)
     public String show(@ModelAttribute("sampleSearchForm") SampleSearchForm form, Model model) {
 
-        // TODO 条件を指定した検索処理に修正
-        model.addAttribute("samples", this.sampleService.findAll());
+        SampleConditionVo condition = SampleConditionVo.valueOf(form.getId(), form.getName(), form.getType());
+        model.addAttribute("page", this.sampleService.findByCondition(condition));
 
         return "samples/search";
+    }
+
+    /**
+     * クリアする.
+     *
+     * @param model モデル
+     * @return ビュー
+     */
+    @RequestMapping(method = RequestMethod.GET, params = "clear")
+    public String clear(Model model) {
+
+        return "redirect:/samples";
     }
 
     /**

@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.SampleDao;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 import jp.ne.hyukke.wts.hello.persistence.entity.TSample;
 import jp.ne.hyukke.wts.hello.persistence.repository.TSampleRepository;
+import jp.ne.hyukke.wts.hello.persistence.spec.TSampleSpecs;
 
 /**
  * {@link SampleDao}の実装クラス.
@@ -43,6 +46,17 @@ public class SampleDaoImpl implements SampleDao {
         return entities.stream()
                 .map(TSample::toSample)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ResultPage<Sample> findByCondition(SampleConditionVo condition) {
+
+        long total = this.repository.count();
+        List<TSample> entities = this.repository.findAll(TSampleSpecs.byCondition(condition));
+
+        return new ResultPage<>(total, entities.stream()
+                .map(TSample::toSample)
+                .collect(Collectors.toList()));
     }
 
     @Override

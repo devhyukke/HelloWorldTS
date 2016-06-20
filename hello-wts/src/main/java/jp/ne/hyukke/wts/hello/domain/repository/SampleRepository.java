@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.AbstractRepository;
+import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.SampleDao;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 
 /**
  * サンプルを扱うリポジトリクラス.
@@ -51,6 +53,18 @@ public class SampleRepository extends AbstractRepository {
         return entities.stream()
                 .map(entity -> this.createDomain(entity, SampleDomain.class))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 指定された条件に合致するエンティティを検索する.
+     *
+     * @param condition 条件
+     * @return 結果ページ
+     */
+    public ResultPage<Sample> findByCondition(SampleConditionVo condition) {
+        Assert.notNull(condition);
+
+        return this.sampleDao.findByCondition(condition);
     }
 
     // XXX エンティティではなくドメインモデルが正解と思われる

@@ -2,7 +2,9 @@ package jp.ne.hyukke.wts.hello.domain.dao;
 
 import java.util.List;
 
+import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 
 /**
  * サンプルのデータにアクセスするインタフェース.
@@ -25,6 +27,14 @@ public interface SampleDao {
      * @return エンティティ
      */
     List<Sample> findAll();
+
+    /**
+     * 指定された条件でエンティティを検索する.
+     *
+     * @param condition 条件
+     * @return 結果ページ
+     */
+    ResultPage<Sample> findByCondition(SampleConditionVo condition);
 
     /**
      * エンティティを登録する.

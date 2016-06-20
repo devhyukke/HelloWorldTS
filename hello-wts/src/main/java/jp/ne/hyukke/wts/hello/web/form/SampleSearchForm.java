@@ -13,7 +13,7 @@ import lombok.Data;
 public class SampleSearchForm {
 
     /** {@code ID} */
-    private String id;
+    private Integer id;
     /** 名称 */
     private String name;
     /** 種別 */
