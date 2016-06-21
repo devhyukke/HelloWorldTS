@@ -36,10 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // FIXME ログアウトしてもセッション無効の扱いになってしまう
         // セッション管理を設定
         http.sessionManagement()
-//                .invalidSessionUrl("/login?timeout")    // セッション無効の URL
+                .invalidSessionUrl("/login?timeout")    // セッション無効の URL
                 .sessionFixation().newSession()         // セッション ID を変更し新しく再作成
                 .maximumSessions(1)                     // 最大セッション数
                 .expiredUrl("/login?expired");          // セッション有効期限切れの URL
@@ -62,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))   // ログアウトの URL
                 .logoutSuccessUrl("/login?success")                             // ログアウト成功時の URL
+                .invalidateHttpSession(false)                                   // セッションを無効にする
                 .deleteCookies("JSESSIONID");                                   // クッキーからの削除
     }
 
