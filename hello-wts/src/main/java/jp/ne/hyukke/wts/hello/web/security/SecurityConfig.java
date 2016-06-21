@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")                                  // ユーザー名のパラメータ
                 .passwordParameter("password")                                  // パスワードのパラメータ
         .and().rememberMe()
-            .tokenValiditySeconds(this.tokenValiditySeconds)                    // トークンの有効期間
+                .tokenValiditySeconds(this.tokenValiditySeconds)                // トークンの有効期間
         .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))   // ログアウトの URL
                 .logoutSuccessUrl("/login?success")                             // ログアウト成功時の URL
