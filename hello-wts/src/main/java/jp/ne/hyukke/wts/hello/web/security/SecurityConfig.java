@@ -1,6 +1,7 @@
 package jp.ne.hyukke.wts.hello.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -23,8 +24,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    @Value("${hello-wts.rememberMe.tokenValiditySeconds}")
+    private int tokenValiditySeconds;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -35,22 +36,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // 認可の設定
+        // FIXME ログアウトしてもセッション無効の扱いになってしまう
+        // セッション管理を設定
+        http.sessionManagement()
+//                .invalidSessionUrl("/login?timeout")    // セッション無効の URL
+                .sessionFixation().newSession()         // セッション ID を変更し新しく再作成
+                .maximumSessions(1)                     // 最大セッション数
+                .expiredUrl("/login?expired");          // セッション有効期限切れの URL
+
+        // 認可を設定
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()  // 認証なしでアクセス可能
                 .anyRequest().authenticated();      // それ以外は認証なしではアクセス不可
 
-        // ログイン設定
+        // ログインおよびログアウトを設定
         http.formLogin()
-                .loginProcessingUrl("/authenticate")    // 認証処理の URL
-                .loginPage("/login")                    // ログインページの URL
-                .failureUrl("/login?error")             // ログイン失敗時の URL
-                .defaultSuccessUrl("/index")            // ログイン成功時の URL
-                .usernameParameter("username")          // ユーザー名のパラメータ
-                .passwordParameter("password");         // パスワードのパラメータ
-
-        // ログアウト設定
-        http.logout()
+                .loginProcessingUrl("/authenticate")                            // 認証処理の URL
+                .loginPage("/login")                                            // ログインページの URL
+                .failureUrl("/login?error")                                     // ログイン失敗時の URL
+                .defaultSuccessUrl("/index")                                    // ログイン成功時の URL
+                .usernameParameter("username")                                  // ユーザー名のパラメータ
+                .passwordParameter("password")                                  // パスワードのパラメータ
+        .and().rememberMe()
+            .tokenValiditySeconds(this.tokenValiditySeconds)                    // トークンの有効期間
+        .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))   // ログアウトの URL
                 .logoutSuccessUrl("/login?success")                             // ログアウト成功時の URL
                 .deleteCookies("JSESSIONID");                                   // クッキーからの削除
@@ -96,6 +105,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // XXX case 2 メソッドで定義 @Profileによる識別はできない
+//    @Autowired
+//    private UserDetailsServiceImpl userDetailsService;
+//
 //    @Autowired
 //    public void configureAuthenticationLocal(AuthenticationManagerBuilder auth) throws Exception {
 //        // インメモリでの認証

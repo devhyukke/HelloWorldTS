@@ -3,7 +3,9 @@ server:
   # http://localhost:9080/hello-world-ts
   contextPath: /hello-world-ts
   port: 9080
+  session-timeout: 28800
 
+# Spring setting
 spring:
   # Thymeleaf setting
   thymeleaf:
@@ -22,3 +24,8 @@ spring:
   # Message source setting
   messages:
     basename: i18n/messages
+
+# Application custom setting
+hello-wts:
+  rememberMe:
+    tokenValiditySeconds: 14400
