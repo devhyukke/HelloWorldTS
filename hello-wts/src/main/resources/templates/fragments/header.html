@@ -22,11 +22,12 @@
               <li><p class="dropdown-header" th:text="ADMIN">Role name</p></li>
               <li><a href="javascript:alert('未実装です');"><span class="glyphicon glyphicon-question-sign" area-hidden="true"></span> ヘルプ</a></li>
               <li class="divider"></li>
-              <li><a href="/logout" th:href="@{/logout}"><span class="glyphicon glyphicon-log-out" area-hidden="true"></span> ログアウト</a></li>
+              <li><a href="javascript:void(0);" class="confirm-modal-dialog" data-toggle="modal" data-target="#confirmModalDialog" data-backdrop="static" th:attr="data-href=@{/logout}"><span class="glyphicon glyphicon-log-out" area-hidden="true"></span> ログアウト</a></li>
             </ul>
           </li>
         </ul>
       </div>
+      <div th:replace="fragments/confirm_modal_dialog :: modalDialog (confirmMessage = 'ログアウトします。よろしいですか？')"></div>
     </div>
   </nav>
 </header>

@@ -44,12 +44,13 @@
                     <a class="btn btn-default" th:href="@{/samples__${queryString}__}"><span class="glyphicon glyphicon-list" area-hidden="true"></span> 一覧に戻る</a>
                   </div>
                   <div class="col-sm-6 text-right">
-                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove" area-hidden="true"></span> 削除する</button>
+                    <button type="submit" class="btn btn-danger confirm-modal-dialog" data-toggle="modal" data-target="#confirmModalDialog" data-backdrop="static"><span class="glyphicon glyphicon-remove" area-hidden="true"></span> 削除する</button>
                     <a class="btn btn-success" th:href="@{/samples/__*{id}__/editor}"><span class="glyphicon glyphicon-edit" area-hidden="true"></span> 編集する</a>
                   </div>
                 </div>
               </form>
             </section>
+            <div th:replace="fragments/confirm_modal_dialog :: modalDialog (confirmMessage = '削除を行います。よろしいですか？')"></div>
           </section>
         </section>
       </section>

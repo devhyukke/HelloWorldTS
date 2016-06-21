@@ -49,11 +49,12 @@
                     <a class="btn btn-default" th:href="@{/samples__${queryString}__}"><span class="glyphicon glyphicon-list" area-hidden="true"></span> 一覧に戻る</a>
                   </div>
                   <div class="col-sm-6 text-right">
-                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-save" area-hidden="true"></span> 登録する</button>
+                    <button type="submit" class="btn btn-success confirm-modal-dialog" data-toggle="modal" data-target="#confirmModalDialog" data-backdrop="static"><span class="glyphicon glyphicon-save" area-hidden="true"></span> 登録する</button>
                   </div>
                 </div>
               </form>
             </section>
+            <div th:replace="fragments/confirm_modal_dialog :: modalDialog (confirmMessage = '登録を行います。よろしいですか？')"></div>
           </section>
         </section>
       </section>

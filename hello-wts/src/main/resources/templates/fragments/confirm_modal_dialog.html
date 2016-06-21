@@ -1,0 +1,20 @@
+<div class="modal fade" tabindex="-1" role="dialog" area-labelledby="modalDialog" th:fragment="modalDialog" th:id="${modalDialogId ?: 'confirmModalDialog'}">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <span class="glyphicon glyphicon-question-sign" area-hidden="true"></span> 確認
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p th:text="${confirmMessage ?: '処理を行います。よろしいですか？'}">Confirm message</p>
+      </div>
+      <div class="modal-footer">
+        <div class="text-right">
+          <button type="button" class="btn btn-default btn-sm confirm-modal-dialog-cancel" data-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-primary btn-sm confirm-modal-dialog-ok" data-loading-text="処理中..." autocomplete="off">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
