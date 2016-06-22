@@ -1,16 +1,41 @@
-/* Sample Data */
-drop table if exists T_SAMPLE;
-create table if not exists T_SAMPLE (
-    SAMPLE_ID int primary key auto_increment,
-    SAMPLE_NAME varchar(50),
-    SAMPLE_TYPE varchar(10)
+
+/* Drop Tables */
+
+DROP TABLE M_USER;
+DROP TABLE T_SAMPLE;
+
+
+
+
+/* Create Tables */
+
+CREATE TABLE M_USER
+(
+	USER_ID int NOT NULL auto_increment,
+	USERNAME varchar(32) NOT NULL,
+	PASSWORD varchar(60) NOT NULL,
+	DISPLAY_NAME varchar(64) NOT NULL,
+	REGISTERED_USERNAME varchar(32) NOT NULL,
+	REGISTERED_DATE timestamp NOT NULL,
+	UPDATED_USERNAME varchar(32) NOT NULL,
+	UPDATED_DATE timestamp NOT NULL,
+	DELETED boolean DEFAULT 'FALSE' NOT NULL,
+	PRIMARY KEY (USER_ID)
 );
 
-/* User Master */
-drop table if exists M_USER;
-create table if not exists M_USER (
-    USER_ID int primary key auto_increment,
-    USERNAME varchar(32),
-    PASSWORD varchar(60),
-    DISPLAY_NAME varchar(64)
+
+CREATE TABLE T_SAMPLE
+(
+	SAMPLE_ID int NOT NULL auto_increment,
+	SAMPLE_NAME varchar(64) NOT NULL,
+	SAMPLE_TYPE varchar(10) NOT NULL,
+	REGISTERED_USERNAME varchar(32) NOT NULL,
+	REGISTERED_DATE timestamp NOT NULL,
+	UPDATED_USERNAME varchar(32) NOT NULL,
+	UPDATED_DATE timestamp NOT NULL,
+	DELETED boolean DEFAULT 'FALSE' NOT NULL,
+	PRIMARY KEY (SAMPLE_ID)
 );
+
+
+
