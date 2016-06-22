@@ -61,7 +61,7 @@ public class SampleDaoImpl implements SampleDao {
     }
 
     @Override
-    public void register(Sample entity) {
+    public Sample register(Sample entity) {
         Assert.notNull(entity);
 
         TSample e = new TSample();
@@ -73,11 +73,13 @@ public class SampleDaoImpl implements SampleDao {
         e.setRegisteredDate(today);
         e.setUpdatedUsername("Username");
         e.setUpdatedDate(today);
-        this.repository.save(e);
+
+        return this.repository.save(e)
+                .toSample();
     }
 
     @Override
-    public void update(Sample entity) {
+    public Sample update(Sample entity) {
         Assert.notNull(entity);
 
         // TODO 排他制御
@@ -89,7 +91,9 @@ public class SampleDaoImpl implements SampleDao {
         Date today = new Date();
         e.setUpdatedUsername("Username");
         e.setUpdatedDate(today);
-        this.repository.save(e);
+
+        return this.repository.save(e)
+                .toSample();
     }
 
     @Override

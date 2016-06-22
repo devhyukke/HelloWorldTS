@@ -40,15 +40,17 @@ public interface SampleDao {
      * エンティティを登録する.
      *
      * @param entity エンティティ
+     * @return 登録済みのエンティティ
      */
-    void register(Sample entity);
+    Sample register(Sample entity);
 
     /**
      * エンティティを更新する.
      *
      * @param entity エンティティ
+     * @return 更新済みのエンティティ
      */
-    void update(Sample entity);
+    Sample update(Sample entity);
 
     /**
      * 指定された{@code ID}でエンティティを削除する.

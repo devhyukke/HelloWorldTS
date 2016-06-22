@@ -164,9 +164,10 @@ public class SampleController {
         SampleDto dto = new SampleDto();
         dto.setName(form.getName());
         dto.setType(form.getType());
-        this.sampleService.register(dto);
+        Sample registerd = this.sampleService.register(dto);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
+        attributes.addFlashAttribute("newCreation", registerd);
 
         return "redirect:/samples".concat(this.queryString(model));
     }

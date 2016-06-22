@@ -72,24 +72,26 @@ public class SampleRepository extends AbstractRepository {
      * 指定されたエンティティを登録する.
      *
      * @param entity エンティティ
+     * @return 登録済みのエンティティ
      */
-    public void register(Sample entity) {
+    public Sample register(Sample entity) {
         Assert.notNull(entity);
 
         // TODO ドメインレイヤにおける入力値の検証
 
-        this.sampleDao.register(entity);
+        return this.sampleDao.register(entity);
     }
 
     /**
      * 指定されたエンティティを更新する.
      *
      * @param entity エンティティ
+     * @return 更新済みのエンティティ
      */
-    public void update(Sample entity) {
+    public Sample update(Sample entity) {
         Assert.notNull(entity);
 
-        this.sampleDao.update(entity);
+        return this.sampleDao.update(entity);
     }
 
     /**
