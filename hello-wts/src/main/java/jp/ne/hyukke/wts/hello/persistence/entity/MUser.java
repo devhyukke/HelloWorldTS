@@ -21,10 +21,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "M_USER")
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class MUser implements Serializable {
+public class MUser extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

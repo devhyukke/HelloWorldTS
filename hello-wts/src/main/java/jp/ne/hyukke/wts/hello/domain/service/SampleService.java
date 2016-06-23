@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleDomain;
 import jp.ne.hyukke.wts.hello.domain.repository.SampleRepository;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 
 /**
  * サンプルを扱うサービスクラス.
@@ -57,35 +59,49 @@ public class SampleService {
     }
 
     /**
+     * 指定された条件に合致するエンティティを検索する.
+     *
+     * @param condition 条件
+     * @return 結果ページ
+     */
+    public ResultPage<Sample> findByCondition(SampleConditionVo condition) {
+        Assert.notNull(condition);
+
+        return this.repository.findByCondition(condition);
+    }
+
+    /**
      * 指定された{@link SampleDto}でエンティティを登録する.
      *
      * @param dto {@code DTO}
+     * @return 登録済みのエンティティ
      */
     @Transactional
-    public void register(SampleDto dto) {
+    public Sample register(SampleDto dto) {
         Assert.notNull(dto);
 
         Sample entity = new Sample();
         entity.setName(dto.getName());
         entity.setType(dto.getType());
 
-        this.repository.register(entity);
+        return this.repository.register(entity);
     }
 
     /**
      * 指定された{@link SampleDto}でエンティティを更新する.
      *
      * @param dto {@code DTO}
+     * @return 更新済みのエンティティ
      */
     @Transactional
-    public void update(SampleDto dto) {
+    public Sample update(SampleDto dto) {
         Assert.notNull(dto);
 
         Sample entity = Sample.valueOf(dto.getId());
         entity.setName(dto.getName());
         entity.setType(dto.getType());
 
-        this.repository.update(entity);
+        return this.repository.update(entity);
     }
 
     /**

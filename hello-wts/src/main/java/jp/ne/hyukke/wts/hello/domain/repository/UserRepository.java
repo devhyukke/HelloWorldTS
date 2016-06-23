@@ -29,6 +29,9 @@ public class UserRepository extends AbstractRepository {
         Assert.hasText(username);
 
         User entity = this.userDao.findByUsername(username);
+        if (entity == null) {
+            return null;
+        }
 
         return this.createDomain(entity, UserDomain.class);
     }

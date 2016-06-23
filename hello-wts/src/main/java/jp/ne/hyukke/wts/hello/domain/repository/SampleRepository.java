@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.AbstractRepository;
+import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.SampleDao;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 
 /**
  * サンプルを扱うリポジトリクラス.
@@ -32,6 +34,9 @@ public class SampleRepository extends AbstractRepository {
         Assert.notNull(id);
 
         Sample entity = this.sampleDao.findById(id);
+        if (entity == null) {
+            return null;
+        }
 
         return this.createDomain(entity, SampleDomain.class);
     }
@@ -50,29 +55,43 @@ public class SampleRepository extends AbstractRepository {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 指定された条件に合致するエンティティを検索する.
+     *
+     * @param condition 条件
+     * @return 結果ページ
+     */
+    public ResultPage<Sample> findByCondition(SampleConditionVo condition) {
+        Assert.notNull(condition);
+
+        return this.sampleDao.findByCondition(condition);
+    }
+
     // XXX エンティティではなくドメインモデルが正解と思われる
     /**
      * 指定されたエンティティを登録する.
      *
      * @param entity エンティティ
+     * @return 登録済みのエンティティ
      */
-    public void register(Sample entity) {
+    public Sample register(Sample entity) {
         Assert.notNull(entity);
 
         // TODO ドメインレイヤにおける入力値の検証
 
-        this.sampleDao.register(entity);
+        return this.sampleDao.register(entity);
     }
 
     /**
      * 指定されたエンティティを更新する.
      *
      * @param entity エンティティ
+     * @return 更新済みのエンティティ
      */
-    public void update(Sample entity) {
+    public Sample update(Sample entity) {
         Assert.notNull(entity);
 
-        this.sampleDao.update(entity);
+        return this.sampleDao.update(entity);
     }
 
     /**

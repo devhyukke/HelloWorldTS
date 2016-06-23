@@ -1,16 +1,22 @@
 package jp.ne.hyukke.wts.hello.web.controller;
 
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
@@ -18,7 +24,10 @@ import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.domain.service.SampleService;
+import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
+import jp.ne.hyukke.wts.hello.web.WebMvcConfig;
 import jp.ne.hyukke.wts.hello.web.form.SampleForm;
+import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
 
 /**
  * サンプルを操作するコントローラクラス.
@@ -26,8 +35,11 @@ import jp.ne.hyukke.wts.hello.web.form.SampleForm;
  * @author hyukke
  */
 @Controller
-@RequestMapping("/samples")
+@RequestMapping("samples")
+@SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
 public class SampleController {
+
+    private static final String FORM_KEY = "sampleForm";
 
     @Autowired
     private SampleService sampleService;
@@ -42,17 +54,43 @@ public class SampleController {
     }
 
     /**
+     * @param model モデル
+     * @return クエリ文字列
+     */
+    @ModelAttribute("queryString")
+    public String queryString(Model model) {
+
+        Object query = model.asMap().get(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY);
+        if (query == null) {
+            return "";
+        }
+        return "?".concat(String.class.cast(query));
+    }
+
+    /**
      * ビューを表示する.
      *
      * @param model モデル
      * @return ビュー
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String show(Model model) {
+    public String show(
+            @ModelAttribute("sampleSearchForm") SampleSearchForm form, Model model, SessionStatus status,
+            HttpServletRequest request) {
 
-        model.addAttribute("samples", this.sampleService.findAll());
+        // 初期表示時の検索の場合はセッションをクリア
+        if (StringUtils.isEmpty(request.getQueryString())) {
+            status.setComplete();
+        }
 
-        return "samples/search";
+        SampleConditionVo condition = SampleConditionVo.valueOf(form.getId(), form.getName(), form.getType());
+        model.addAttribute("page", this.sampleService.findByCondition(condition));
+
+        Optional.ofNullable(request.getQueryString())
+                .filter(StringUtils::hasText)
+                .ifPresent(query -> model.addAttribute(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY, query));
+
+        return "samples/list";
     }
 
     /**
@@ -64,7 +102,7 @@ public class SampleController {
     @RequestMapping(value = "editor", method = RequestMethod.GET)
     public String showCreateNew(Model model) {
 
-        model.addAttribute("sampleForm", new SampleForm());
+        model.addAttribute(FORM_KEY, new SampleForm());
 
         return "samples/create";
     }
@@ -99,13 +137,13 @@ public class SampleController {
         BeanUtils.copyProperties(sample, form);
 
         model.addAttribute("sample", sample);
-        model.addAttribute("sampleForm", form);
+        model.addAttribute(FORM_KEY, form);
 
         return "samples/edit";
     }
 
     /**
-     * 作成する.
+     * 新規作成する.
      *
      * @param form フォーム
      * @param bindingResult バインド結果
@@ -115,22 +153,23 @@ public class SampleController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String create(
-            @Valid @ModelAttribute("sampleForm") SampleForm form,
+            @Valid @ModelAttribute(FORM_KEY) SampleForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("sampleForm", form);
+            model.addAttribute(FORM_KEY, form);
             return "samples/create";
         }
 
         SampleDto dto = new SampleDto();
         dto.setName(form.getName());
         dto.setType(form.getType());
-        this.sampleService.register(dto);
+        Sample registerd = this.sampleService.register(dto);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
+        attributes.addFlashAttribute("newCreation", registerd);
 
-        return "redirect:/samples";
+        return "redirect:/samples".concat(this.queryString(model));
     }
 
     /**
@@ -146,12 +185,12 @@ public class SampleController {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public String update(
             @PathVariable Integer id,
-            @Valid @ModelAttribute("sampleForm") SampleForm form, BindingResult bindingResult,
+            @Valid @ModelAttribute(FORM_KEY) SampleForm form, BindingResult bindingResult,
             Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("sample", this.sampleService.findById(id));
-            model.addAttribute("sampleForm", form);
+            model.addAttribute(FORM_KEY, form);
             return "samples/edit";
         }
 
@@ -183,6 +222,6 @@ public class SampleController {
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.delete.success"));
 
-        return "redirect:/samples";
+        return "redirect:/samples".concat(this.queryString(model));
     }
 }

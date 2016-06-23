@@ -1,10 +1,12 @@
 package jp.ne.hyukke.wts.hello.domain.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 
@@ -32,6 +34,11 @@ public class Sample implements Serializable {
     /** 種別 */
     @NotNull
     private SampleType type;
+    /** 最終更新日 */
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+    private LocalDateTime lastUpdatedDate;
+    /** バージョン */
+    private long version;
 
     public Sample() {
         this.id = Integer.valueOf(0);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="author" content="Hyukke" />
-  <title>ログイン</title>
+  <title>Hello WTS - ログイン</title>
   <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" />
   <link rel="stylesheet" th:href="@{/css/application.css}" type="text/css" />
 </head>
@@ -14,8 +14,6 @@
         <nav class="navbar-header">
           <span class="navbar-brand"><span class="brand"></span>Hello WorldTS!!</span>
         </nav>
-        <div class="collapse navbar-collapse" id="#topNavigation">
-        </div>
       </div>
     </nav>
   </header>
@@ -23,24 +21,33 @@
     <article>
       <h1></h1>
       <div class="alert alert-danger" th:if="${param.error}" th:text="#{message.error.common.failure.login}"></div>
+      <div class="alert alert-danger" th:if="${param.timeout}" th:text="#{message.error.common.session.timeout}"></div>
+      <div class="alert alert-danger" th:if="${param.expired}" th:text="#{message.error.common.session.expired}"></div>
       <section>
         <h2 class="text-center">Login <small>ログイン</small></h2>
         <form id="loginForm" class="form-horizontal" method="post" th:action="@{/authenticate}">
           <div class="form-group">
             <label for="username" class="col-sm-offset-2 col-sm-2 control-label">ユーザー</label>
             <div class="col-sm-5">
-              <input type="text" class="form-control" name="username" required="" autofocus="" />
+              <input type="text" class="form-control" id="username" name="username" required="" autofocus="" />
             </div>
           </div>
           <div class="form-group">
             <label for="password" class="col-sm-offset-2 col-sm-2 control-label">パスワード</label>
             <div class="col-sm-5">
-              <input type="password" class="form-control" name="password" required="" />
+              <input type="password" class="form-control" id="password" name="password" required="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-5">
+              <div class="checkbox">
+                <label><input type="checkbox" name="remember-me" value="yes" checked="" /> ログイン中の状態を維持する</label>
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="text-center">
-              <button type="submit" class="btn btn-primary">ログインする</button>
+              <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-log-in" area-hidden="true"></span> ログインする</button>
             </div>
           </div>
         </form>
@@ -52,8 +59,8 @@
       <p class="copyright"><small>&copy; copyright 2016 Hyukke</small></p>
     </div>
   </footer>
-  <script type="text/javascript" th:src="@{/js/application.js}"></script>
 </body>
 <script th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/application.js}"></script>
 </html>

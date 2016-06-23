@@ -3,45 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="author" content="Hyukke" />
-  <title>Index</title>
+  <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Hello WTS</title>
   <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" />
   <link rel="stylesheet" th:href="@{/css/application.css}" type="text/css" />
 </head>
 <body>
-  <header role="banner">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <nav class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNavigation" aria-expanded="false">
-            <span class="sr-only">Toggle Navigation</span>
-            <span class="sr-only"></span>
-            <span class="sr-only"></span>
-            <span class="sr-only"></span>
-          </button>
-          <a class="navbar-brand" href="#" th:href="@{/}"><span class="brand"></span>Hello WorldTS!!</a>
-        </nav>
-        <div class="collapse navbar-collapse" id="#topNavigation">
-          <ul class="nav navbar-nav navbar-right">
-            <li><p class="navbar-text">ようこそ&nbsp;<strong sec:authentication="principal.displayName">ゲスト</strong>&nbsp;さん</p></li>
-            <li><a href="/logout" th:href="@{/logout}">ログアウト</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <main role="main" class="container-fluid" layout:fragment="content">
-  </main>
-  <footer role="contentinfo">
-    <div class="well">
-      <ul class="list-inline">
-        <li><a href="#top" th:href="@{/}">トップ</a></li>
-        <li><a href="#" th:href="@{/samples}">サンプル</a></li>
-      </ul>
-      <p class="copyright"><small>&copy; copyright 2016 Hyukke</small></p>
-    </div>
-  </footer>
-  <script type="text/javascript" th:src="@{/js/application.js}"></script>
+  <header role="banner" th:include="fragments/header :: header"></header>
+  <main role="main" class="container-fluid" layout:fragment="content"></main>
+  <footer role="contentinfo" th:include="fragments/footer :: footer"></footer>
 </body>
 <script th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/application.js}"></script>
 </html>

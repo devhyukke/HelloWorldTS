@@ -28,10 +28,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "T_SAMPLE")
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class TSample implements Serializable {
+public class TSample extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -60,6 +60,8 @@ public class TSample implements Serializable {
         Sample sample = Sample.valueOf(this.id);
         sample.setName(this.name);
         sample.setType(this.type);
+        sample.setLastUpdatedDate(this.getUpdatedDate());
+        sample.setVersion(this.getVersion());
         return sample;
     }
 }

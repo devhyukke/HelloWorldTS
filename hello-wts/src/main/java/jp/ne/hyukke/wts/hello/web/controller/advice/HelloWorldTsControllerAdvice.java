@@ -1,4 +1,4 @@
-package jp.ne.hyukke.wts.hello.core.controller.advice;
+package jp.ne.hyukke.wts.hello.web.controller.advice;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.WebDataBinder;
