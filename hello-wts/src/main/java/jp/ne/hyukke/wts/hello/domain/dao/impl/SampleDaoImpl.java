@@ -1,6 +1,6 @@
 package jp.ne.hyukke.wts.hello.domain.dao.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +68,7 @@ public class SampleDaoImpl implements SampleDao {
         e.setName(entity.getName());
         e.setType(entity.getType());
         // TODO 横断的に登録できるように修正
-        Date today = new Date();
+        LocalDateTime today = LocalDateTime.now();
         e.setRegisteredUsername("Username");
         e.setRegisteredDate(today);
         e.setUpdatedUsername("Username");
@@ -88,9 +88,10 @@ public class SampleDaoImpl implements SampleDao {
         e.setName(entity.getName());
         e.setType(entity.getType());
         // TODO 横断的に登録できるように修正
-        Date today = new Date();
+        LocalDateTime today = LocalDateTime.now();
         e.setUpdatedUsername("Username");
         e.setUpdatedDate(today);
+        e.setVersion(e.getVersion() + 1L);
 
         return this.repository.save(e)
                 .toSample();

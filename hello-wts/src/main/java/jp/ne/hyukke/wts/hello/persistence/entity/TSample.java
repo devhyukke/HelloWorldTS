@@ -60,6 +60,8 @@ public class TSample extends AbstractEntity implements Serializable {
         Sample sample = Sample.valueOf(this.id);
         sample.setName(this.name);
         sample.setType(this.type);
+        sample.setLastUpdatedDate(this.getUpdatedDate());
+        sample.setVersion(this.getVersion());
         return sample;
     }
 }

@@ -91,6 +91,7 @@
                         <th class="text-center">ID</th>
                         <th class="text-left">名称</th>
                         <th class="text-center">種別</th>
+                        <th class="text-center">最終更新日</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -99,6 +100,7 @@
                         <td class="text-center" th:text="*{id}"></td>
                         <td class="text-left"><th:block th:text="*{name}"></th:block> <span class="label label-danger" th:if="${newCreation != null and newCreation.id == __*{id}__}">New</span></td>
                         <td class="text-center" th:if="*{type != null}" th:text="*{type.label}"></td>
+                        <td class="text-center" th:text="*{{lastUpdatedDate}}"></td>
                       </tr>
                     </tbody>
                   </table>
