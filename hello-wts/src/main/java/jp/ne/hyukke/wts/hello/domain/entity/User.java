@@ -26,4 +26,13 @@ public class User implements Serializable {
     private String password;
     /** 表示名 */
     private String displayName;
+    /** {@link Role} */
+    private Role role;
+
+    /**
+     * @return システム管理者であれば{@code true}
+     */
+    public boolean isSystemAdmin() {
+        return this.role.isSystemManagement();
+    }
 }

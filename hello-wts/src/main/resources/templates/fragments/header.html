@@ -19,7 +19,8 @@
               <span class="sr-only">User Information</span>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <li><p class="dropdown-header" th:text="ADMIN">Role name</p></li>
+              <li><p class="dropdown-header" sec:authentication="principal.user.role.name">Role name</p></li>
+              <li class="divider"></li>
               <li><a href="javascript:alert('未実装です');"><span class="glyphicon glyphicon-user" area-hidden="true"></span> プロファイル</a></li>
               <li><a href="javascript:alert('未実装です');"><span class="glyphicon glyphicon-question-sign" area-hidden="true"></span> ヘルプ</a></li>
               <li class="divider"></li>

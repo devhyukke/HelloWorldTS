@@ -6,7 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.Transient;
+
+import jp.ne.hyukke.wts.hello.domain.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,4 +51,24 @@ public class MUser extends AbstractEntity implements Serializable {
     /** 表示名 */
     @Column(name = "DISPLAY_NAME")
     private String displayName;
+
+    /** {@link MRole} */
+    @OneToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false, insertable = false, updatable = false)
+    private MRole role;
+
+    /**
+     * モデルに変換する.
+     *
+     * @return モデル
+     */
+    @Transient
+    public User toModel() {
+        User model = User.valueOf(this.id);
+        model.setUsername(this.username);
+        model.setPassword(this.password);
+        model.setDisplayName(this.displayName);
+        model.setRole(this.role.toModel());
+        return model;
+    }
 }

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -35,6 +36,7 @@ import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
  * @author hyukke
  */
 @Controller
+@PreAuthorize("hasRoles('SYSTEM_ADMIN', 'USER_MANAGER', 'USER')")
 @RequestMapping("samples")
 @SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
 public class SampleController {

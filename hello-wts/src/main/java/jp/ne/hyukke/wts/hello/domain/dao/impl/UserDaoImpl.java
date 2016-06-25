@@ -29,10 +29,6 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
 
-        User e = User.valueOf(entity.getId());
-        e.setUsername(entity.getUsername());
-        e.setPassword(entity.getPassword());
-        e.setDisplayName(entity.getDisplayName());
-        return e;
+        return entity.toModel();
     }
 }

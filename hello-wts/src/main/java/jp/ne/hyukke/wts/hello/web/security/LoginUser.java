@@ -24,8 +24,7 @@ public class LoginUser extends User {
      * @param displayName 表示名
      */
     public LoginUser(jp.ne.hyukke.wts.hello.domain.entity.User user) {
-        // TODO 権限の取り扱い
-        super(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList("ADMIN"));
+        super(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().getType()));
         this.user = user;
     }
 }
