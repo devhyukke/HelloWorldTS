@@ -54,7 +54,7 @@ public class MUser extends AbstractEntity implements Serializable {
 
     /** {@link MRole} */
     @OneToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
     private MRole role;
 
     /**
