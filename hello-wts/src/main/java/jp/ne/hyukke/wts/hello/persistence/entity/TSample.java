@@ -51,12 +51,12 @@ public class TSample extends AbstractEntity implements Serializable {
     private SampleType type;
 
     /**
-     * {@link Sample}に変換する.
+     * モデルに変換する.
      *
-     * @return エンティティ
+     * @return モデル
      */
     @Transient
-    public Sample toSample() {
+    public Sample toModel() {
         Sample sample = Sample.valueOf(this.id);
         sample.setName(this.name);
         sample.setType(this.type);

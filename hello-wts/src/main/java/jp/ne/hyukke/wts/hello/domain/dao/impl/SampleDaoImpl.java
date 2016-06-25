@@ -36,7 +36,7 @@ public class SampleDaoImpl implements SampleDao {
             return null;
         }
 
-        return entity.toSample();
+        return entity.toModel();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SampleDaoImpl implements SampleDao {
         List<TSample> entities = this.repository.findAll();
 
         return entities.stream()
-                .map(TSample::toSample)
+                .map(TSample::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -56,7 +56,7 @@ public class SampleDaoImpl implements SampleDao {
         List<TSample> entities = this.repository.findAll(TSampleSpecs.byCondition(condition));
 
         return new ResultPage<>(total, entities.stream()
-                .map(TSample::toSample)
+                .map(TSample::toModel)
                 .collect(Collectors.toList()));
     }
 
@@ -74,8 +74,8 @@ public class SampleDaoImpl implements SampleDao {
         e.setUpdatedUsername("Username");
         e.setUpdatedDate(today);
 
-        return this.repository.save(e)
-                .toSample();
+        e = this.repository.save(e);
+        return e.toModel();
     }
 
     @Override
@@ -93,8 +93,8 @@ public class SampleDaoImpl implements SampleDao {
         e.setUpdatedDate(today);
         e.setVersion(e.getVersion() + 1L);
 
-        return this.repository.save(e)
-                .toSample();
+        e = this.repository.save(e);
+        return e.toModel();
     }
 
     @Override
