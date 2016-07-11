@@ -42,6 +42,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User findById(Integer id) {
+        Assert.notNull(id);
+
+        MUser entity = this.repository.findOne(id);
+        if (entity == null) {
+            return null;
+        }
+
+        return entity.toModel();
+    }
+
+    @Override
     public ResultPage<User> findByCondition(UserConditionVo condition) {
         Assert.notNull(condition);
 

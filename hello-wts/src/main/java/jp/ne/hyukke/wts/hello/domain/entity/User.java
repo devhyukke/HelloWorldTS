@@ -29,6 +29,10 @@ public class User implements Serializable {
     /** {@link Role} */
     private Role role;
 
+    public User() {
+        this.id = Integer.valueOf(0);
+    }
+
     /**
      * @return システム管理者であれば{@code true}
      */

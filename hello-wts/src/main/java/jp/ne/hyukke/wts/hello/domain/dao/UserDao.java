@@ -20,6 +20,14 @@ public interface UserDao {
     User findByUsername(String username);
 
     /**
+     * 指定された{@code ID}でエンティティを検索する.
+     *
+     * @param id {@code ID}
+     * @return エンティティ
+     */
+    User findById(Integer id);
+
+    /**
      * 指定された条件でエンティティを検索する.
      *
      * @param condition 条件
