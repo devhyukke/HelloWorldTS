@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<head>
+  <title>ユーザー</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <article>
+      <h1></h1>
+      <section>
+        <h2>User Management Page <small>ユーザー管理ページ</small></h2>
+        <section>
+          <h3>Users <small>ユーザー</small></h3>
+          <ol class="breadcrumb">
+            <li class="active">一覧</li>
+          </ol>
+          <section>
+            <h4>一覧</h4>
+            <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
+            <div>
+              <p class="text-right">
+                <a class="btn btn-success" th:href="@{/users/editor}"><span class="glyphicon glyphicon-edit" area-hidden="true"></span> 新規作成する</a>
+              </p>
+            </div>
+            <div class="panel-group" id="searchContents" role="tablist" aria-multiselectable="true">
+              <!-- Search Condition -->
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="searchConditionTitle">
+                  <h5 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#searchContents" href="#searchCondition" aria-expanded="true" aria-controls="searchCondition">
+                      <span class="glyphicon glyphicon-search" area-hidden="true"></span> 検索条件
+                    </a>
+                  </h5>
+                </div>
+                <div id="searchCondition" class="panel-collapse collapse" role="tabpanel" aria-labelledby="searchConditionTitle">
+                  <div class="panel-body">
+                    <form class="form-horizontal" method="get" th:action="@{/users}" th:object="${userSearchForm}">
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">ID</label>
+                        <div class="col-sm-2">
+                          <input type="text" class="form-control" th:field="*{id}" />
+                        </div>
+                      </div>
+<!--                       <div class="form-group"> -->
+<!--                         <label class="col-sm-2 control-label">名称</label> -->
+<!--                         <div class="col-sm-8"> -->
+<!--                           <input type="text" class="form-control" th:field="*{name}" /> -->
+<!--                         </div> -->
+<!--                       </div> -->
+<!--                       <div class="form-group"> -->
+<!--                         <label class="col-sm-2 control-label">種別</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                           <select class="form-control" th:field="*{type}"> -->
+<!--                             <option value=""></option> -->
+<!--                             <option th:each="sampleType : ${sampleTypes}" th:value="${sampleType.name()}" th:text="${sampleType.label}"></option> -->
+<!--                           </select> -->
+<!--                         </div> -->
+<!--                       </div> -->
+                      <div class="form-group">
+                        <div class="col-sm-12 text-right">
+                          <a class="btn btn-default" th:href="@{/users}"><span class="glyphicon glyphicon-erase" area-hidden="true"></span> クリアする</a>
+                          <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" area-hidden="true"></span> 検索する</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- Search Result -->
+              <div class="panel panel-default" th:if="${page}">
+                <div class="panel-heading" role="tab" id="searchResultTitle">
+                  <h5 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#searchContents" href="#searchResult" aria-expanded="true" aria-controls="searchResult">
+                      <span class="glyphicon glyphicon-list" area-hidden="true"></span> 検索結果
+                    </a>
+                  </h5>
+                </div>
+                <div id="searchResult" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="searchResultTitle">
+                  <div class="panel-body">
+                    <ul class="list-inline">
+                      <li>総件数 <span class="lead" th:text="${page.total}"></span> 件</li>
+                      <li th:if="${not param.empty}">該当件数 <span class="lead" th:text="${page.content.size()}"></span> 件</li>
+                      <li th:if="${not param.empty}">条件 <mark th:text="|ID:${userSearchForm.id ?: '----'}|"></mark></li>
+                    </ul>
+                    <div role="alert" class="text-warning" th:if="${page.content.empty}"><span th:text="#{message.warning.common.result.empty}">Data is Empty.</span></div>
+                  </div>
+                  <table class="table table-striped table-hover" th:if="${not page.content.empty}">
+                    <thead>
+                      <tr>
+                        <th class="text-right">#</th>
+                        <th class="text-center">ID</th>
+                        <th class="text-left">名称</th>
+                        <th class="text-left">表示名</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="user, status : ${page.content}" th:object="${user}">
+                        <td class="text-right"><a class="center-block" th:href="@{/users/__*{id}__}" th:text="${status.count}">row number</a></td>
+                        <td class="text-center" th:text="*{id}"></td>
+                        <td class="text-left"><th:block th:text="*{username}"></th:block> <span class="label label-danger" th:if="${newCreation != null and newCreation.id == __*{id}__}">New</span></td>
+                        <td class="text-left" th:text="*{displayName}"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

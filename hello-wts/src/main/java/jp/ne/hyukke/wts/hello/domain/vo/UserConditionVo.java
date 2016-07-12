@@ -12,18 +12,18 @@ import lombok.RequiredArgsConstructor;
  * @author hyukke
  */
 @Data
-@EqualsAndHashCode(of = {"id", "username", "displayName", "type"})
+@EqualsAndHashCode(of = {"id", "username", "displayName", "roleId"})
 @RequiredArgsConstructor(staticName = "valueOf")
 public class UserConditionVo implements Serializable {
 
     private static final long serialVersionUID = 1313155694100125177L;
 
     /** {@code ID} */
-    private Integer id;
+    private final Integer id;
     /** {@code Spring Security}ユーザー名 */
-    private String username;
+    private final String username;
     /** 表示名 */
-    private String displayName;
+    private final String displayName;
     /** ロール種別 */
-    private String type;
+    private final Integer roleId;
 }
