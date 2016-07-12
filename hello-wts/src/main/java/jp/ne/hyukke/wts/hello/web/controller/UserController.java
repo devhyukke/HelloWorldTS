@@ -3,7 +3,9 @@ package jp.ne.hyukke.wts.hello.web.controller;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,10 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
 import jp.ne.hyukke.wts.hello.domain.dto.UserDto;
+import jp.ne.hyukke.wts.hello.domain.entity.User;
 import jp.ne.hyukke.wts.hello.domain.service.UserService;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 import jp.ne.hyukke.wts.hello.web.WebMvcConfig;
 import jp.ne.hyukke.wts.hello.web.form.SampleForm;
+import jp.ne.hyukke.wts.hello.web.form.UserForm;
 import jp.ne.hyukke.wts.hello.web.form.UserSearchForm;
 
 /**
@@ -107,7 +111,7 @@ public class UserController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String showDetail(@PathVariable Integer id, Model model) {
 
-        model.addAttribute("users", this.userService.findById(id));
+        model.addAttribute("user", this.userService.findById(id));
 
         return "users/detail";
     }
@@ -122,13 +126,12 @@ public class UserController {
     @RequestMapping(value = "{id}/editor", method = RequestMethod.GET)
     public String showEdit(@PathVariable Integer id, Model model) {
 
-        // TODO 追加
-//        User user = this.userService.findById(id);
-//        UserForm form = new UserForm();
-//        BeanUtils.copyProperties(user, form);
-//
-//        model.addAttribute("user", user);
-//        model.addAttribute(FORM_KEY, form);
+        User user = this.userService.findById(id);
+        UserForm form = new UserForm();
+        BeanUtils.copyProperties(user, form);
+
+        model.addAttribute("user", user);
+        model.addAttribute(FORM_KEY, form);
 
         return "users/edit";
     }
@@ -144,22 +147,23 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String create(
-            // TODO 追加
-//            @Valid @ModelAttribute(FORM_KEY) UserForm form,
+            @Valid @ModelAttribute(FORM_KEY) UserForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute(FORM_KEY, form);
-//            return "users/create";
-//        }
-//
-//        UserDto dto = new UserDto();
-//        dto.setName(form.getName());
-//        dto.setType(form.getType());
-//        User registerd = this.userService.register(dto);
-//
-//        attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
-//        attributes.addFlashAttribute("newCreation", registerd);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(FORM_KEY, form);
+            return "users/create";
+        }
+
+        UserDto dto = new UserDto();
+        dto.setUsername(form.getUsername());
+        dto.setPassword(form.getPassword());
+        dto.setDisplayName(form.getDisplayName());
+        dto.setRoleId(form.getRoleId());
+        User registerd = this.userService.register(dto);
+
+        attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
+        attributes.addFlashAttribute("newCreation", registerd);
 
         return "redirect:/users".concat(this.queryString(model));
     }
@@ -177,23 +181,24 @@ public class UserController {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public String update(
             @PathVariable Integer id,
-            // TODO 追加
-//            @Valid @ModelAttribute(FORM_KEY) UserForm form, BindingResult bindingResult,
+            @Valid @ModelAttribute(FORM_KEY) UserForm form, BindingResult bindingResult,
             Model model, RedirectAttributes attributes) {
 
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("sample", this.userService.findById(id));
-//            model.addAttribute(FORM_KEY, form);
-//            return "samples/edit";
-//        }
-//
-//        UserDto dto = new UserDto();
-//        dto.setId(id);
-//        dto.setName(form.getName());
-//        dto.setType(form.getType());
-//        this.userService.update(dto);
-//
-//        attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.update.success"));
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", this.userService.findById(id));
+            model.addAttribute(FORM_KEY, form);
+            return "users/edit";
+        }
+
+        UserDto dto = new UserDto();
+        dto.setId(id);
+        dto.setUsername(form.getUsername());
+        dto.setPassword(form.getPassword());
+        dto.setDisplayName(form.getDisplayName());
+        dto.setRoleId(form.getRoleId());
+        this.userService.update(dto);
+
+        attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.update.success"));
 
         return "redirect:/users/".concat(String.valueOf(id));
     }
