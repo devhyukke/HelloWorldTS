@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<head>
+  <title>ユーザー</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <article>
+      <h1></h1>
+      <section>
+        <h2>User Management Page <small>ユーザー管理ページ</small></h2>
+        <section>
+          <h3>Users <small>ユーザー</small></h3>
+          <ol class="breadcrumb">
+            <li><a th:href="@{/users}">一覧</a></li>
+            <li class="active">新規作成</li>
+          </ol>
+          <section id="creation">
+            <h4>新規作成</h4>
+            <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
+            <div class="alert alert-danger" th:errors="${userForm.*}">Error Messages</div>
+            <section>
+              <form class="form-horizontal" method="post" th:action="@{/users}" th:object="${userForm}">
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{username}') ? 'has-error has-feedback' : ''}">
+                  <label for="username" class="col-sm-3 control-label">ユーザー名</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{username}" />
+                    <th:block th:if="${#fields.hasErrors('*{username}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{displayName}') ? 'has-error has-feedback' : ''}">
+                  <label for="displayName" class="col-sm-3 control-label">表示名</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{displayName}" />
+                    <th:block th:if="${#fields.hasErrors('*{displayName}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{roleId}') ? 'has-error has-feedback' : ''}">
+                  <label for="type" class="col-sm-3 control-label">ロール</label>
+                  <div class="col-sm-4">
+                    <select class="form-control" th:field="*{roleId}">
+                      <option value="">----</option>
+                      <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                    </select>
+                    <th:block th:if="${#fields.hasErrors('*{roleId}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{password}') ? 'has-error has-feedback' : ''}">
+                  <label for="displayName" class="col-sm-3 control-label">パスワード</label>
+                  <div class="col-sm-8">
+                    <input type="password" class="form-control" th:field="*{password}" />
+                    <th:block th:if="${#fields.hasErrors('*{password}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{confirmationPassword}') ? 'has-error has-feedback' : ''}">
+                  <label for="displayName" class="col-sm-3 control-label">確認パスワード</label>
+                  <div class="col-sm-8">
+                    <input type="password" class="form-control" th:field="*{confirmationPassword}" />
+                    <th:block th:if="${#fields.hasErrors('*{confirmationPassword}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-6 text-left">
+                    <a class="btn btn-default" th:href="@{/users__${queryString}__}"><span class="glyphicon glyphicon-list" area-hidden="true"></span> 一覧に戻る</a>
+                  </div>
+                  <div class="col-sm-6 text-right">
+                    <button type="submit" class="btn btn-success confirm-modal-dialog" data-toggle="modal" data-target="#confirmModalDialog" data-backdrop="static"><span class="glyphicon glyphicon-save" area-hidden="true"></span> 登録する</button>
+                  </div>
+                </div>
+              </form>
+            </section>
+            <div th:replace="fragments/confirm_modal_dialog :: modalDialog (confirmMessage = '登録を行います。よろしいですか？')"></div>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

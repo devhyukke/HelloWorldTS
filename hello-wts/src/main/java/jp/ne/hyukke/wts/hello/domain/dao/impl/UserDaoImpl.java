@@ -1,5 +1,6 @@
 package jp.ne.hyukke.wts.hello.domain.dao.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,6 +77,12 @@ public class UserDaoImpl implements UserDao {
         saved.setPassword(entity.getPassword());
         saved.setDisplayName(entity.getDisplayName());
         saved.setRole(this.roleRepository.findOne(entity.getRole().getId()));
+        // TODO 横断的に登録できるように修正
+        LocalDateTime today = LocalDateTime.now();
+        saved.setRegisteredUsername("Username");
+        saved.setRegisteredDate(today);
+        saved.setUpdatedUsername("Username");
+        saved.setUpdatedDate(today);
 
         saved = this.repository.save(saved);
         return saved.toModel();
@@ -88,9 +95,13 @@ public class UserDaoImpl implements UserDao {
 
         MUser saved = this.repository.findOne(entity.getId());
         saved.setUsername(entity.getUsername());
-        saved.setPassword(entity.getPassword());
         saved.setDisplayName(entity.getDisplayName());
         saved.setRole(this.roleRepository.findOne(entity.getRole().getId()));
+        // TODO 横断的に登録できるように修正
+        LocalDateTime today = LocalDateTime.now();
+        saved.setUpdatedUsername("Username");
+        saved.setUpdatedDate(today);
+        saved.setVersion(saved.getVersion() + 1L);
 
         saved = this.repository.save(saved);
         return saved.toModel();

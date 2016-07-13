@@ -36,7 +36,7 @@ import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
  * @author hyukke
  */
 @Controller
-@PreAuthorize("hasRoles('SYSTEM_ADMIN', 'USER_MANAGER', 'USER')")
+@PreAuthorize("hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER', 'ROLE_USER')")
 @RequestMapping("samples")
 @SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
 public class SampleController {

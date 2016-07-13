@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
   <title>トップ</title>
 </head>
@@ -13,7 +13,7 @@
         <section>
           <h3>Links <small>リンク</small></h3>
           <ul>
-            <li><a th:href="@{/users}">ユーザー管理ページはこちら</a></li>
+            <li sec:authorize="hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER')"><a th:href="@{/users}">ユーザー管理ページはこちら</a></li>
             <li><a th:href="@{/samples}">サンプルページはこちら</a></li>
           </ul>
         </section>

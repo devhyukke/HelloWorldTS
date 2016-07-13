@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +31,6 @@ import jp.ne.hyukke.wts.hello.domain.service.RoleService;
 import jp.ne.hyukke.wts.hello.domain.service.UserService;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 import jp.ne.hyukke.wts.hello.web.WebMvcConfig;
-import jp.ne.hyukke.wts.hello.web.form.SampleForm;
 import jp.ne.hyukke.wts.hello.web.form.UserForm;
 import jp.ne.hyukke.wts.hello.web.form.UserSearchForm;
 
@@ -39,7 +40,7 @@ import jp.ne.hyukke.wts.hello.web.form.UserSearchForm;
  * @author hyukke
  */
 @Controller
-@PreAuthorize("hasRole('SYSTEM_ADMIN', 'USER_MANAGER')")
+@PreAuthorize("hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER')")
 @RequestMapping("users")
 @SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
 public class UserController {
@@ -128,7 +129,7 @@ public class UserController {
     @RequestMapping(value = "editor", method = RequestMethod.GET)
     public String showCreateNew(Model model) {
 
-        model.addAttribute(FORM_KEY, new SampleForm());
+        model.addAttribute(FORM_KEY, new UserForm());
 
         return "users/create";
     }
@@ -161,6 +162,7 @@ public class UserController {
         User user = this.userService.findById(id);
         UserForm form = new UserForm();
         BeanUtils.copyProperties(user, form);
+        form.setRoleId(user.getRole().getId());
 
         model.addAttribute("user", user);
         model.addAttribute(FORM_KEY, form);
@@ -179,7 +181,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String create(
-            @Valid @ModelAttribute(FORM_KEY) UserForm form,
+            @Validated({Default.class, UserForm.Create.class}) @ModelAttribute(FORM_KEY) UserForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
@@ -225,7 +227,6 @@ public class UserController {
         UserDto dto = new UserDto();
         dto.setId(id);
         dto.setUsername(form.getUsername());
-        dto.setPassword(form.getPassword());
         dto.setDisplayName(form.getDisplayName());
         dto.setRoleId(form.getRoleId());
         this.userService.update(dto);

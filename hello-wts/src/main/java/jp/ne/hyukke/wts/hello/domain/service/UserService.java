@@ -1,6 +1,7 @@
 package jp.ne.hyukke.wts.hello.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -23,6 +24,8 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 指定された{@code ID}でエンティティを検索する.
@@ -65,7 +68,7 @@ public class UserService {
 
         User entity = new User();
         entity.setUsername(dto.getUsername());
-        entity.setPassword(dto.getPassword());
+        entity.setPassword(this.passwordEncoder.encode(dto.getPassword()));
         entity.setDisplayName(dto.getDisplayName());
         entity.setRole(Role.valueOf(dto.getRoleId()));
 
@@ -84,7 +87,6 @@ public class UserService {
 
         User entity = User.valueOf(dto.getId());
         entity.setUsername(dto.getUsername());
-        entity.setPassword(dto.getPassword());
         entity.setDisplayName(dto.getDisplayName());
         entity.setRole(Role.valueOf(dto.getRoleId()));
 

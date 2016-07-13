@@ -14,6 +14,8 @@ public class LoginUser extends User {
 
     private static final long serialVersionUID = 1L;
 
+    private static final String ROLE_PREFIX = "ROLE_";
+
     @Getter
     private final jp.ne.hyukke.wts.hello.domain.entity.User user;
 
@@ -24,7 +26,8 @@ public class LoginUser extends User {
      * @param displayName 表示名
      */
     public LoginUser(jp.ne.hyukke.wts.hello.domain.entity.User user) {
-        super(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().getType()));
+        super(user.getUsername(), user.getPassword(), AuthorityUtils
+                .createAuthorityList(ROLE_PREFIX.concat(user.getRole().getType())));
         this.user = user;
     }
 }
