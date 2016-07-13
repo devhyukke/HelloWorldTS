@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.Transient;
 
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
-import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.model.Sample;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

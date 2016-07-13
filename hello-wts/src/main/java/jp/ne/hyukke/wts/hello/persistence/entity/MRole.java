@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
 
-import jp.ne.hyukke.wts.hello.domain.entity.Role;
+import jp.ne.hyukke.wts.hello.domain.model.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

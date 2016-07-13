@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.SampleDao;
-import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.model.Sample;
 import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 import jp.ne.hyukke.wts.hello.persistence.entity.TSample;
 import jp.ne.hyukke.wts.hello.persistence.repository.TSampleRepository;

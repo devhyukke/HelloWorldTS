@@ -9,9 +9,8 @@ import org.springframework.util.Assert;
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dto.UserRegisterDto;
 import jp.ne.hyukke.wts.hello.domain.dto.UserUpdateDto;
-import jp.ne.hyukke.wts.hello.domain.entity.Role;
-import jp.ne.hyukke.wts.hello.domain.entity.User;
-import jp.ne.hyukke.wts.hello.domain.repository.UserDomain;
+import jp.ne.hyukke.wts.hello.domain.model.Role;
+import jp.ne.hyukke.wts.hello.domain.model.User;
 import jp.ne.hyukke.wts.hello.domain.repository.UserRepository;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 
@@ -29,24 +28,20 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     /**
-     * 指定された{@code ID}でエンティティを検索する.
+     * 指定された{@code ID}でドメインモデルを検索する.
      *
      * @param id {@code ID}
-     * @return エンティティ
+     * @return ドメインモデル
      */
     @Transactional(readOnly = true)
     public User findById(Integer id) {
         Assert.notNull(id);
 
-        UserDomain domain = this.repository.findById(id);
-        if (domain == null) {
-            return null;
-        }
-        return domain.getEntity();
+        return this.repository.findById(id);
     }
 
     /**
-     * 指定された条件に合致するエンティティを検索する.
+     * 指定された条件に合致するドメインモデルを検索する.
      *
      * @param condition 条件
      * @return 結果ページ
@@ -58,44 +53,44 @@ public class UserService {
     }
 
     /**
-     * 指定された{@code DTO}でエンティティを登録する.
+     * 指定された{@code DTO}でドメインモデルを登録する.
      *
      * @param dto {@code DTO}
-     * @return 登録済みのエンティティ
+     * @return 登録済みのドメインモデル
      */
     @Transactional
     public User register(UserRegisterDto dto) {
         Assert.notNull(dto);
 
-        User entity = new User();
-        entity.setUsername(dto.getUsername());
-        entity.setPassword(this.passwordEncoder.encode(dto.getPassword()));
-        entity.setDisplayName(dto.getDisplayName());
-        entity.setRole(Role.valueOf(dto.getRoleId()));
+        User model = new User();
+        model.setUsername(dto.getUsername());
+        model.setPassword(this.passwordEncoder.encode(dto.getPassword()));
+        model.setDisplayName(dto.getDisplayName());
+        model.setRole(Role.valueOf(dto.getRoleId()));
 
-        return this.repository.register(entity);
+        return this.repository.register(model);
     }
 
     /**
-     * 指定された{@code DTO}でエンティティを更新する.
+     * 指定された{@code DTO}でドメインモデルを更新する.
      *
      * @param dto {@code DTO}
-     * @return 更新済みのエンティティ
+     * @return 更新済みのドメインモデル
      */
     @Transactional
     public User update(UserUpdateDto dto) {
         Assert.notNull(dto);
 
-        User entity = User.valueOf(dto.getId());
-        entity.setUsername(dto.getUsername());
-        entity.setDisplayName(dto.getDisplayName());
-        entity.setRole(Role.valueOf(dto.getRoleId()));
+        User model = User.valueOf(dto.getId());
+        model.setUsername(dto.getUsername());
+        model.setDisplayName(dto.getDisplayName());
+        model.setRole(Role.valueOf(dto.getRoleId()));
 
-        return this.repository.update(entity);
+        return this.repository.update(model);
     }
 
     /**
-     * 指定された{@code ID}でエンティティを削除する.
+     * 指定された{@code ID}でドメインモデルを削除する.
      *
      * @param id {@code ID}
      */

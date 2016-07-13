@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import jp.ne.hyukke.wts.hello.domain.repository.UserDomain;
+import jp.ne.hyukke.wts.hello.domain.model.User;
 import jp.ne.hyukke.wts.hello.domain.repository.UserRepository;
 
 /**
@@ -23,11 +23,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserDomain user = this.repository.findByUsername(username);
+        User user = this.repository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User is not found.");
         }
 
-        return new LoginUser(user.getEntity());
+        return new LoginUser(user);
     }
 }

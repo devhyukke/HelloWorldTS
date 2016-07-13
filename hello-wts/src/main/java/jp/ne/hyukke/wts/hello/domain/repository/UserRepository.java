@@ -7,11 +7,11 @@ import org.springframework.util.Assert;
 import jp.ne.hyukke.wts.hello.core.domain.model.AbstractRepository;
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.UserDao;
-import jp.ne.hyukke.wts.hello.domain.entity.User;
+import jp.ne.hyukke.wts.hello.domain.model.User;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 
 /**
- * ユーザーを扱うリポジトリクラス.
+ * ユーザーのドメインモデルを扱うリポジトリクラス.
  *
  * @author hyukke
  */
@@ -22,41 +22,31 @@ public class UserRepository extends AbstractRepository {
     private UserDao userDao;
 
     /**
-     * 指定されたユーザー名でドメインを検索する.
+     * 指定されたユーザー名でドメインモデルを検索する.
      *
      * @param username ユーザー名
-     * @return ドメイン
+     * @return ドメインモデル
      */
-    public UserDomain findByUsername(String username) {
+    public User findByUsername(String username) {
         Assert.hasText(username);
 
-        User entity = this.userDao.findByUsername(username);
-        if (entity == null) {
-            return null;
-        }
-
-        return this.createDomain(entity, UserDomain.class);
+        return this.userDao.findByUsername(username);
     }
 
     /**
-     * 指定された{@code ID}でドメインを検索する.
+     * 指定された{@code ID}でドメインモデルを検索する.
      *
      * @param id {@code ID}
-     * @return ドメイン
+     * @return ドメインモデル
      */
-    public UserDomain findById(Integer id) {
+    public User findById(Integer id) {
         Assert.notNull(id);
 
-        User entity = this.userDao.findById(id);
-        if (entity == null) {
-            return null;
-        }
-
-        return this.createDomain(entity, UserDomain.class);
+        return this.userDao.findById(id);
     }
 
     /**
-     * 指定された条件に合致するエンティティを検索する.
+     * 指定された条件に合致するドメインモデルを検索する.
      *
      * @param condition 条件
      * @return 結果ページ
@@ -68,31 +58,31 @@ public class UserRepository extends AbstractRepository {
     }
 
     /**
-     * 指定されたエンティティを登録する.
+     * 指定されたドメインモデルを登録する.
      *
-     * @param entity エンティティ
-     * @return 登録済みのエンティティ
+     * @param model ドメインモデル
+     * @return 登録済みのドメインモデル
      */
-    public User register(User entity) {
-        Assert.notNull(entity);
+    public User register(User model) {
+        Assert.notNull(model);
 
-        return this.userDao.register(entity);
+        return this.userDao.register(model);
     }
 
     /**
-     * 指定されたエンティティを更新する.
+     * 指定されたドメインモデルを更新する.
      *
-     * @param entity エンティティ
-     * @return 登録済みのエンティティ
+     * @param model ドメインモデル
+     * @return 登録済みのドメインモデル
      */
-    public User update(User entity) {
-        Assert.notNull(entity);
+    public User update(User model) {
+        Assert.notNull(model);
 
-        return this.userDao.update(entity);
+        return this.userDao.update(model);
     }
 
     /**
-     * 指定された{@code ID}でエンティティを削除する.
+     * 指定された{@code ID}でドメインモデルを削除する.
      *
      * @param id {@code ID}
      */

@@ -1,4 +1,4 @@
-package jp.ne.hyukke.wts.hello.domain.entity;
+package jp.ne.hyukke.wts.hello.domain.model;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 /**
- * ユーザーのエンティティクラス.
+ * ユーザーのドメインモデルクラス.
  *
  * @author hyukke
  */

@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.UserDao;
-import jp.ne.hyukke.wts.hello.domain.entity.User;
+import jp.ne.hyukke.wts.hello.domain.model.User;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 import jp.ne.hyukke.wts.hello.persistence.entity.MUser;
 import jp.ne.hyukke.wts.hello.persistence.repository.MRoleRepository;

@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import jp.ne.hyukke.wts.hello.batch.common.LogJobExecutionListener;
-import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.model.Sample;
 
 /**
  * Job that do something.

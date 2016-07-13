@@ -24,7 +24,7 @@ import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleRegisterDto;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleUpdateDto;
-import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.model.Sample;
 import jp.ne.hyukke.wts.hello.domain.service.SampleService;
 import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 import jp.ne.hyukke.wts.hello.web.WebMvcConfig;

@@ -1,7 +1,7 @@
 package jp.ne.hyukke.wts.hello.domain.dao;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
-import jp.ne.hyukke.wts.hello.domain.entity.User;
+import jp.ne.hyukke.wts.hello.domain.model.User;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 
 /**

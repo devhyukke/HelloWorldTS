@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.ne.hyukke.wts.hello.domain.entity.Role;
+import jp.ne.hyukke.wts.hello.domain.model.Role;
 import jp.ne.hyukke.wts.hello.domain.repository.RoleRepository;
 
 /**

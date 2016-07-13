@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.AbstractRepository;
 import jp.ne.hyukke.wts.hello.domain.dao.RoleDao;
-import jp.ne.hyukke.wts.hello.domain.entity.Role;
+import jp.ne.hyukke.wts.hello.domain.model.Role;
 
 /**
- * ロールを扱うリポジトリクラス.
+ * ロールのドメインモデルを扱うリポジトリクラス.
  *
  * @author hyukke
  */
@@ -21,9 +21,9 @@ public class RoleRepository extends AbstractRepository {
     private RoleDao roleDao;
 
     /**
-     * すべてのドメインを検索する.
+     * すべてのドメインモデルを検索する.
      *
-     * @return ドメイン
+     * @return ドメインモデル
      */
     public List<Role> findAll() {
 
