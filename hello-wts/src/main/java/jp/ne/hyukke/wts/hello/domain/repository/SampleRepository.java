@@ -56,7 +56,6 @@ public class SampleRepository {
         return this.sampleDao.findByCondition(condition);
     }
 
-    // XXX エンティティではなくドメインモデルが正解と思われる
     /**
      * 指定されたドメインモデルを登録する.
      *
