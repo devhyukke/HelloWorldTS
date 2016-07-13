@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import jp.ne.hyukke.wts.hello.core.domain.model.AbstractRepository;
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.SampleDao;
 import jp.ne.hyukke.wts.hello.domain.model.Sample;
@@ -18,7 +17,7 @@ import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
  * @author hyukke
  */
 @Repository
-public class SampleRepository extends AbstractRepository {
+public class SampleRepository {
 
     @Autowired
     private SampleDao sampleDao;

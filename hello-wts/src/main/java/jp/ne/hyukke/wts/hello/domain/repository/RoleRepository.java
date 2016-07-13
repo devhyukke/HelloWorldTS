@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import jp.ne.hyukke.wts.hello.core.domain.model.AbstractRepository;
 import jp.ne.hyukke.wts.hello.domain.dao.RoleDao;
 import jp.ne.hyukke.wts.hello.domain.model.Role;
 
@@ -15,7 +14,7 @@ import jp.ne.hyukke.wts.hello.domain.model.Role;
  * @author hyukke
  */
 @Repository
-public class RoleRepository extends AbstractRepository {
+public class RoleRepository {
 
     @Autowired
     private RoleDao roleDao;

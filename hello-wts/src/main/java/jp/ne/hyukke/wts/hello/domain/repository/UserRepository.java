@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import jp.ne.hyukke.wts.hello.core.domain.model.AbstractRepository;
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.UserDao;
 import jp.ne.hyukke.wts.hello.domain.model.User;
@@ -16,7 +15,7 @@ import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
  * @author hyukke
  */
 @Repository
-public class UserRepository extends AbstractRepository {
+public class UserRepository {
 
     @Autowired
     private UserDao userDao;
