@@ -1,5 +1,6 @@
 package jp.ne.hyukke.wts.hello.web.controller;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
 import jp.ne.hyukke.wts.hello.domain.dto.UserDto;
+import jp.ne.hyukke.wts.hello.domain.entity.Role;
 import jp.ne.hyukke.wts.hello.domain.entity.User;
+import jp.ne.hyukke.wts.hello.domain.service.RoleService;
 import jp.ne.hyukke.wts.hello.domain.service.UserService;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 import jp.ne.hyukke.wts.hello.web.WebMvcConfig;
@@ -45,6 +48,35 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
+
+    // ロールを複数まとめて取り扱うために定義
+    public static class Roles extends ArrayList<Role> {
+
+        private static final long serialVersionUID = -4477568201034633868L;
+
+        public Roles(java.util.Collection<Role> col) {
+            super(col);
+        }
+
+        public String nameAt(Integer id) {
+
+            return this.stream()
+                    .filter(role -> role.getId().equals(id))
+                    .map(Role::getName)
+                    .findFirst().orElse("");
+        }
+    }
+
+    /**
+     * @return ロール
+     */
+    @ModelAttribute("roles")
+    public Roles roles() {
+
+        return new Roles(this.roleService.findAll());
+    }
 
     /**
      * @param model モデル

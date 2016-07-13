@@ -86,7 +86,7 @@
                     <ul class="list-inline">
                       <li>総件数 <span class="lead" th:text="${page.total}"></span> 件</li>
                       <li th:if="${not param.empty}">該当件数 <span class="lead" th:text="${page.content.size()}"></span> 件</li>
-                      <li th:if="${not param.empty}">条件 <mark th:text="|ID:${userSearchForm.id ?: '----'} ユーザー名(含む):${userSearchForm.username ?: '----'} 表示名(含む):${userSearchForm.displayName ?: '----'} ロール:${userSearchForm.roleId ?: '----'}|"></mark></li>
+                      <li th:if="${not param.empty}">条件 <mark th:text="|ID:${userSearchForm.id ?: '----'} ユーザー名(含む):${userSearchForm.username ?: '----'} 表示名(含む):${userSearchForm.displayName ?: '----'} ロール:${userSearchForm.roleId != null ? roles.nameAt(userSearchForm.roleId) : '----'}|"></mark></li>
                     </ul>
                     <div role="alert" class="text-warning" th:if="${page.content.empty}"><span th:text="#{message.warning.common.result.empty}">Data is Empty.</span></div>
                   </div>

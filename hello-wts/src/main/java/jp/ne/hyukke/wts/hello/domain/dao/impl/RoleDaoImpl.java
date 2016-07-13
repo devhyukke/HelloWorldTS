@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import jp.ne.hyukke.wts.hello.domain.dao.RoleDao;
 import jp.ne.hyukke.wts.hello.domain.entity.Role;
@@ -15,6 +16,7 @@ import jp.ne.hyukke.wts.hello.persistence.repository.MRoleRepository;
  *
  * @author hyukke
  */
+@Component
 public class RoleDaoImpl implements RoleDao {
 
     @Autowired
