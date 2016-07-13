@@ -22,7 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
-import jp.ne.hyukke.wts.hello.domain.dto.SampleDto;
+import jp.ne.hyukke.wts.hello.domain.dto.SampleRegisterDto;
+import jp.ne.hyukke.wts.hello.domain.dto.SampleUpdateDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Sample;
 import jp.ne.hyukke.wts.hello.domain.service.SampleService;
 import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
@@ -163,7 +164,7 @@ public class SampleController {
             return "samples/create";
         }
 
-        SampleDto dto = new SampleDto();
+        SampleRegisterDto dto = new SampleRegisterDto();
         dto.setName(form.getName());
         dto.setType(form.getType());
         Sample registerd = this.sampleService.register(dto);
@@ -196,7 +197,7 @@ public class SampleController {
             return "samples/edit";
         }
 
-        SampleDto dto = new SampleDto();
+        SampleUpdateDto dto = new SampleUpdateDto();
         dto.setId(id);
         dto.setName(form.getName());
         dto.setType(form.getType());
@@ -218,9 +219,7 @@ public class SampleController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable Integer id, Model model, RedirectAttributes attributes) {
 
-        SampleDto dto = new SampleDto();
-        dto.setId(id);
-        this.sampleService.delete(dto);
+        this.sampleService.delete(id);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.delete.success"));
 

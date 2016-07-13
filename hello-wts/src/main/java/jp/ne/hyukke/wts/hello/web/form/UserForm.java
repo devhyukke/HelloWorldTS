@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.StringUtils;
 
+import jp.ne.hyukke.wts.hello.core.validation.groups.Registration;
+
 import lombok.Data;
 
 /**
@@ -15,10 +17,6 @@ import lombok.Data;
  */
 @Data
 public class UserForm {
-
-    public static interface Create {
-
-    }
 
     /** {@code Spring Security}ユーザー名 */
     @NotEmpty
@@ -31,10 +29,10 @@ public class UserForm {
     private Integer roleId;
     // 新規作成時のみパスワードを指定する想定
     /** パスワード */
-    @NotEmpty(groups = Create.class)
+    @NotEmpty(groups = Registration.class)
     private String password;
     /** 確認パスワード */
-    @NotEmpty(groups = Create.class)
+    @NotEmpty(groups = Registration.class)
     private String confirmationPassword;
 
     /**

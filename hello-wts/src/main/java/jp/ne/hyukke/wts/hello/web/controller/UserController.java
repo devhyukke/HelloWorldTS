@@ -24,7 +24,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
-import jp.ne.hyukke.wts.hello.domain.dto.UserDto;
+import jp.ne.hyukke.wts.hello.core.validation.groups.Registration;
+import jp.ne.hyukke.wts.hello.domain.dto.UserRegisterDto;
+import jp.ne.hyukke.wts.hello.domain.dto.UserUpdateDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Role;
 import jp.ne.hyukke.wts.hello.domain.entity.User;
 import jp.ne.hyukke.wts.hello.domain.service.RoleService;
@@ -181,7 +183,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String create(
-            @Validated({Default.class, UserForm.Create.class}) @ModelAttribute(FORM_KEY) UserForm form,
+            @Validated({Default.class, Registration.class}) @ModelAttribute(FORM_KEY) UserForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
@@ -189,7 +191,7 @@ public class UserController {
             return "users/create";
         }
 
-        UserDto dto = new UserDto();
+        UserRegisterDto dto = new UserRegisterDto();
         dto.setUsername(form.getUsername());
         dto.setPassword(form.getPassword());
         dto.setDisplayName(form.getDisplayName());
@@ -224,7 +226,7 @@ public class UserController {
             return "users/edit";
         }
 
-        UserDto dto = new UserDto();
+        UserUpdateDto dto = new UserUpdateDto();
         dto.setId(id);
         dto.setUsername(form.getUsername());
         dto.setDisplayName(form.getDisplayName());
@@ -247,9 +249,7 @@ public class UserController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable Integer id, Model model, RedirectAttributes attributes) {
 
-        UserDto dto = new UserDto();
-        dto.setId(id);
-        this.userService.delete(dto);
+        this.userService.delete(id);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.delete.success"));
 

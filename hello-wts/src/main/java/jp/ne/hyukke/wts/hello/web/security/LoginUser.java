@@ -14,6 +14,8 @@ public class LoginUser extends User {
 
     private static final long serialVersionUID = 1L;
 
+    // ロールに付与する接頭辞を定義
+    // Spring Security による認証において、 hasRole(String) を呼び出した際に判定されてしまうため、付与しておく必要がある
     private static final String ROLE_PREFIX = "ROLE_";
 
     @Getter

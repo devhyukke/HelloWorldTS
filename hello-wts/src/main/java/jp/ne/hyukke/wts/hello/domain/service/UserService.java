@@ -7,7 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
-import jp.ne.hyukke.wts.hello.domain.dto.UserDto;
+import jp.ne.hyukke.wts.hello.domain.dto.UserRegisterDto;
+import jp.ne.hyukke.wts.hello.domain.dto.UserUpdateDto;
 import jp.ne.hyukke.wts.hello.domain.entity.Role;
 import jp.ne.hyukke.wts.hello.domain.entity.User;
 import jp.ne.hyukke.wts.hello.domain.repository.UserDomain;
@@ -63,7 +64,7 @@ public class UserService {
      * @return 登録済みのエンティティ
      */
     @Transactional
-    public User register(UserDto dto) {
+    public User register(UserRegisterDto dto) {
         Assert.notNull(dto);
 
         User entity = new User();
@@ -82,7 +83,7 @@ public class UserService {
      * @return 更新済みのエンティティ
      */
     @Transactional
-    public User update(UserDto dto) {
+    public User update(UserUpdateDto dto) {
         Assert.notNull(dto);
 
         User entity = User.valueOf(dto.getId());
@@ -94,14 +95,14 @@ public class UserService {
     }
 
     /**
-     * 指定された{@code DTO}でエンティティを削除する.
+     * 指定された{@code ID}でエンティティを削除する.
      *
-     * @param dto {@code DTO}
+     * @param id {@code ID}
      */
     @Transactional
-    public void delete(UserDto dto) {
-        Assert.notNull(dto);
+    public void delete(Integer id) {
+        Assert.notNull(id);
 
-        this.repository.delete(dto.getId());
+        this.repository.delete(id);
     }
 }

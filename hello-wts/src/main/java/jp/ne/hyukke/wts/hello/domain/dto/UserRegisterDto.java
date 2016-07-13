@@ -5,17 +5,15 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * ユーザーを保持するDTOクラス.
+ * ユーザーを登録するための情報を保持するDTOクラス.
  *
  * @author hyukke
  */
 @Data
-public class UserDto implements Serializable {
+public class UserRegisterDto implements Serializable {
 
-    private static final long serialVersionUID = -244101414929158482L;
+    private static final long serialVersionUID = -2846551738577453270L;
 
-    /** {@code ID} */
-    private Integer id;
     /** {@code Spring Security}ユーザー名 */
     private String username;
     /** パスワード */
