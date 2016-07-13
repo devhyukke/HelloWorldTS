@@ -3,6 +3,7 @@ package jp.ne.hyukke.wts.hello.web.form;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.StringUtils;
 
@@ -20,9 +21,11 @@ public class UserForm {
 
     /** {@code Spring Security}ユーザー名 */
     @NotEmpty
+    @Length(min = 0, max = 32)
     private String username;
     /** 表示名 */
     @NotEmpty
+    @Length(min = 0, max = 64)
     private String displayName;
     /** ロール{@code ID} */
     @NotNull
@@ -30,9 +33,11 @@ public class UserForm {
     // 新規作成時のみパスワードを指定する想定
     /** パスワード */
     @NotEmpty(groups = Registration.class)
+    @Length(min = 0, max = 64, groups = Registration.class)
     private String password;
     /** 確認パスワード */
     @NotEmpty(groups = Registration.class)
+    @Length(min = 0, max = 64, groups = Registration.class)
     private String confirmationPassword;
 
     /**

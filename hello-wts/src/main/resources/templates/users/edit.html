@@ -32,7 +32,7 @@
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{username}') ? 'has-error has-feedback' : ''}">
                   <label for="username" class="col-sm-3 control-label">ユーザー名</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" th:field="*{username}" />
+                    <input type="text" class="form-control" maxlength="32" th:field="*{username}" />
                     <th:block th:if="${#fields.hasErrors('*{username}')}">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span id="inputError2Status" class="sr-only">(error)</span>
@@ -42,7 +42,7 @@
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{displayName}') ? 'has-error has-feedback' : ''}">
                   <label for="displayName" class="col-sm-3 control-label">表示名</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" th:field="*{displayName}" />
+                    <input type="text" class="form-control" maxlength="64" th:field="*{displayName}" />
                     <th:block th:if="${#fields.hasErrors('*{displayName}')}">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span id="inputError2Status" class="sr-only">(error)</span>
