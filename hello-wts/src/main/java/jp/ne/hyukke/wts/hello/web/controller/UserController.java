@@ -1,9 +1,11 @@
 package jp.ne.hyukke.wts.hello.web.controller;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,39 +24,61 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
-import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
-import jp.ne.hyukke.wts.hello.domain.dto.SampleRegisterDto;
-import jp.ne.hyukke.wts.hello.domain.dto.SampleUpdateDto;
-import jp.ne.hyukke.wts.hello.domain.model.Sample;
-import jp.ne.hyukke.wts.hello.domain.service.SampleService;
-import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
+import jp.ne.hyukke.wts.hello.core.validation.groups.Registration;
+import jp.ne.hyukke.wts.hello.domain.dto.UserRegisterDto;
+import jp.ne.hyukke.wts.hello.domain.dto.UserUpdateDto;
+import jp.ne.hyukke.wts.hello.domain.model.Role;
+import jp.ne.hyukke.wts.hello.domain.model.User;
+import jp.ne.hyukke.wts.hello.domain.service.RoleService;
+import jp.ne.hyukke.wts.hello.domain.service.UserService;
+import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 import jp.ne.hyukke.wts.hello.web.WebMvcConfig;
-import jp.ne.hyukke.wts.hello.web.form.SampleForm;
-import jp.ne.hyukke.wts.hello.web.form.SampleSearchForm;
+import jp.ne.hyukke.wts.hello.web.form.UserForm;
+import jp.ne.hyukke.wts.hello.web.form.UserSearchForm;
 
 /**
- * サンプルを操作するコントローラクラス.
+ * ユーザーを操作するコントローラクラス.
  *
  * @author hyukke
  */
 @Controller
-@PreAuthorize("hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER', 'ROLE_USER')")
-@RequestMapping("samples")
+@PreAuthorize("hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER')")
+@RequestMapping("users")
 @SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
-public class SampleController {
+public class UserController {
 
-    private static final String FORM_KEY = "sampleForm";
+    private static final String FORM_KEY = "userForm";
 
     @Autowired
-    private SampleService sampleService;
+    private UserService userService;
+    @Autowired
+    private RoleService roleService;
+
+    // ロールを複数まとめて取り扱うために定義
+    public static class Roles extends ArrayList<Role> {
+
+        private static final long serialVersionUID = -4477568201034633868L;
+
+        public Roles(java.util.Collection<Role> col) {
+            super(col);
+        }
+
+        public String nameAt(Integer id) {
+
+            return this.stream()
+                    .filter(role -> role.getId().equals(id))
+                    .map(Role::getName)
+                    .findFirst().orElse("");
+        }
+    }
 
     /**
-     * @return 種別
+     * @return ロール
      */
-    @ModelAttribute("sampleTypes")
-    public SampleType[] sampleTypes() {
+    @ModelAttribute("roles")
+    public Roles roles() {
 
-        return SampleType.values();
+        return new Roles(this.roleService.findAll());
     }
 
     /**
@@ -78,7 +103,7 @@ public class SampleController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String show(
-            @ModelAttribute("sampleSearchForm") SampleSearchForm form, Model model, SessionStatus status,
+            @ModelAttribute("userSearchForm") UserSearchForm form, Model model, SessionStatus status,
             HttpServletRequest request) {
 
         // 初期表示時の検索の場合はセッションをクリア
@@ -86,14 +111,15 @@ public class SampleController {
             status.setComplete();
         }
 
-        SampleConditionVo condition = SampleConditionVo.valueOf(form.getId(), form.getName(), form.getType());
-        model.addAttribute("page", this.sampleService.findByCondition(condition));
+        UserConditionVo condition = UserConditionVo
+                .valueOf(form.getId(), form.getUsername(), form.getDisplayName(), form.getRoleId());
+        model.addAttribute("page", this.userService.findByCondition(condition));
 
         Optional.ofNullable(request.getQueryString())
                 .filter(StringUtils::hasText)
                 .ifPresent(query -> model.addAttribute(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY, query));
 
-        return "samples/list";
+        return "users/list";
     }
 
     /**
@@ -105,9 +131,9 @@ public class SampleController {
     @RequestMapping(value = "editor", method = RequestMethod.GET)
     public String showCreateNew(Model model) {
 
-        model.addAttribute(FORM_KEY, new SampleForm());
+        model.addAttribute(FORM_KEY, new UserForm());
 
-        return "samples/create";
+        return "users/create";
     }
 
     /**
@@ -120,9 +146,9 @@ public class SampleController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String showDetail(@PathVariable Integer id, Model model) {
 
-        model.addAttribute("sample", this.sampleService.findById(id));
+        model.addAttribute("user", this.userService.findById(id));
 
-        return "samples/detail";
+        return "users/detail";
     }
 
     /**
@@ -135,14 +161,15 @@ public class SampleController {
     @RequestMapping(value = "{id}/editor", method = RequestMethod.GET)
     public String showEdit(@PathVariable Integer id, Model model) {
 
-        Sample sample = this.sampleService.findById(id);
-        SampleForm form = new SampleForm();
-        BeanUtils.copyProperties(sample, form);
+        User user = this.userService.findById(id);
+        UserForm form = new UserForm();
+        BeanUtils.copyProperties(user, form);
+        form.setRoleId(user.getRole().getId());
 
-        model.addAttribute("sample", sample);
+        model.addAttribute("user", user);
         model.addAttribute(FORM_KEY, form);
 
-        return "samples/edit";
+        return "users/edit";
     }
 
     /**
@@ -156,23 +183,25 @@ public class SampleController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String create(
-            @Valid @ModelAttribute(FORM_KEY) SampleForm form,
+            @Validated({Default.class, Registration.class}) @ModelAttribute(FORM_KEY) UserForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute(FORM_KEY, form);
-            return "samples/create";
+            return "users/create";
         }
 
-        SampleRegisterDto dto = new SampleRegisterDto();
-        dto.setName(form.getName());
-        dto.setType(form.getType());
-        Sample registerd = this.sampleService.register(dto);
+        UserRegisterDto dto = new UserRegisterDto();
+        dto.setUsername(form.getUsername());
+        dto.setPassword(form.getPassword());
+        dto.setDisplayName(form.getDisplayName());
+        dto.setRoleId(form.getRoleId());
+        User registerd = this.userService.register(dto);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
         attributes.addFlashAttribute("newCreation", registerd);
 
-        return "redirect:/samples".concat(this.queryString(model));
+        return "redirect:/users".concat(this.queryString(model));
     }
 
     /**
@@ -188,24 +217,25 @@ public class SampleController {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public String update(
             @PathVariable Integer id,
-            @Valid @ModelAttribute(FORM_KEY) SampleForm form, BindingResult bindingResult,
+            @Valid @ModelAttribute(FORM_KEY) UserForm form, BindingResult bindingResult,
             Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("sample", this.sampleService.findById(id));
+            model.addAttribute("user", this.userService.findById(id));
             model.addAttribute(FORM_KEY, form);
-            return "samples/edit";
+            return "users/edit";
         }
 
-        SampleUpdateDto dto = new SampleUpdateDto();
+        UserUpdateDto dto = new UserUpdateDto();
         dto.setId(id);
-        dto.setName(form.getName());
-        dto.setType(form.getType());
-        this.sampleService.update(dto);
+        dto.setUsername(form.getUsername());
+        dto.setDisplayName(form.getDisplayName());
+        dto.setRoleId(form.getRoleId());
+        this.userService.update(dto);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.update.success"));
 
-        return "redirect:/samples/".concat(String.valueOf(id));
+        return "redirect:/users/".concat(String.valueOf(id));
     }
 
     /**
@@ -219,10 +249,10 @@ public class SampleController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable Integer id, Model model, RedirectAttributes attributes) {
 
-        this.sampleService.delete(id);
+        this.userService.delete(id);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.delete.success"));
 
-        return "redirect:/samples".concat(this.queryString(model));
+        return "redirect:/users".concat(this.queryString(model));
     }
 }

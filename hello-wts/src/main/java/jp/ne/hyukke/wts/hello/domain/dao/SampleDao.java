@@ -3,7 +3,7 @@ package jp.ne.hyukke.wts.hello.domain.dao;
 import java.util.List;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
-import jp.ne.hyukke.wts.hello.domain.entity.Sample;
+import jp.ne.hyukke.wts.hello.domain.model.Sample;
 import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 
 /**
@@ -14,22 +14,22 @@ import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
 public interface SampleDao {
 
     /**
-     * 指定された{@code ID}でエンティティを検索する.
+     * 指定された{@code ID}でデータを検索する.
      *
      * @param id {@code ID}
-     * @return エンティティ
+     * @return ドメインモデル
      */
     Sample findById(Integer id);
 
     /**
-     * すべてのエンティティを検索する.
+     * すべてのデータを検索する.
      *
-     * @return エンティティ
+     * @return ドメインモデル
      */
     List<Sample> findAll();
 
     /**
-     * 指定された条件でエンティティを検索する.
+     * 指定された条件でデータを検索する.
      *
      * @param condition 条件
      * @return 結果ページ
@@ -37,23 +37,23 @@ public interface SampleDao {
     ResultPage<Sample> findByCondition(SampleConditionVo condition);
 
     /**
-     * エンティティを登録する.
+     * データを登録する.
      *
-     * @param entity エンティティ
-     * @return 登録済みのエンティティ
+     * @param model ドメインモデル
+     * @return 登録済みのドメインモデル
      */
-    Sample register(Sample entity);
+    Sample register(Sample model);
 
     /**
-     * エンティティを更新する.
+     * データを更新する.
      *
-     * @param entity エンティティ
-     * @return 更新済みのエンティティ
+     * @param model ドメインモデル
+     * @return 更新済みのドメインモデル
      */
-    Sample update(Sample entity);
+    Sample update(Sample model);
 
     /**
-     * 指定された{@code ID}でエンティティを削除する.
+     * 指定された{@code ID}でデータを削除する.
      *
      * @param id {@code ID}
      */

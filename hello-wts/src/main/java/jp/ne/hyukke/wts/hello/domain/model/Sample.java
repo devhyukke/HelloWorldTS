@@ -1,4 +1,4 @@
-package jp.ne.hyukke.wts.hello.domain.entity;
+package jp.ne.hyukke.wts.hello.domain.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 /**
- * サンプルのエンティティクラス.
+ * サンプルのドメインモデルクラス.
  *
  * @author hyukke
  */
@@ -38,7 +38,7 @@ public class Sample implements Serializable {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     private LocalDateTime lastUpdatedDate;
     /** バージョン */
-    private long version;
+    private int version;
 
     public Sample() {
         this.id = Integer.valueOf(0);

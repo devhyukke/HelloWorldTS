@@ -7,14 +7,14 @@ import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 import lombok.Data;
 
 /**
- * サンプルを保持するDTOクラス.
+ * サンプルを更新するための情報を保持するDTOクラス.
  *
  * @author hyukke
  */
 @Data
-public class SampleDto implements Serializable {
+public class SampleUpdateDto implements Serializable {
 
-    private static final long serialVersionUID = 7133708553303041581L;
+    private static final long serialVersionUID = -4587652969784381212L;
 
     /** {@code ID} */
     private Integer id;

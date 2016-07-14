@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
 <head>
-  <title>サンプル</title>
+  <title>ユーザー</title>
 </head>
 <body>
   <main layout:fragment="content">
     <article>
       <h1></h1>
       <section>
-        <h2>Sample Page <small>サンプルページ</small></h2>
+        <h2>User Management Page <small>ユーザー管理ページ</small></h2>
         <section>
-          <h3>Samples <small>サンプルデータ</small></h3>
+          <h3>Users <small>ユーザー</small></h3>
           <ol class="breadcrumb">
             <li class="active">一覧</li>
           </ol>
@@ -19,7 +19,7 @@
             <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
             <div>
               <p class="text-right">
-                <a class="btn btn-success" th:href="@{/samples/editor}"><span class="glyphicon glyphicon-edit" area-hidden="true"></span> 新規作成する</a>
+                <a class="btn btn-success" th:href="@{/users/editor}"><span class="glyphicon glyphicon-edit" area-hidden="true"></span> 新規作成する</a>
               </p>
             </div>
             <div class="panel-group" id="searchContents" role="tablist" aria-multiselectable="true">
@@ -34,7 +34,7 @@
                 </div>
                 <div id="searchCondition" class="panel-collapse collapse" role="tabpanel" aria-labelledby="searchConditionTitle">
                   <div class="panel-body">
-                    <form class="form-horizontal" method="get" th:action="@{/samples}" th:object="${sampleSearchForm}">
+                    <form class="form-horizontal" method="get" th:action="@{/users}" th:object="${userSearchForm}">
                       <div class="form-group">
                         <label class="col-sm-2 control-label">ID</label>
                         <div class="col-sm-2">
@@ -42,23 +42,29 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-2 control-label">名称</label>
+                        <label class="col-sm-2 control-label">ユーザー名</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" th:field="*{name}" />
+                          <input type="text" class="form-control" th:field="*{username}" />
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-2 control-label">種別</label>
+                        <label class="col-sm-2 control-label">表示名</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" th:field="*{displayName}" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">ロール</label>
                         <div class="col-sm-4">
-                          <select class="form-control" th:field="*{type}">
+                          <select class="form-control" th:field="*{roleId}">
                             <option value="">----</option>
-                            <option th:each="sampleType : ${sampleTypes}" th:value="${sampleType.name()}" th:text="${sampleType.label}"></option>
+                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                           </select>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-12 text-right">
-                          <a class="btn btn-default" th:href="@{/samples}"><span class="glyphicon glyphicon-erase" area-hidden="true"></span> クリアする</a>
+                          <a class="btn btn-default" th:href="@{/users}"><span class="glyphicon glyphicon-erase" area-hidden="true"></span> クリアする</a>
                           <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" area-hidden="true"></span> 検索する</button>
                         </div>
                       </div>
@@ -80,7 +86,7 @@
                     <ul class="list-inline">
                       <li>総件数 <span class="lead" th:text="${page.total}"></span> 件</li>
                       <li th:if="${not param.empty}">該当件数 <span class="lead" th:text="${page.content.size()}"></span> 件</li>
-                      <li th:if="${not param.empty}">条件 <mark th:text="|ID:${sampleSearchForm.id ?: '----'} 名称(含む):${sampleSearchForm.name ?: '----'} 種別:${sampleSearchForm.type != null ? sampleSearchForm.type.label : '----'}|"></mark></li>
+                      <li th:if="${not param.empty}">条件 <mark th:text="|ID:${userSearchForm.id ?: '----'} ユーザー名(含む):${userSearchForm.username ?: '----'} 表示名(含む):${userSearchForm.displayName ?: '----'} ロール:${userSearchForm.roleId != null ? roles.nameAt(userSearchForm.roleId) : '----'}|"></mark></li>
                     </ul>
                     <div role="alert" class="text-warning" th:if="${page.content.empty}"><span th:text="#{message.warning.common.result.empty}">Data is Empty.</span></div>
                   </div>
@@ -89,18 +95,18 @@
                       <tr>
                         <th class="text-right">#</th>
                         <th class="text-center">ID</th>
-                        <th class="text-left">名称</th>
-                        <th class="text-center">種別</th>
-                        <th class="text-center">最終更新日</th>
+                        <th class="text-left">ユーザー名</th>
+                        <th class="text-left">表示名</th>
+                        <th class="text-center">ロール</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr th:each="sample, status : ${page.content}" th:object="${sample}">
-                        <td class="text-right"><a class="center-block" th:href="@{/samples/__*{id}__}" th:text="${status.count}">row number</a></td>
+                      <tr th:each="user, status : ${page.content}" th:object="${user}">
+                        <td class="text-right"><a class="center-block" th:href="@{/users/__*{id}__}" th:text="${status.count}">row number</a></td>
                         <td class="text-center" th:text="*{id}"></td>
-                        <td class="text-left"><th:block th:text="*{name}"></th:block> <span class="label label-danger" th:if="${newCreation != null and newCreation.id == __*{id}__}">New</span></td>
-                        <td class="text-center" th:if="*{type != null}" th:text="*{type.label}"></td>
-                        <td class="text-center" th:text="*{{lastUpdatedDate}}"></td>
+                        <td class="text-left"><th:block th:text="*{username}"></th:block> <span class="label label-danger" th:if="${newCreation != null and newCreation.id == __*{id}__}">New</span></td>
+                        <td class="text-left" th:text="*{displayName}"></td>
+                        <td class="text-center" th:if="*{role}" th:text="*{role.name}"></td>
                       </tr>
                     </tbody>
                   </table>

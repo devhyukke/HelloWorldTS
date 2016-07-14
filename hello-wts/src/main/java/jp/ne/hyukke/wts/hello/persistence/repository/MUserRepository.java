@@ -1,6 +1,7 @@
 package jp.ne.hyukke.wts.hello.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import jp.ne.hyukke.wts.hello.persistence.entity.MUser;
 
@@ -9,7 +10,7 @@ import jp.ne.hyukke.wts.hello.persistence.entity.MUser;
  *
  * @author hyukke
  */
-public interface MUserRepository extends JpaRepository<MUser, Integer> {
+public interface MUserRepository extends JpaRepository<MUser, Integer>, JpaSpecificationExecutor<MUser> {
 
     /**
      * 指定されたユーザー名でエンティティを検索する.

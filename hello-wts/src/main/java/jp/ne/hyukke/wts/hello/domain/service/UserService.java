@@ -1,29 +1,31 @@
 package jp.ne.hyukke.wts.hello.domain.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
-import jp.ne.hyukke.wts.hello.domain.dto.SampleRegisterDto;
-import jp.ne.hyukke.wts.hello.domain.dto.SampleUpdateDto;
-import jp.ne.hyukke.wts.hello.domain.model.Sample;
-import jp.ne.hyukke.wts.hello.domain.repository.SampleRepository;
-import jp.ne.hyukke.wts.hello.domain.vo.SampleConditionVo;
+import jp.ne.hyukke.wts.hello.domain.dto.UserRegisterDto;
+import jp.ne.hyukke.wts.hello.domain.dto.UserUpdateDto;
+import jp.ne.hyukke.wts.hello.domain.model.Role;
+import jp.ne.hyukke.wts.hello.domain.model.User;
+import jp.ne.hyukke.wts.hello.domain.repository.UserRepository;
+import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 
 /**
- * サンプルを扱うサービスクラス.
+ * ユーザーを扱うサービスクラス.
  *
  * @author hyukke
  */
 @Service
-public class SampleService {
+public class UserService {
 
     @Autowired
-    private SampleRepository repository;
+    private UserRepository repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 指定された{@code ID}でドメインモデルを検索する.
@@ -32,21 +34,10 @@ public class SampleService {
      * @return ドメインモデル
      */
     @Transactional(readOnly = true)
-    public Sample findById(Integer id) {
+    public User findById(Integer id) {
         Assert.notNull(id);
 
         return this.repository.findById(id);
-    }
-
-    /**
-     * すべてのドメインモデルを検索する.
-     *
-     * @return ドメインモデル
-     */
-    @Transactional(readOnly = true)
-    public List<Sample> findAll() {
-
-        return this.repository.findAll();
     }
 
     /**
@@ -55,7 +46,7 @@ public class SampleService {
      * @param condition 条件
      * @return 結果ページ
      */
-    public ResultPage<Sample> findByCondition(SampleConditionVo condition) {
+    public ResultPage<User> findByCondition(UserConditionVo condition) {
         Assert.notNull(condition);
 
         return this.repository.findByCondition(condition);
@@ -68,12 +59,14 @@ public class SampleService {
      * @return 登録済みのドメインモデル
      */
     @Transactional
-    public Sample register(SampleRegisterDto dto) {
+    public User register(UserRegisterDto dto) {
         Assert.notNull(dto);
 
-        Sample model = new Sample();
-        model.setName(dto.getName());
-        model.setType(dto.getType());
+        User model = new User();
+        model.setUsername(dto.getUsername());
+        model.setPassword(this.passwordEncoder.encode(dto.getPassword()));
+        model.setDisplayName(dto.getDisplayName());
+        model.setRole(Role.valueOf(dto.getRoleId()));
 
         return this.repository.register(model);
     }
@@ -85,12 +78,13 @@ public class SampleService {
      * @return 更新済みのドメインモデル
      */
     @Transactional
-    public Sample update(SampleUpdateDto dto) {
+    public User update(UserUpdateDto dto) {
         Assert.notNull(dto);
 
-        Sample model = Sample.valueOf(dto.getId());
-        model.setName(dto.getName());
-        model.setType(dto.getType());
+        User model = User.valueOf(dto.getId());
+        model.setUsername(dto.getUsername());
+        model.setDisplayName(dto.getDisplayName());
+        model.setRole(Role.valueOf(dto.getRoleId()));
 
         return this.repository.update(model);
     }

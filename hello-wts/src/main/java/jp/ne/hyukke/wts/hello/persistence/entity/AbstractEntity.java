@@ -6,7 +6,12 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateTimeConverter;
 
 import lombok.Data;
@@ -24,20 +29,24 @@ public abstract class AbstractEntity implements Serializable {
 
     /** 登録ユーザー名 */
     @Column(name = "REGISTERED_USERNAME")
+    @CreatedBy
     private String registeredUsername;
 
     /** 登録日 */
     @Column(name = "REGISTERED_DATE")
     @Convert(converter = LocalDateTimeConverter.class)
+    @CreatedDate
     private LocalDateTime registeredDate;
 
     /** 更新ユーザー名 */
     @Column(name = "UPDATED_USERNAME")
+    @LastModifiedBy
     private String updatedUsername;
 
     /** 更新日 */
     @Column(name = "UPDATED_DATE")
     @Convert(converter = LocalDateTimeConverter.class)
+    @LastModifiedDate
     private LocalDateTime updatedDate;
 
     /** 削除 */
@@ -46,5 +55,6 @@ public abstract class AbstractEntity implements Serializable {
 
     /** バージョン */
     @Column(name = "VERSION")
-    private long version;
+    @Version
+    private int version;
 }
