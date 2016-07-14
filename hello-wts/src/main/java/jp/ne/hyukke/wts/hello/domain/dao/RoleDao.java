@@ -12,9 +12,9 @@ import jp.ne.hyukke.wts.hello.domain.model.Role;
 public interface RoleDao {
 
     /**
-     * すべてのエンティティを検索する.
+     * すべてのデータを検索する.
      *
-     * @return エンティティ
+     * @return ドメインモデル
      */
     List<Role> findAll();
 }

@@ -12,23 +12,23 @@ import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
 public interface UserDao {
 
     /**
-     * 指定されたユーザー名でエンティティを検索する.
+     * 指定されたユーザー名でデータを検索する.
      *
      * @param username ユーザー名
-     * @return エンティティ
+     * @return ドメインモデル
      */
     User findByUsername(String username);
 
     /**
-     * 指定された{@code ID}でエンティティを検索する.
+     * 指定された{@code ID}でデータを検索する.
      *
      * @param id {@code ID}
-     * @return エンティティ
+     * @return ドメインモデル
      */
     User findById(Integer id);
 
     /**
-     * 指定された条件でエンティティを検索する.
+     * 指定された条件でデータを検索する.
      *
      * @param condition 条件
      * @return 結果ページ
@@ -36,23 +36,23 @@ public interface UserDao {
     ResultPage<User> findByCondition(UserConditionVo condition);
 
     /**
-     * エンティティを登録する.
+     * データを登録する.
      *
-     * @param entity エンティティ
-     * @return 登録済みのエンティティ
+     * @param model ドメインモデル
+     * @return 登録済みのドメインモデル
      */
-    User register(User entity);
+    User register(User model);
 
     /**
-     * エンティティを更新する.
+     * データを更新する.
      *
-     * @param entity エンティティ
-     * @return 更新済みのエンティティ
+     * @param model ドメインモデル
+     * @return 更新済みのドメインモデル
      */
-    User update(User entity);
+    User update(User model);
 
     /**
-     * 指定された{@code ID}でエンティティを削除する.
+     * 指定された{@code ID}でデータを削除する.
      *
      * @param id {@code ID}
      */

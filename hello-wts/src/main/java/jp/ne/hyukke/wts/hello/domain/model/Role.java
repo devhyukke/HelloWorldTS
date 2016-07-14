@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 /**
- * ロールのエンティティクラス.
+ * ロールのドメインモデルクラス.
  *
  * @author hyukke
  */
