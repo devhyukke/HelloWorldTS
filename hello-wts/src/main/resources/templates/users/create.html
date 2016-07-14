@@ -22,30 +22,34 @@
             <section>
               <form class="form-horizontal" method="post" th:action="@{/users}" th:object="${userForm}">
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{username}') ? 'has-error has-feedback' : ''}">
-                  <label for="username" class="col-sm-3 control-label">ユーザー名</label>
-                  <div class="col-sm-8">
+                  <label for="username" class="col-sm-3 control-label">
+                    <span class="glyphicon glyphicon-info-sign text-info" data-toggle="tooltip" data-placement="top" title="ログインする際の ID になります"></span> ユーザー名
+                  </label>
+                  <div class="col-sm-6">
                     <input type="text" class="form-control" maxlength="32" th:field="*{username}" />
                     <th:block th:if="${#fields.hasErrors('*{username}')}">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span id="inputError2Status" class="sr-only">(error)</span>
                     </th:block>
                   </div>
+                  <p class="help-block">32文字</p>
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{displayName}') ? 'has-error has-feedback' : ''}">
                   <label for="displayName" class="col-sm-3 control-label">表示名</label>
-                  <div class="col-sm-8">
+                  <div class="col-sm-7">
                     <input type="text" class="form-control" maxlength="64" th:field="*{displayName}" />
                     <th:block th:if="${#fields.hasErrors('*{displayName}')}">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span id="inputError2Status" class="sr-only">(error)</span>
                     </th:block>
                   </div>
+                  <p class="help-block">64文字</p>
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{roleId}') ? 'has-error has-feedback' : ''}">
                   <label for="type" class="col-sm-3 control-label">ロール</label>
                   <div class="col-sm-4">
                     <select class="form-control" th:field="*{roleId}">
-                      <option value="">----</option>
+                      <option value=""></option>
                       <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                     </select>
                     <th:block th:if="${#fields.hasErrors('*{roleId}')}">
@@ -56,17 +60,18 @@
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{password}') ? 'has-error has-feedback' : ''}">
                   <label for="displayName" class="col-sm-3 control-label">パスワード</label>
-                  <div class="col-sm-8">
+                  <div class="col-sm-7">
                     <input type="password" class="form-control" maxlength="64" th:field="*{password}" />
                     <th:block th:if="${#fields.hasErrors('*{password}')}">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span id="inputError2Status" class="sr-only">(error)</span>
                     </th:block>
                   </div>
+                  <p class="help-block">64文字</p>
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{confirmationPassword}') ? 'has-error has-feedback' : ''}">
-                  <label for="displayName" class="col-sm-3 control-label">確認パスワード</label>
-                  <div class="col-sm-8">
+                  <label for="displayName" class="col-sm-3 control-label">（確認）</label>
+                  <div class="col-sm-7">
                     <input type="password" class="form-control" maxlength="64" th:field="*{confirmationPassword}" />
                     <th:block th:if="${#fields.hasErrors('*{confirmationPassword}')}">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>

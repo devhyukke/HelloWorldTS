@@ -51,7 +51,7 @@
                         <label class="col-sm-2 control-label">種別</label>
                         <div class="col-sm-4">
                           <select class="form-control" th:field="*{type}">
-                            <option value="">----</option>
+                            <option value=""></option>
                             <option th:each="sampleType : ${sampleTypes}" th:value="${sampleType.name()}" th:text="${sampleType.label}"></option>
                           </select>
                         </div>

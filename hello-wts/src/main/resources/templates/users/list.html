@@ -57,7 +57,7 @@
                         <label class="col-sm-2 control-label">ロール</label>
                         <div class="col-sm-4">
                           <select class="form-control" th:field="*{roleId}">
-                            <option value="">----</option>
+                            <option value=""></option>
                             <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                           </select>
                         </div>
