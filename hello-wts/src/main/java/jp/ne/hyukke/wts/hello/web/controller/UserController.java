@@ -1,7 +1,6 @@
 package jp.ne.hyukke.wts.hello.web.controller;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -12,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,7 +29,6 @@ import jp.ne.hyukke.wts.hello.domain.model.User;
 import jp.ne.hyukke.wts.hello.domain.service.RoleService;
 import jp.ne.hyukke.wts.hello.domain.service.UserService;
 import jp.ne.hyukke.wts.hello.domain.vo.UserConditionVo;
-import jp.ne.hyukke.wts.hello.web.WebMvcConfig;
 import jp.ne.hyukke.wts.hello.web.form.UserForm;
 import jp.ne.hyukke.wts.hello.web.form.UserSearchForm;
 
@@ -44,8 +40,7 @@ import jp.ne.hyukke.wts.hello.web.form.UserSearchForm;
 @Controller
 @PreAuthorize("hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER')")
 @RequestMapping("users")
-@SessionAttributes(value = WebMvcConfig.SEARCH_CONDITION_QUERY_KEY)
-public class UserController {
+public class UserController extends SearchableControllerBase {
 
     private static final String FORM_KEY = "userForm";
 
@@ -82,23 +77,12 @@ public class UserController {
     }
 
     /**
-     * @param model モデル
-     * @return クエリ文字列
-     */
-    @ModelAttribute("queryString")
-    public String queryString(Model model) {
-
-        Object query = model.asMap().get(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY);
-        if (query == null) {
-            return "";
-        }
-        return "?".concat(String.class.cast(query));
-    }
-
-    /**
      * ビューを表示する.
      *
+     * @param form フォーム
      * @param model モデル
+     * @param status ステータス
+     * @param request リクエスト
      * @return ビュー
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -106,18 +90,11 @@ public class UserController {
             @ModelAttribute("userSearchForm") UserSearchForm form, Model model, SessionStatus status,
             HttpServletRequest request) {
 
-        // 初期表示時の検索の場合はセッションをクリア
-        if (StringUtils.isEmpty(request.getQueryString())) {
-            status.setComplete();
-        }
-
         UserConditionVo condition = UserConditionVo
                 .valueOf(form.getId(), form.getUsername(), form.getDisplayName(), form.getRoleId());
         model.addAttribute("page", this.userService.findByCondition(condition));
 
-        Optional.ofNullable(request.getQueryString())
-                .filter(StringUtils::hasText)
-                .ifPresent(query -> model.addAttribute(WebMvcConfig.SEARCH_CONDITION_QUERY_KEY, query));
+        this.addSearchConditionToSession(model, status, request);
 
         return "users/list";
     }
@@ -139,7 +116,7 @@ public class UserController {
     /**
      * 詳細のビューを表示する.
      *
-     * @param id ID
+     * @param id {@code ID}
      * @param model モデル
      * @return ビュー
      */
@@ -154,7 +131,7 @@ public class UserController {
     /**
      * 編集のビューを表示する.
      *
-     * @param id ID
+     * @param id {@code ID}
      * @param model モデル
      * @return ビュー
      */
@@ -207,7 +184,7 @@ public class UserController {
     /**
      * 更新する.
      *
-     * @param id ID
+     * @param id {@code ID}
      * @param form フォーム
      * @param bindingResult バインド結果
      * @param model モデル
@@ -241,7 +218,7 @@ public class UserController {
     /**
      * 削除する.
      *
-     * @param id ID
+     * @param id {@code ID}
      * @param model モデル
      * @param attributes リダイレクト属性
      * @return ビュー
