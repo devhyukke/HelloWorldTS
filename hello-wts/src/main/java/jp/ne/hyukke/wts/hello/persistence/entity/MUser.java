@@ -57,6 +57,14 @@ public class MUser extends AbstractEntity implements Serializable {
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
     private MRole role;
 
+    /** メールアドレス */
+    @Column(name = "EMAIL")
+    private String email;
+
+    /** 電話番号 */
+    @Column(name = "TEL")
+    private String tel;
+
     /**
      * モデルに変換する.
      *
@@ -64,11 +72,14 @@ public class MUser extends AbstractEntity implements Serializable {
      */
     @Transient
     public User toModel() {
+
         User model = User.valueOf(this.id);
         model.setUsername(this.username);
         model.setPassword(this.password);
         model.setDisplayName(this.displayName);
         model.setRole(this.role.toModel());
+        model.setEmail(this.email);
+        model.setTel(this.tel);
         return model;
     }
 }

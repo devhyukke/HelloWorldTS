@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
 
+import jp.ne.hyukke.wts.hello.domain.constants.SampleOption;
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 import jp.ne.hyukke.wts.hello.domain.model.Sample;
 
@@ -50,6 +51,27 @@ public class TSample extends AbstractEntity implements Serializable {
     @Column(name = "SAMPLE_TYPE")
     private SampleType type;
 
+    /** メールアドレス */
+    @Column(name = "SAMPLE_EMAIL")
+    private String email;
+
+    /** パスワード */
+    @Column(name = "SAMPLE_PASSWORD")
+    private String password;
+
+    /** チェック */
+    @Column(name = "SAMPLE_CHECKED")
+    private boolean checked;
+
+    /** オプション */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "SAMPLE_OPTION")
+    private SampleOption option;
+
+    /** 備考 */
+    @Column(name = "SAMPLE_REMARK")
+    private String remark;
+
     /**
      * モデルに変換する.
      *
@@ -57,11 +79,17 @@ public class TSample extends AbstractEntity implements Serializable {
      */
     @Transient
     public Sample toModel() {
-        Sample sample = Sample.valueOf(this.id);
-        sample.setName(this.name);
-        sample.setType(this.type);
-        sample.setLastUpdatedDate(this.getUpdatedDate());
-        sample.setVersion(this.getVersion());
-        return sample;
+
+        Sample model = Sample.valueOf(this.id);
+        model.setName(this.name);
+        model.setType(this.type);
+        model.setEmail(this.email);
+        model.setPassword(this.password);
+        model.setChecked(this.checked);
+        model.setOption(this.option);
+        model.setRemark(this.remark);
+        model.setLastUpdatedDate(this.getUpdatedDate());
+        model.setVersion(this.getVersion());
+        return model;
     }
 }

@@ -28,6 +28,10 @@ public class User implements Serializable {
     private String displayName;
     /** {@link Role} */
     private Role role;
+    /** メールアドレス */
+    private String email;
+    /** 電話番号 */
+    private String tel;
 
     public User() {
         this.id = Integer.valueOf(0);
