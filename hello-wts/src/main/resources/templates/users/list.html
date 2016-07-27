@@ -19,7 +19,8 @@
             <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
             <div>
               <p class="text-right">
-                <a class="btn btn-success" th:href="@{/users/editor}"><span class="glyphicon glyphicon-edit" area-hidden="true"></span> 新規作成する</a>
+                <a class="btn btn-default" th:href="@{/users}"><span class="glyphicon glyphicon-refresh" area-hidden="true"></span> 更新する</a>
+                <a class="btn btn-success" th:href="@{/users/editor}"><span class="glyphicon glyphicon-pencil" area-hidden="true"></span> 新規作成する</a>
               </p>
             </div>
             <div class="panel-group" id="searchContents" role="tablist" aria-multiselectable="true">
@@ -34,7 +35,7 @@
                 </div>
                 <div id="searchCondition" class="panel-collapse collapse" role="tabpanel" aria-labelledby="searchConditionTitle">
                   <div class="panel-body">
-                    <form class="form-horizontal" method="get" th:action="@{/users}" th:object="${userSearchForm}">
+                    <form class="form-horizontal" method="get" id="searchForm" th:action="@{/users}" th:object="${userSearchForm}">
                       <div class="form-group">
                         <label class="col-sm-2 control-label">ID</label>
                         <div class="col-sm-2">
@@ -64,7 +65,8 @@
                       </div>
                       <div class="form-group">
                         <div class="col-sm-12 text-right">
-                          <a class="btn btn-default" th:href="@{/users}"><span class="glyphicon glyphicon-erase" area-hidden="true"></span> クリアする</a>
+                          <button type="reset" class="btn btn-default" data-clear-target="#searchForm"><span class="glyphicon glyphicon-repeat" area-hidden="true"></span> 元に戻す</button>
+                          <button type="button" class="btn btn-default" data-clear-target="#searchForm"><span class="glyphicon glyphicon-erase" area-hidden="true"></span> 消去する</button>
                           <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" area-hidden="true"></span> 検索する</button>
                         </div>
                       </div>

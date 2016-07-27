@@ -1,5 +1,24 @@
 $(function() {
 
+	$(document).on('click', 'button[data-clear-target]', function(e) {
+
+		$button = $(this);
+
+		var target = $button.data('clear-target');
+		$(target).find('input, select, textarea')
+				.not('input:button, input:submit, input:reset')
+				.each(function(index, element) {
+			$element = $(element);
+			if ($element.is(':checkbox') || $element.is(':radio')) {
+				$element.prop('checked', false);
+			} else if ($element.is('textarea')) {
+				$element.text(null);
+			} else {
+				$element.val(null);
+			}
+		});
+	});
+
 	$(document).on('click', '.confirm-modal-dialog[data-target]', function(e) {
 
 		$element = $(this);
