@@ -30,13 +30,43 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">名称</label>
                   <div class="col-sm-8">
-                    <p class="form-control-static" th:text="*{name}">名称</p>
+                    <p class="form-control-static" th:text="*{name}">Name</p>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">種別</label>
                   <div class="col-sm-8">
-                    <p class="form-control-static" th:if="*{type != null}" th:text="*{type.label}">名称</p>
+                    <p class="form-control-static" th:if="*{type != null}" th:text="*{type.label}">Type</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">メールアドレス</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-static" th:text="*{email}">Mail address</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">パスワード</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-static" th:text="*{@viewHelper.toMasked(password)}"></p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">チェック</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-static" th:text="*{checked ? 'チェックする' : ''}"></p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">オプション</label>
+                  <div class="col-sm-8">
+                    <p class="form-control-static" th:if="*{option != null}" th:text="*{option.label}">Option</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">備考</label>
+                  <div class="col-sm-8">
+                    <pre class="form-control-static pre-scrollable" th:if="*{remark != null}" th:text="*{remark}">Check</pre>
                   </div>
                 </div>
                 <div class="form-group">

@@ -1,4 +1,4 @@
-package jp.ne.hyukke.wts.hello.core.validation.groups;
+package jp.ne.hyukke.wts.hello.core.web.validation.groups;
 
 /**
  * 登録のグループを表すインタフェース.

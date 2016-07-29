@@ -53,6 +53,55 @@
                     </th:block>
                   </div>
                 </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{email}') ? 'has-error has-feedback' : ''}">
+                  <label class="col-sm-3 control-label">メールアドレス</label>
+                  <div class="col-sm-7">
+                    <input type="email" class="form-control" th:field="*{email}" />
+                    <th:block th:if="${#fields.hasErrors('*{email}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                  <p class="help-block">256文字</p>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{password}') ? 'has-error has-feedback' : ''}">
+                  <label class="col-sm-3 control-label">パスワード</label>
+                  <div class="col-sm-7">
+                    <input type="password" class="form-control" th:field="*{password}" />
+                    <th:block th:if="${#fields.hasErrors('*{password}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                  <p class="help-block">64文字</p>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">チェック</label>
+                  <div class="col-sm-8">
+                    <label class="checkbox-inline control-label">
+                      <input type="checkbox" th:field="*{checked}" /> チェックする
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">オプション</label>
+                  <div class="col-sm-8">
+                    <label class="radio-inline" th:each="option : ${T(jp.ne.hyukke.wts.hello.domain.constants.SampleOption).values()}">
+                      <input type="radio" th:field="*{option}" th:value="${option.name()}" th:text="| ${option.label}|" > Option label</input>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('*{remark}') ? 'has-error has-feedback' : ''}">
+                  <label class="col-sm-3 control-label">備考</label>
+                  <div class="col-sm-7">
+                    <textarea rows="22" cols="10" class="form-control" th:field="*{remark}"></textarea>
+                    <th:block th:if="${#fields.hasErrors('*{remark}')}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span class="sr-only">(error)</span>
+                    </th:block>
+                  </div>
+                  <p class="help-block">10000文字</p>
+                </div>
                 <div class="form-group">
                   <div class="col-sm-6 text-left">
                     <a class="btn btn-default" th:href="@{/samples/__${sample.id}__}"><span class="glyphicon glyphicon-file" area-hidden="true"></span> 詳細に戻る</a>

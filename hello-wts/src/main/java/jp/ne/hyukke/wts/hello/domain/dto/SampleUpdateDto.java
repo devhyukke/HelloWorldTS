@@ -2,6 +2,7 @@ package jp.ne.hyukke.wts.hello.domain.dto;
 
 import java.io.Serializable;
 
+import jp.ne.hyukke.wts.hello.domain.constants.SampleOption;
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 
 import lombok.Data;
@@ -22,4 +23,14 @@ public class SampleUpdateDto implements Serializable {
     private String name;
     /** 種別 */
     private SampleType type;
+    /** メールアドレス */
+    private String email;
+    /** パスワード */
+    private String password;
+    /** チェック */
+    private boolean checked;
+    /** オプション */
+    private SampleOption option;
+    /** 備考 */
+    private String remark;
 }

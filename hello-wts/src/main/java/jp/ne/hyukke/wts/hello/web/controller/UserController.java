@@ -21,7 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
-import jp.ne.hyukke.wts.hello.core.validation.groups.Registration;
+import jp.ne.hyukke.wts.hello.core.web.validation.groups.Registration;
 import jp.ne.hyukke.wts.hello.domain.dto.UserRegisterDto;
 import jp.ne.hyukke.wts.hello.domain.dto.UserUpdateDto;
 import jp.ne.hyukke.wts.hello.domain.model.Role;

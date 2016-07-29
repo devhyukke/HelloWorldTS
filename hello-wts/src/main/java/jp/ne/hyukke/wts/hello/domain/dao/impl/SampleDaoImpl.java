@@ -66,6 +66,12 @@ public class SampleDaoImpl implements SampleDao {
         TSample entity = new TSample();
         entity.setName(model.getName());
         entity.setType(model.getType());
+        entity.setEmail(model.getEmail());
+        // エンコードしない
+        entity.setPassword(model.getPassword());
+        entity.setChecked(model.isChecked());
+        entity.setOption(model.getOption());
+        entity.setRemark(model.getRemark());
 
         entity = this.repository.save(entity);
         return entity.toModel();
@@ -80,6 +86,12 @@ public class SampleDaoImpl implements SampleDao {
         TSample entity = this.repository.findOne(model.getId());
         entity.setName(model.getName());
         entity.setType(model.getType());
+        entity.setEmail(model.getEmail());
+        // エンコードしない
+        entity.setPassword(model.getPassword());
+        entity.setChecked(model.isChecked());
+        entity.setOption(model.getOption());
+        entity.setRemark(model.getRemark());
 
         entity = this.repository.save(entity);
         return entity.toModel();

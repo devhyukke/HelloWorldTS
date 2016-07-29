@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,6 +39,7 @@ public class Sample implements Serializable {
     /** メールアドレス */
     private String email;
     /** パスワード */
+    @Email
     private String password;
     /** チェック */
     @NotNull

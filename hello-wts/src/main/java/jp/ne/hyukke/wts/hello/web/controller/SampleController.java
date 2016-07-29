@@ -17,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
+import jp.ne.hyukke.wts.hello.domain.constants.SampleOption;
 import jp.ne.hyukke.wts.hello.domain.constants.SampleType;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleRegisterDto;
 import jp.ne.hyukke.wts.hello.domain.dto.SampleUpdateDto;
@@ -81,7 +82,9 @@ public class SampleController extends SearchableControllerBase {
     @RequestMapping(value = "editor", method = RequestMethod.GET)
     public String showCreateNew(Model model) {
 
-        model.addAttribute(FORM_KEY, new SampleForm());
+        SampleForm form = new SampleForm();
+        form.setOption(SampleOption.NONE);
+        model.addAttribute(FORM_KEY, form);
 
         return "samples/create";
     }
@@ -143,6 +146,11 @@ public class SampleController extends SearchableControllerBase {
         SampleRegisterDto dto = new SampleRegisterDto();
         dto.setName(form.getName());
         dto.setType(form.getType());
+        dto.setEmail(form.getEmail());
+        dto.setPassword(form.getPassword());
+        dto.setChecked(form.isChecked());
+        dto.setOption(form.getOption());
+        dto.setRemark(form.getRemark());
         Sample registerd = this.sampleService.register(dto);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.register.success"));
@@ -177,6 +185,11 @@ public class SampleController extends SearchableControllerBase {
         dto.setId(id);
         dto.setName(form.getName());
         dto.setType(form.getType());
+        dto.setEmail(form.getEmail());
+        dto.setPassword(form.getPassword());
+        dto.setChecked(form.isChecked());
+        dto.setOption(form.getOption());
+        dto.setRemark(form.getRemark());
         this.sampleService.update(dto);
 
         attributes.addFlashAttribute(ResultMessages.success().add("message.info.common.update.success"));

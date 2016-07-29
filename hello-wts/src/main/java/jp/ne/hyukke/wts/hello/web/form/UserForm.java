@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.StringUtils;
 
-import jp.ne.hyukke.wts.hello.core.validation.groups.Registration;
+import jp.ne.hyukke.wts.hello.core.web.validation.groups.Registration;
 
 import lombok.Data;
 

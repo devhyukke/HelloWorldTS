@@ -74,6 +74,11 @@ public class SampleService {
         Sample model = new Sample();
         model.setName(dto.getName());
         model.setType(dto.getType());
+        model.setEmail(dto.getEmail());
+        model.setPassword(dto.getPassword());
+        model.setChecked(dto.isChecked());
+        model.setOption(dto.getOption());
+        model.setRemark(dto.getRemark());
 
         return this.repository.register(model);
     }
@@ -91,6 +96,11 @@ public class SampleService {
         Sample model = Sample.valueOf(dto.getId());
         model.setName(dto.getName());
         model.setType(dto.getType());
+        model.setEmail(dto.getEmail());
+        model.setPassword(dto.getPassword());
+        model.setChecked(dto.isChecked());
+        model.setOption(dto.getOption());
+        model.setRemark(dto.getRemark());
 
         return this.repository.update(model);
     }
