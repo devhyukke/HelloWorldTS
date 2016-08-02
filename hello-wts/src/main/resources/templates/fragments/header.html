@@ -24,7 +24,7 @@
               <li><a href="javascript:alert('未実装です');"><span class="glyphicon glyphicon-user" area-hidden="true"></span> プロファイル</a></li>
               <li><a href="javascript:alert('未実装です');"><span class="glyphicon glyphicon-question-sign" area-hidden="true"></span> ヘルプ</a></li>
               <li class="divider"></li>
-              <li><a href="javascript:alert('未実装です');"><span class="glyphicon glyphicon-cog" area-hidden="true"></span> 設定</a></li>
+              <li><a th:href="@{/settings/account}"><span class="glyphicon glyphicon-cog" area-hidden="true"></span> 設定</a></li>
               <li><a href="javascript:void(0);" class="confirm-modal-dialog" data-toggle="modal" data-target="#logoutConfirmModalDialog" data-backdrop="static" th:attr="data-href=@{/logout}"><span class="glyphicon glyphicon-log-out" area-hidden="true"></span> ログアウト</a></li>
             </ul>
           </li>
