@@ -54,7 +54,7 @@
                   <p class="help-block">64文字</p>
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('*{roleId}') ? 'has-error has-feedback' : ''}">
-                  <label for="type" class="col-sm-3 control-label">ロール</label>
+                  <label for="roleId" class="col-sm-3 control-label">ロール</label>
                   <div class="col-sm-4">
                     <select class="form-control" th:field="*{roleId}">
                       <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>

@@ -100,4 +100,15 @@ public class UserService {
 
         this.repository.delete(id);
     }
+
+    // TODO 実装中
+    @Transactional
+    public void changePassword(Integer id, String oldPassword, String newPassword, String confirmationPassword) {
+        Assert.notNull(id);
+        Assert.hasText(oldPassword);
+        Assert.hasText(newPassword);
+        Assert.hasText(confirmationPassword);
+
+        this.changePassword(id, oldPassword, newPassword, confirmationPassword);
+    }
 }

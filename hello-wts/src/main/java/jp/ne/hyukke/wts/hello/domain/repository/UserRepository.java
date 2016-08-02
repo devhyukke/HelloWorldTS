@@ -1,9 +1,14 @@
 package jp.ne.hyukke.wts.hello.domain.repository;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import jp.ne.hyukke.wts.hello.core.domain.exception.BusinessException;
+import jp.ne.hyukke.wts.hello.core.domain.messages.ResultMessages;
 import jp.ne.hyukke.wts.hello.core.domain.model.ResultPage;
 import jp.ne.hyukke.wts.hello.domain.dao.UserDao;
 import jp.ne.hyukke.wts.hello.domain.model.User;
@@ -19,6 +24,8 @@ public class UserRepository {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 指定されたユーザー名でドメインモデルを検索する.
@@ -89,5 +96,39 @@ public class UserRepository {
         Assert.notNull(id);
 
         this.userDao.delete(id);
+    }
+
+    // TODO サービスとリポジトリにおける処理の粒度が異なる
+    /**
+     *
+     * @param id
+     * @param oldPassword
+     * @param newPassword
+     * @param confirmationPassword
+     * @throws BusinessException
+     */
+    public void changePassword(Integer id, String oldPassword, String newPassword, String confirmationPassword)
+            throws BusinessException {
+        Assert.notNull(id);
+        Assert.hasText(oldPassword);
+        Assert.hasText(newPassword);
+        Assert.hasText(confirmationPassword);
+
+        User model = this.findById(id);
+        if (model == null) {
+            throw new EntityNotFoundException();
+        }
+
+        this.validateForChangePassword(model, oldPassword);
+
+        model.setPassword(this.passwordEncoder.encode(newPassword));
+        this.userDao.update(model);
+    }
+
+    private void validateForChangePassword(User model, String oldPassword) throws BusinessException {
+
+        if (!model.getPassword().equals(this.passwordEncoder.encode(oldPassword))) {
+            throw new BusinessException(ResultMessages.error().add("message.error.settings.account.password.unmatch"));
+        }
     }
 }

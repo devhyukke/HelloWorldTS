@@ -8,30 +8,101 @@
     <article>
       <h1></h1>
       <section>
-        <h2>Settings Page <small>設定ページ</small></h2>
-        <div class="col-sm-2">
-          <div class="panel panel-default">
-            <div class="panel-heading">設定</div>
-            <div class="list-group">
-              <a class="list-group-item" href="javascript:void(0);">プロフィール</a>
-              <a class="list-group-item active" th:href="@{/settings/account}">アカウント</a>
+        <h2>Personal Settings <small>個人設定</small></h2>
+        <div class="row">
+          <section class="col-sm-3">
+            <h3></h3>
+            <div class="panel panel-default">
+              <div class="panel-heading">設定項目</div>
+              <div class="list-group">
+                <a class="list-group-item" href="javascript:void(0);">プロフィール</a>
+                <a class="list-group-item active" th:href="@{/settings/account}">アカウント</a>
+              </div>
             </div>
-          </div>
-        </div>
-        <section class="col-sm-10">
-          <h3>Account <small>アカウント</small></h3>
-          <section id="edition">
-            <h4>変更</h4>
-            <div th:replace="fragments/messages :: messages(resultMessages = ${resultMessages})"></div>
-            <div class="alert alert-danger" th:errors="${accountSettingForm.*}">Error Messages</div>
-            <section>
-              <form class="form-horizontal" method="post" th:action="@{/settings/account}" th:object="${accountSettingForm}">
-                <input type="hidden" name="_method" value="PUT" />
-              </form>
-            </section>
-            <div th:replace="fragments/confirm_modal_dialog :: modalDialog (confirmMessage = '更新を行います。よろしいですか？')"></div>
           </section>
-        </section>
+          <section class="col-sm-9">
+            <h3></h3>
+            <div id="passwordChange" class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">パスワード変更</h4>
+              </div>
+              <div class="panel-body">
+                <div th:replace="fragments/messages :: messages(resultMessages = ${passwordResultMessages})"></div>
+                <div class="alert alert-danger" th:errors="${settingAccountPasswordForm.*}">Error Messages</div>
+                <form class="form-horizontal" method="post" th:action="@{/settings/account/password}" th:object="${settingAccountPasswordForm}">
+                  <input type="hidden" name="_method" value="PUT" />
+                  <div class="form-group form-group-sm" th:classappend="${#fields.hasErrors('*{oldPassword}') ? 'has-error has-feedback' : ''}">
+                    <label for="oldPassword" class="col-sm-3 control-label">古いパスワード</label>
+                    <div class="col-sm-7">
+                      <input type="password" class="form-control" maxlength="64" th:field="*{oldPassword}" />
+                      <th:block th:if="${#fields.hasErrors('*{oldPassword}')}">
+                      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                      <span id="inputError2Status" class="sr-only">(error)</span>
+                      </th:block>
+                    </div>
+                    <p class="help-block">64文字</p>
+                  </div>
+                  <div class="form-group form-group-sm" th:classappend="${#fields.hasErrors('*{newPassword}') ? 'has-error has-feedback' : ''}">
+                    <label for="newPassword" class="col-sm-3 control-label">新しいパスワード</label>
+                    <div class="col-sm-7">
+                      <input type="password" class="form-control" maxlength="64" th:field="*{newPassword}" />
+                      <th:block th:if="${#fields.hasErrors('*{newPassword}')}">
+                      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                      <span id="inputError2Status" class="sr-only">(error)</span>
+                      </th:block>
+                    </div>
+                    <p class="help-block">64文字</p>
+                  </div>
+                  <div class="form-group form-group-sm" th:classappend="${#fields.hasErrors('*{confirmationPassword}') ? 'has-error has-feedback' : ''}">
+                    <label for="confirmationPassword" class="col-sm-3 control-label">（確認）</label>
+                    <div class="col-sm-7">
+                      <input type="password" class="form-control" maxlength="64" th:field="*{confirmationPassword}" />
+                      <th:block th:if="${#fields.hasErrors('*{confirmationPassword}')}">
+                      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                      <span id="inputError2Status" class="sr-only">(error)</span>
+                      </th:block>
+                    </div>
+                  </div>
+                  <div class="form-group form-group-sm">
+                    <div class="col-sm-12 text-right">
+                      <button type="submit" class="btn btn-link" name="reset">パスワードを忘れた</button>
+                      <button type="submit" class="btn btn-sm btn-success confirm-modal-dialog" data-toggle="modal" data-target="#passwordConfirmModalDialog" data-backdrop="static"><span class="glyphicon glyphicon-save" area-hidden="true"></span> 更新する</button>
+                    </div>
+                  </div>
+                </form>
+                <div th:replace="fragments/confirm_modal_dialog :: modalDialog (modalDialogId = 'passwordConfirmModalDialog', confirmMessage = 'パスワードを更新します。よろしいですか？')"></div>
+              </div>
+            </div>
+            <div id="usernameChange" class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">ユーザー名変更</h4>
+              </div>
+              <div class="panel-body">
+                <div th:replace="fragments/messages :: messages(resultMessages = ${usernameResultMessages})"></div>
+                <div class="alert alert-danger" th:errors="${settingAccountUsernameForm.*}">Error Messages</div>
+                <form class="form-horizontal" method="post" th:action="@{/settings/account/username}" th:object="${settingAccountUsernameForm}">
+                  <input type="hidden" name="_method" value="PUT" />
+                  <div class="form-group form-group-sm" th:classappend="${#fields.hasErrors('*{username}') ? 'has-error has-feedback' : ''}">
+                    <div class="col-sm-offset-1 col-sm-9">
+                      <input type="text" class="form-control" maxlength="32" th:field="*{username}" />
+                      <th:block th:if="${#fields.hasErrors('*{username}')}">
+                      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                      <span id="inputError2Status" class="sr-only">(error)</span>
+                      </th:block>
+                    </div>
+                    <p class="help-block">32文字</p>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12 text-right">
+                      <button type="submit" class="btn btn-sm btn-success confirm-modal-dialog" data-toggle="modal" data-target="#usernameConfirmModalDialog" data-backdrop="static"><span class="glyphicon glyphicon-save" area-hidden="true"></span> 更新する</button>
+                    </div>
+                  </div>
+                </form>
+                <div th:replace="fragments/confirm_modal_dialog :: modalDialog (modalDialogId = 'usernameConfirmModalDialog', confirmMessage = 'ユーザー名を更新します。よろしいですか？')"></div>
+              </div>
+            </div>
+          </section>
+        </div>
       </section>
     </article>
   </main>
