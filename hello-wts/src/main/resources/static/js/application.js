@@ -6,10 +6,10 @@ $(function() {
 
 		var target = $button.data('clear-target');
 		$(target).find('input, select, textarea')
-				.not('input:button, input:submit, input:reset')
+				.not('input[type=button], input[type=submit], input[type=reset]')
 				.each(function(index, element) {
 			$element = $(element);
-			if ($element.is(':checkbox') || $element.is(':radio')) {
+			if ($element.is('input[type=checkbox]') || $element.is('input[type=radio]')) {
 				$element.prop('checked', false);
 			} else if ($element.is('textarea')) {
 				$element.text(null);
