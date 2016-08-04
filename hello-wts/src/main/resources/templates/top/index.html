@@ -15,6 +15,11 @@
           <ul>
             <li sec:authorize="hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER')"><a th:href="@{/users}">ユーザー管理ページはこちら</a></li>
             <li><a th:href="@{/samples}">サンプルページはこちら</a></li>
+            <li>ワークスペース
+              <ul>
+                <li><a th:href="@{/workspace/reactjs}" target="_blank">React.js</a></li>
+              </ul>
+            </li>
           </ul>
         </section>
       </section>
