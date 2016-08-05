@@ -24,6 +24,6 @@ public class WorkspaceReactController {
     @RequestMapping(method = RequestMethod.GET)
     public String show() {
 
-        return "workspace/reactjs/index";
+        return "workspace/reactjs/tutorial";
     }
 }
