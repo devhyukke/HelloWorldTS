@@ -24,6 +24,18 @@ public class WorkspaceReactController {
     @RequestMapping(method = RequestMethod.GET)
     public String show() {
 
+        return "workspace/reactjs/index";
+    }
+
+    /**
+     * チュートリアルを表示する.
+     *
+     * @param model モデル
+     * @return ビュー
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "tutorial")
+    public String showTutorial() {
+
         return "workspace/reactjs/tutorial";
     }
 }

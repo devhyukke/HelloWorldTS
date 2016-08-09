@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="author" content="Hyukke" />
+  <title>React.js サンプル</title>
+  <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/application.css}" type="text/css" />
+</head>
+<body>
+  <header role="banner"></header>
+  <main role="main" class="container-fluid">
+    <article>
+      <h1>Workspace <small>ワークスペース</small></h1>
+      <section>
+        <h2>Sample Page <small>サンプルページ</small></h2>
+        <section>
+          <h3>Active Todos</h3>
+          <ul class="list-group">
+            <li class="list-group-item">Hoge Hoge
+              <button type="button" class="btn btn-sm btn-default">
+                <span class="glyphicon glyphicon-ok text-success" area-hidden="true"></span> Done
+              </button>
+            </li>
+          </ul>
+          <div>
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary">Add</button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <p>
+            <button type="button" class="btn btn-default" onclick="window.close();">Close</button>
+          </p>
+        </section>
+      </section>
+    </article>
+  </main>
+  <footer role="contentinfo">
+    <div class="well">
+      <p class="copyright"><small>&copy; copyright 2016 Hyukke</small></p>
+    </div>
+  </footer>
+</body>
+<script th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/application.js}"></script>
+</html>
