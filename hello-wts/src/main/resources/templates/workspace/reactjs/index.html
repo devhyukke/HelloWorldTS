@@ -10,6 +10,7 @@
 <body>
   <header role="banner"></header>
   <main role="main" class="container-fluid">
+<!-- 以下のレイアウトを application.js で構築
     <article>
       <h1>Workspace <small>ワークスペース</small></h1>
       <section>
@@ -35,12 +36,13 @@
               </div>
             </form>
           </div>
-          <p>
-            <button type="button" class="btn btn-default" onclick="window.close();">Close</button>
-          </p>
         </section>
       </section>
+      <p>
+        <button type="button" class="btn btn-default" onclick="window.close();">ワークスペースを閉じる</button>
+      </p>
     </article>
+ -->
   </main>
   <footer role="contentinfo">
     <div class="well">
@@ -48,7 +50,11 @@
     </div>
   </footer>
 </body>
+<script th:src="@{/webjars/react/15.2.1/react.js}"></script>
+<script th:src="@{/webjars/react/15.2.1/react-dom.js}"></script>
+<script th:src="@{/webjars/babel-core/5.8.25/browser.min.js}"></script>
+<script th:src="@{/webjars/remarkable/1.4.0/remarkable.min.js}"></script>
 <script th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/application.js}"></script>
+<script type="text/babel" th:src="@{/js/workspace/reactjs/application.js}"></script>
 </html>
