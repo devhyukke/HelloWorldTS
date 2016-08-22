@@ -1,14 +1,10 @@
 var Todo = React.createClass({
-    // TODO Doneを押下した際は取消線を入れて表示するように修正
     onComplete: function() {
         this.props.complete(this.props.data.id);
     },
-    onRemove: function() {
-        this.props.remove(this.props.data.id);
-    },
     render: function() {
         return (
-            <li className="list-group-item">{this.props.data.text}
+            <li className="list-group-item">{this.props.data.text}&nbsp;&nbsp;&nbsp;&nbsp;
               <button type="button" className="btn btn-sm btn-default" onClick={this.onComplete}>
                 <span className="glyphicon glyphicon-ok text-success" area-hidden="true"></span> Done
               </button>
@@ -16,14 +12,10 @@ var Todo = React.createClass({
         );
     }
 });
-//<button type="button" className="btn btn-sm btn-default" onClick={this.onRemove}>
-//<span className="glyphicon glyphicon-remove text-danger" area-hidden="true"></span> Delete
-//</button>
 
 var TodoList = React.createClass({
     render: function() {
-        var complete = this.props.complete,
-            remove = this.props.remove;
+        var complete = this.props.complete;
         return (
             <ul className="list-group">
                 {
@@ -31,7 +23,7 @@ var TodoList = React.createClass({
                         if (record.completed) {
                             return;
                         }
-                        return <Todo data={record} complete={complete} remove={remove} />;
+                        return <Todo data={record} complete={complete} />;
                     })
                 }
             </ul>
@@ -63,55 +55,45 @@ var TodoAdditionForm = React.createClass({
 var Todos = React.createClass({
     add: function(text) {
         var seq = ++this.state.seq;
-        var data = this.state.data.concat({
-            id: seq,
-            text: text,
-            completed: false
-        });
-        this.setState({
+        var added = {
             seq: seq,
-            data: data
-        });
+            data: this.state.data.concat({
+                id: seq,
+                text: text,
+                completed: false
+            })
+        };
+        this.setState(added);
+        WebStorageSupporter.LocalStorage.setItem("state", JSON.stringify(added));
     },
     complete: function(id) {
+        var seq = this.state.seq;
         var data = this.state.data;
         data.some(function(record, i){
             if (record.id==id) record.completed = true;
         });
-        this.setState({
-            seq: this.state.seq,
+        var completed = {
+            seq: seq,
             data: data
-        });
-    },
-    remove: function(id) {
-        var data = this.state.data;
-        data.some(function(v, i){
-            if (v.id==id) data.splice(i,1);
-        });
-        this.setState({
-            seq: this.state.seq,
-            data: data
-        });
+        };
+        this.setState(completed);
+        WebStorageSupporter.LocalStorage.setItem("state", JSON.stringify(completed));
     },
     getInitialState: function() {
-        return {
-            seq: 2,
+        return JSON.parse(WebStorageSupporter.LocalStorage.getItem("state")) || {
+            seq: 1,
             data: [{
                 id: 1,
-                text: "Hoge Hoge",
-                completed: false
-            }, {
-                id: 2,
-                text: "Fuga Fuga Fuga",
+                text: "This is sample todo.",
                 completed: false
             }]
-        }
+        };
     },
     render: function() {
         return (
             <section>
               <h3>Active Todos</h3>
-              <TodoList data={this.state.data} complete={this.complete} remove={this.remove} />
+              <TodoList data={this.state.data} complete={this.complete} />
               <div>
                 <TodoAdditionForm add={this.add} />
               </div>
@@ -135,6 +117,10 @@ var Workspace = React.createClass({
     closeWindow: function() {
         window.close();
     },
+    closeWindowClearly: function() {
+    	WebStorageSupporter.LocalStorage.clear();
+    	this.closeWindow();
+    },
     render: function() {
         return (
             <article>
@@ -142,6 +128,9 @@ var Workspace = React.createClass({
               <SamplePage />
               <p>
                 <button type="button" className="btn btn-default" onClick={this.closeWindow}>ワークスペースを閉じる</button>
+              </p>
+              <p>
+              	<button type="button" className="btn btn-default" onClick={this.closeWindowClearly}><span className="text-danger">データをクリアしてワークスペースを閉じる</span></button>
               </p>
             </article>
         );
