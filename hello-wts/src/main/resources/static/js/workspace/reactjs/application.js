@@ -6,7 +6,7 @@ var Todo = React.createClass({
         return (
             <li className="list-group-item">{this.props.data.text}&nbsp;&nbsp;&nbsp;&nbsp;
               <button type="button" className="btn btn-sm btn-default" onClick={this.onComplete}>
-                <span className="glyphicon glyphicon-ok text-success" area-hidden="true"></span> Done
+                <span className="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> Done
               </button>
             </li>
         );
@@ -23,7 +23,7 @@ var TodoList = React.createClass({
                         if (record.completed) {
                             return;
                         }
-                        return <Todo data={record} complete={complete} />;
+                        return <Todo data={record} complete={complete} key={record.id} />;
                     })
                 }
             </ul>
