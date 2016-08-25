@@ -10,15 +10,15 @@
 <body>
   <header role="banner"></header>
   <main role="main" class="container-fluid">
-<!-- 以下のレイアウトを application.js で構築
     <article>
       <h1>Workspace <small>ワークスペース</small></h1>
-      <section>
+      <section id="sample">
+<!-- 以下のレイアウトを application.js で構築
         <h2>Sample Page <small>サンプルページ</small></h2>
         <section>
           <h3>Active Todos</h3>
           <ul class="list-group">
-            <li class="list-group-item">Hoge Hoge&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="list-group-item">This is sample todo.&nbsp;&nbsp;&nbsp;&nbsp;
               <button type="button" class="btn btn-sm btn-default">
                 <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> Done
               </button>
@@ -28,7 +28,7 @@
             <form>
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" placeholder="Do something." />
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-primary">Add</button>
                   </span>
@@ -37,15 +37,16 @@
             </form>
           </div>
         </section>
+        <p>
+          <button type="button" class="btn btn-danger">初期状態に戻す</button>
+        </p>
+      </section>
+ -->
       </section>
       <p>
-        <button type="button" class="btn btn-default" onclick="window.close();">ワークスペースを閉じる</button>
-      </p>
-      <p>
-        <button type="button" class="btn btn-default" onclick="window.close();"><span class="text-danger">データをクリアしてワークスペースを閉じる</span></button>
+        <button type="button" class="btn btn-default" onclick="window.open('about:blank','_self').close();">ワークスペースを閉じる</button>
       </p>
     </article>
- -->
   </main>
   <footer role="contentinfo">
     <div class="well">

@@ -41,7 +41,7 @@ var TodoAdditionForm = React.createClass({
             <form>
               <div className="form-group">
                 <div className="input-group">
-                  <input type="text" className="form-control" ref="inputText" />
+                  <input type="text" className="form-control" ref="inputText" placeholder="Do something." />
                   <span className="input-group-btn">
                     <button type="button" className="btn btn-primary" onClick={this.onAdd}>Add</button>
                   </span>
@@ -80,14 +80,7 @@ var Todos = React.createClass({
         WebStorageSupporter.LocalStorage.setItem("state", JSON.stringify(completed));
     },
     getInitialState: function() {
-        return JSON.parse(WebStorageSupporter.LocalStorage.getItem("state")) || {
-            seq: 1,
-            data: [{
-                id: 1,
-                text: "This is sample todo.",
-                completed: false
-            }]
-        };
+        return JSON.parse(WebStorageSupporter.LocalStorage.getItem("state")) || { seq: 0, data: [] };
     },
     render: function() {
         return (
@@ -103,41 +96,24 @@ var Todos = React.createClass({
 });
 
 var SamplePage = React.createClass({
+    clear: function() {
+        WebStorageSupporter.LocalStorage.clear();
+        location.reload();
+    },
     render: function() {
         return (
             <section>
               <h2>Sample Page <small>サンプルページ</small></h2>
               <Todos />
+              <p>
+                <button type="button" className="btn btn-danger" onClick={this.clear}>初期状態に戻す</button>
+              </p>
             </section>
         );
     }
 });
 
-var Workspace = React.createClass({
-    closeWindow: function() {
-        window.close();
-    },
-    closeWindowClearly: function() {
-    	WebStorageSupporter.LocalStorage.clear();
-    	this.closeWindow();
-    },
-    render: function() {
-        return (
-            <article>
-              <h1>Workspace <small>ワークスペース</small></h1>
-              <SamplePage />
-              <p>
-                <button type="button" className="btn btn-default" onClick={this.closeWindow}>ワークスペースを閉じる</button>
-              </p>
-              <p>
-              	<button type="button" className="btn btn-default" onClick={this.closeWindowClearly}><span className="text-danger">データをクリアしてワークスペースを閉じる</span></button>
-              </p>
-            </article>
-        );
-    }
-});
-
 ReactDOM.render(
-    <Workspace />,
-    document.getElementsByTagName('main')[0]
+    <SamplePage />,
+    document.getElementById('sample')
 );
