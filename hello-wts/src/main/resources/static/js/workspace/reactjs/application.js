@@ -30,6 +30,7 @@ var TodoList = React.createClass({
         );
     }
 });
+
 var TodoAdditionForm = React.createClass({
     onAdd: function() {
         var text = this.refs.inputText.value;

@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * React.jsのワークスペースを操作するコントローラクラス.
+ * ワークスペースを操作するコントローラクラス.
  *
  * @author hyukke
  */
 @Controller
 @PreAuthorize("hasAnyRole('ROLE_SYSTEM_ADMIN', 'ROLE_USER_MANAGER', 'ROLE_USER')")
-@RequestMapping("workspace/reactjs")
-public class WorkspaceReactController {
+@RequestMapping("workspace")
+public class WorkspaceController {
 
     /**
      * ビューを表示する.
@@ -21,7 +21,7 @@ public class WorkspaceReactController {
      * @param model モデル
      * @return ビュー
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "reactjs")
     public String show() {
 
         return "workspace/reactjs/index";
@@ -33,7 +33,7 @@ public class WorkspaceReactController {
      * @param model モデル
      * @return ビュー
      */
-    @RequestMapping(method = RequestMethod.GET, value = "tutorial")
+    @RequestMapping(method = RequestMethod.GET, value = "reactjs/tutorial")
     public String showTutorial() {
 
         return "workspace/reactjs/tutorial";
