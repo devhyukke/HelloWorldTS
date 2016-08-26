@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="author" content="Hyukke" />
+  <title>React.js サンプル</title>
+  <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/application.css}" type="text/css" />
+</head>
+<body>
+  <header role="banner"></header>
+  <main role="main" class="container-fluid">
+    <article>
+      <h1>Workspace <small>ワークスペース</small></h1>
+      <section id="sample">
+<!-- 以下のレイアウトを application.js で構築
+        <h2>Sample Page <small>サンプルページ</small></h2>
+        <section>
+          <h3>Active Todos</h3>
+          <ul class="list-group">
+            <li class="list-group-item">This is sample todo.&nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-sm btn-default">
+                <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> Done
+              </button>
+            </li>
+          </ul>
+          <div>
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Do something." />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary">Add</button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+        <p>
+          <button type="button" class="btn btn-danger">初期状態に戻す</button>
+        </p>
+      </section>
+ -->
+      </section>
+      <p>
+        <button type="button" class="btn btn-default" onclick="window.open('about:blank','_self').close();">ワークスペースを閉じる</button>
+      </p>
+    </article>
+  </main>
+  <footer role="contentinfo">
+    <div class="well">
+      <p class="copyright"><small>&copy; copyright 2016 Hyukke</small></p>
+    </div>
+  </footer>
+</body>
+<script th:src="@{/webjars/react/15.2.1/react.js}"></script>
+<script th:src="@{/webjars/react/15.2.1/react-dom.js}"></script>
+<script th:src="@{/webjars/babel-core/5.8.25/browser.min.js}"></script>
+<script th:src="@{/webjars/remarkable/1.4.0/remarkable.min.js}"></script>
+<script th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/WebStorageSupporter.js}"></script>
+<script type="text/babel" th:src="@{/js/workspace/reactjs/application.js}"></script>
+</html>
