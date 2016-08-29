@@ -65,7 +65,7 @@ var Todos = React.createClass({
             })
         };
         this.setState(added);
-        WebStorageSupporter.LocalStorage.setItem("state", JSON.stringify(added));
+        WebStorageSupporter.setObject("state", added);
     },
     complete: function(id) {
         var seq = this.state.seq;
@@ -78,10 +78,10 @@ var Todos = React.createClass({
             data: data
         };
         this.setState(completed);
-        WebStorageSupporter.LocalStorage.setItem("state", JSON.stringify(completed));
+        WebStorageSupporter.setObject("state", completed);
     },
     getInitialState: function() {
-        return JSON.parse(WebStorageSupporter.LocalStorage.getItem("state")) || { seq: 0, data: [] };
+        return WebStorageSupporter.getObject("state") || { seq: 0, data: [] };
     },
     render: function() {
         return (
@@ -98,7 +98,7 @@ var Todos = React.createClass({
 
 var SamplePage = React.createClass({
     clear: function() {
-        WebStorageSupporter.LocalStorage.clear();
+        WebStorageSupporter.clear();
         location.reload();
     },
     render: function() {
