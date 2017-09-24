@@ -80,6 +80,7 @@ public class SampleService {
         model.setOption(dto.getOption());
         model.setRemark(dto.getRemark());
 
+        // TODO 入力チェックを追加
         return this.repository.register(model);
     }
 
